@@ -1,0 +1,20 @@
+MWP-System
+Template und Navbar: 
+Es muss ein auf Klassen basierendes Template mit einer Navbar erstellt werden, das die Überbegriffe der anderen Projekte
+(Mitarbeiterdatenbank, Warenwirtschaft und Projektierung) beinhaltet. 
+
+Mitarbeiter: 
+Hier soll ein Formular entwickelt werden, in dem man die Daten neuer Mitarbeiter aufnehmen kann und im System hinterlegen kann. 
+Das soll eine Vereinfachung für die Buchhaltung sein und soll zusätzlich einen Überblick über die Belegschaft bieten. 
+Es kann auch noch eine Zeiterfassung hinzugefügt werden, um ein geschlossenes System bieten zu können.
+
+Warenwirtschaft:
+In diesem Projekt soll ein Warenwirtschaftssystem realisiert werden. 
+Es sollen Einkaufsartikel aufgenommen werden können und in einer Datenbank gespeichert werden (Artikelbezeichnung, Spezifikation, Hersteller, usw.).
+Zusätzlich sollen Lieferungen, von im System vorhandenen Produkten, gebucht werden können. Des Weiteren sollen Produktionsartikel aus den in der Datenbank 
+vorhandenen Produkten erstellt werden können und auch in der Datenbank aufgeführt werden. Jeder in der Datenbank vorhandene Artikel, 
+egal ob Einkaufs- oder Produktionsartikel, bekommt eine separate Artikelnummer. Die Artikel sollen aufgerufen werden können und wenn diese aus mehreren Produkten bestehen, 
+soll eine Stückliste mit angezeigt werden.
+
+Projektierung:
+
