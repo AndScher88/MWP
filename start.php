@@ -5,9 +5,12 @@
 	$autor = "Andrej Scherer";
 	$date = "21 Juli 2019";
 ?>
-<?php include "_template.php" ?>
+<?php include "template.php" ?>
 
-<body class="intro-header">
-	<div class="container-center">
+<body>
+	<div>
+		<p>Eine Seite zur Berechnung mathematischer und elektrischer Größen!</p>
+		<br>
+		<img src="img/himmel.jpeg" class="rounded" style="img-fluid" alt="???">
 	</div>
 </body>

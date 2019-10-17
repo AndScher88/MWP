@@ -6,35 +6,35 @@
 			<!-- Mathematik -->
 			<div class = "btn-group">
 				<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-				Mathematik
+				Berechnungen
 				</button>
 					<div class = "dropdown-menu bg-light">
 						<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-						Geometrie
-						</button>				
+						Datum berechenen
+						</button>
 							<div class="dropdown-menu bg-light">
-								<a class="dropdown-item" href="Geometrie.php">Flächen</a>
-								<a class="dropdown-item" href="Geometrie_Laengenberechnung.php">Längen</a>
+								<a class="dropdown-item" href="date.php">Datum</a>
+								<a class="dropdown-item" href="#">#</a>
 								<a class="dropdown-item" href="#">#</a>
 							</div>
 					</div>
 			</div>
-	
+
 		<!-- Elektrotechnik -->
 			<div class = "btn-group">
 				<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-				Elektrotechnik
+				Mathematik
 				</button>
 					<div class = "dropdown-menu bg-light">
 						<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-						Elektrische Größe
+						Potenzen
 						</button>
 							<div class="dropdown-menu bg-light">
-								<a class="dropdown-item" href="ohm_gesetz.php">Spannung</a>
-								<a class="dropdown-item" href="#">Leistung</a>
+								<a class="dropdown-item" href="potenzen.php">Potenzen</a>
+								<a class="dropdown-item" href="date.php">Datum berechnen</a>
 								<a class="dropdown-item" href="#">Widerstände</a>
 							</div>
 					</div>
 			</div>
-		</nav> 
+		</nav>
 	</div>
