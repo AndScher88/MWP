@@ -6,35 +6,43 @@
                 Navigation
             </button>
             <div id="navbarNav" class="navbar-collapse collapse ">
+                <ul class="navbar-nav mr-auto mx-auto">
                 <a class="navbar-brand" href="index.php">
                     <img src="Bilder/home.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 </a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Stammdaten</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="index.php" >Artikel</a>
+                            <a class="dropdown-item" href="index.php" >Leistungen</a>
+                            <a class="dropdown-item" href="index.php" >Kunden</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Zeiterfassung</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="index.php" >Arbeitszeit hinzufügen</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Tools</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="index.php" >URI</a>
+                        </div>
+                    </li>
+                </ul>
+                    <ul class="navbar-nav">
+                        <!--###ADMIN###-->
+                        <li class="nav-item dropdown">
+                            <a  class="nav-link dropdown-toggle " data-toggle="dropdown" href="#">
+                                <!--###NAME###-->
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-lg-right">
+                                <a class="dropdown-item" href="index.php" >Passwort ändern</a>
+                                <a class="dropdown-item" href="index.php" >Abmelden</a>
+                            </ul>
+                        </li>
+                    </ul>
             </div>
-
-
-
-
-			<div class = "btn-group">
-				<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Stammdaten</button>
-					<div class = "dropdown-menu bg-light">
-						<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Artikel</button>
-                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Leistung</button>
-                </div>
-			</div>
-			<div class = "btn-group">
-				<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-				Zweiter Dropdown
-				</button>
-					<div class = "dropdown-menu bg-light">
-						<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-						Potenzen
-						</button>
-							<div class="dropdown-menu bg-light">
-								<a class="dropdown-item" href="#">Potenzen</a>
-								<a class="dropdown-item" href="#">Datum berechnen</a>
-								<a class="dropdown-item" href="#">Widerstände</a>
-							</div>
-					</div>
-			</div>
 		</nav>
 	</div>
