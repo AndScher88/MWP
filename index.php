@@ -1,6 +1,6 @@
 <?php include "template.php" ?>
 
-<body class="bg-dark text-white text-center">
+<body class="text-center">
 	<div>
 		<h1>Header 1</h1>
         <br>
