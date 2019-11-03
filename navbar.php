@@ -1,7 +1,7 @@
 	<div class="container=100%">
 		<nav class="navbar navbar-expand-md bg-secondary navbar-dark border border-dark justify-content-center navbar-fixed-top">
 			<!-- Brand -->
-			<a class="navbar-brand" href="start.php">Startseite</a>
+			<a class="navbar-brand" href="index.php">Startseite</a>
 
 			<!-- Mathematik -->
 			<div class = "btn-group">
@@ -13,7 +13,7 @@
 						Datum berechenen
 						</button>
 							<div class="dropdown-menu bg-light">
-								<a class="dropdown-item" href="date.php">Datum</a>
+								<a class="dropdown-item" href="#">#</a>
 								<a class="dropdown-item" href="#">#</a>
 								<a class="dropdown-item" href="#">#</a>
 							</div>
@@ -30,8 +30,8 @@
 						Potenzen
 						</button>
 							<div class="dropdown-menu bg-light">
-								<a class="dropdown-item" href="potenzen.php">Potenzen</a>
-								<a class="dropdown-item" href="date.php">Datum berechnen</a>
+								<a class="dropdown-item" href="#">Potenzen</a>
+								<a class="dropdown-item" href="#">Datum berechnen</a>
 								<a class="dropdown-item" href="#">Widerstände</a>
 							</div>
 					</div>
