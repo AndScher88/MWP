@@ -1,4 +1,5 @@
 <?php include "template.php" ?>
+
 <body class="bg-dark text-white text-center">
 	<div>
 		<h1>Header 1</h1>
