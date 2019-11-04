@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 03. Nov 2019 um 18:56
+-- Erstellungszeit: 04. Nov 2019 um 08:41
 -- Server-Version: 10.3.16-MariaDB
 -- PHP-Version: 7.3.7
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `test`
+-- Datenbank: `mwp-systems`
 --
 
 -- --------------------------------------------------------
@@ -30,16 +30,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `mitarbeiterdaten` (
   `id` bigint(20) NOT NULL,
-  `vorname` text COLLATE utf8_german2_ci NOT NULL,
-  `nachname` text COLLATE utf8_german2_ci NOT NULL,
-  `straße` text COLLATE utf8_german2_ci DEFAULT NULL,
-  `hausnummer` text COLLATE utf8_german2_ci DEFAULT NULL,
-  `stadt` text COLLATE utf8_german2_ci DEFAULT NULL,
+  `vorname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nachname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `straße` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hausnummer` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stadt` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `postleitzahl` int(11) DEFAULT NULL,
   `geburtsdatum` date DEFAULT NULL,
-  `telefonnummer` text COLLATE utf8_german2_ci DEFAULT NULL,
-  `email` text COLLATE utf8_german2_ci DEFAULT NULL,
-  `abteilung` text COLLATE utf8_german2_ci DEFAULT NULL
+  `telefonnummer` varchar(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
