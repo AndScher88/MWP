@@ -1,24 +1,53 @@
 <?php include "template.php" ?>
 <title>Mitarbeiter erstellen</title>
 <body class="text-center">
-  <div>
-    <h1>Mitarbeiter erstellen</h1>
+  <div class = "container-fluid">
+    <h3>Mitarbeiter erstellen</h3>
     <br>
-    <h5 class="text-left">Bitte hier die Daten des neuen Mitarbeiters eingeben: </h3>
-    <div class = "text-left">
-      <label for= "vorname"> Vorname: </label><br>
-      <input type = "text" class = "" id = "vorname" aria-describedby="emailHelp" placeholder="Max">
-      <small id = "emailhelp" class = "form-text text-muted">Der Vorname bleibt geheim</small>
+    <h6 class="text-left">Bitte hier die Daten des neuen Mitarbeiters eingeben: </h6>
+    <form class = "text-left">
+      <div class = "row">
+        <div class = "col">
+          <input type="text" class="form-control" id="vorname" placeholder="Max">
+          <small id="emailhelp" class="form-text text-muted">Vorname</small>
+        </div>
+      <div class="col">
+        <input type="text" class="form-control" id="nachname" placeholder="Mustermann">
+        <small id="emailhelp" class="form-text text-muted">Nachname</small>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" id="geburtsdatum" placeholder="dd.MM.YYYY">
+        <small id="emailhelp" class="form-text text-muted">Geburtsdatum</small>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" id="strasse" placeholder="Lindenstraße">
+        <small id="emailhelp" class="form-text text-muted">Wohnort</small>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" id="hausnummer" placeholder="10a">
+        <small id="emailhelp" class="form-text text-muted">Hausnummer</small>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" id="stadt" placeholder="Hamburg">
+        <small id="emailhelp" class="form-text text-muted">Stadt</small>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" id="postleitzahl" placeholder="22880">
+        <small id="emailhelp" class="form-text text-muted">Plz</small>
+      </div>
+    </div><br>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control" id="telefonnummer" placeholder="015112345678">
+        <small id="emailhelp" class="form-text text-muted">Telefonnummer</small>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" id="email" placeholder="max.mustermann@gmail.com">
+        <small id="emailhelp" class="form-text text-muted">E-Mail Adresse</small>
+      </div>
     </div>
-    <div class = "text-left">
-      <label for= "Nachname"> Nachname: </label><br>
-      <input type = "text" class = "" id = "Nachname" aria-describedby="emailHelp" placeholder="Mustermann">
-      <small id = "emailhelp" class = "form-text text-muted">Der Nachname bleibt geheim</small>
-    </div>
-    <div class = "text-left">
-      <label for= "Nachname"> Nachname: </label><br>
-      <input type = "text" class = "" id = "Nachname" aria-describedby="emailHelp" placeholder="Mustermann">
-      <small id = "emailhelp" class = "form-text text-muted">Der Nachname bleibt geheim</small>
-    </div>
+    </form>
   </div>
 </body>
