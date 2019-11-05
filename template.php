@@ -7,5 +7,9 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.js"></script>
-    <?php include "navbar.php" ?>
 </head>
+<body>
+
+<?php include 'navbar.php' ?>
+
+</body>
