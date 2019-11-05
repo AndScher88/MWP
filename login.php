@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 SESSION_START();
 if (!isset($_SESSION['meldung'], $_SESSION['alert']))
 {

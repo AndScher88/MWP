@@ -20,7 +20,7 @@ final class DatabaseConnector
      * @var object
      */
     private static $instance;
-    private $dbName = 'mwp-systems';
+    private $dbName = 'test';
     private $dbUserName = 'root';
     private $dbUserPwd = '';
     private $dbServerName = 'localhost1';
@@ -30,7 +30,7 @@ final class DatabaseConnector
     {
     }
 
-    public static function getInstance(): string
+    public static function getAccess()
     {
         if (empty(self::$instance)) {
             self::$instance = new DatabaseConnector();
@@ -38,7 +38,7 @@ final class DatabaseConnector
         try {
             self::$instance->getConnection();
         } catch (Exception $exception) {
-            return $exception->getMessage();
+            throw $exception;
         }
         return (self::$instance->conn);
     }
