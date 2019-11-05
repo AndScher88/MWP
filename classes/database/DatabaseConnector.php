@@ -26,11 +26,11 @@ final class DatabaseConnector
     private $dbServerName = 'localhost1';
     private $conn;
 
-    public function __construct()
+    private function __construct()
     {
     }
 
-    public function getInstance(): string
+    public static function getInstance(): string
     {
         if (empty(self::$instance)) {
             self::$instance = new DatabaseConnector();
