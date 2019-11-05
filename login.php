@@ -10,6 +10,7 @@ if (!isset($_SESSION['meldung'], $_SESSION['alert']))
 <html lang="de">
 <head>
     <meta charset=utf-8" >
+    <link rel="icon" href="bilder/favicon.ico">
     <title>MWP-System Login</title>
     <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">
 </head>
