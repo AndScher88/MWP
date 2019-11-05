@@ -1,9 +1,9 @@
 <?php
 SESSION_START();
-if (!isset($_SESSION['meldung'])||!isset($_SESSION['alert']))
+if (!isset($_SESSION['meldung'], $_SESSION['alert']))
 {
-    $_SESSION["meldung"] = "";
-    $_SESSION["alert"] = "";
+    $_SESSION['meldung'] = '';
+    $_SESSION['alert'] = '';
 }
 ?>
 <!DOCTYPE HTML>
@@ -15,7 +15,7 @@ if (!isset($_SESSION['meldung'])||!isset($_SESSION['alert']))
 </head>
 <body>
 <?php
-if($_SESSION["meldung"] == "")
+if($_SESSION['meldung'] === '')
 {
     $style='style="display:none;"';
 }
@@ -23,10 +23,10 @@ else
 {
     $style='style="display:inherit;"';
 }
-$alert = '<div class="container center-block text-center "><div '.$style.' class=" container text-center alert '.$_SESSION["alert"].'">'.$_SESSION["meldung"].'</div></div>';
+$alert = '<div class="container center-block text-center "><div '.$style.' class=" container text-center alert '.$_SESSION['alert'].'">'.$_SESSION['meldung'].'</div></div>';
 
 echo $alert;
-$_SESSION["meldung"] = "";
+$_SESSION['meldung'] = '';
 ?>
 <br>
 <h2 class="text-center">Login</h2>
