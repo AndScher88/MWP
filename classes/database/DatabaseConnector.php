@@ -46,7 +46,6 @@ final class DatabaseConnector
     /**
      * @return object
      * @throws Exception
-     * @var object $mysqli
      */
     private function getConnection(): object
     {
