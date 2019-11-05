@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 04. Nov 2019 um 08:41
--- Server-Version: 10.3.16-MariaDB
--- PHP-Version: 7.3.7
+-- Erstellungszeit: 05. Nov 2019 um 20:14
+-- Server-Version: 10.4.8-MariaDB
+-- PHP-Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `mwp-systems`
 --
+CREATE DATABASE IF NOT EXISTS `mwp-systems` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `mwp-systems`;
 
 -- --------------------------------------------------------
 
@@ -30,15 +32,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `mitarbeiterdaten` (
   `id` bigint(20) NOT NULL,
-  `vorname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nachname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `straße` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hausnummer` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `stadt` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vorname` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nachname` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `straße` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hausnummer` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stadt` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `postleitzahl` int(11) DEFAULT NULL,
   `geburtsdatum` date DEFAULT NULL,
-  `telefonnummer` varchar(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `telefonnummer` varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
