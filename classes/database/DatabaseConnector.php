@@ -5,7 +5,11 @@ namespace classes\database;
 use Exception;
 use mysqli;
 
-class DatabaseConnector
+/**
+ * Class DatabaseConnector
+ * @package classes\database
+ */
+final class DatabaseConnector
 {
     /**
      * @var object
@@ -16,19 +20,18 @@ class DatabaseConnector
      * @var object
      */
     private static $instance;
-    private $dbName = "mwp-systems";
-    private $dbUserName = "root";
-    private $dbUserPwd = "";
-    private $dbServerName = "localhost1";
+    private $dbName = 'mwp-systems';
+    private $dbUserName = 'root';
+    private $dbUserPwd = '';
+    private $dbServerName = 'localhost1';
     private $conn;
 
     public function __construct()
     {
     }
 
-    public function getInstance()
+    public function getInstance(): string
     {
-        error_reporting(0);
         if (empty(self::$instance)) {
             self::$instance = new DatabaseConnector();
         }
@@ -49,11 +52,17 @@ class DatabaseConnector
     {
         $this->conn = new mysqli($this->dbServerName, $this->dbUserName, $this->dbUserPwd, $this->dbName);
         if ($this->conn->connect_errno) {
-            throw new Exception("Verbindung mit Datenbank konnte nicht hergestellt werden");
-        } else {
-            return $this->conn;
+            throw new Exception('Verbindung mit Datenbank konnte nicht hergestellt werden');
         }
+        return $this->conn;
     }
 
+    public function __clone()
+    {
+    }
+
+    public function __wakeup()
+    {
+    }
 }
 
