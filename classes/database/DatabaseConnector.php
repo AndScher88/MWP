@@ -20,10 +20,10 @@ final class DatabaseConnector
      * @var object
      */
     private static $instance;
-    private $dbName = 'test';
+    private $dbName = 'mwp-systems';
     private $dbUserName = 'root';
     private $dbUserPwd = '';
-    private $dbServerName = 'localhost1';
+    private $dbServerName = 'localhost';
     private $conn;
 
     private function __construct()
@@ -64,4 +64,3 @@ final class DatabaseConnector
     {
     }
 }
-
