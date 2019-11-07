@@ -10,6 +10,16 @@
 </head>
 <body>
 
-<?php include 'navbar.php' ?>
+<?php
+Session_Start();
+if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
+    Header('Location: login.php');
+    exit();
+}
+
+include 'navbar.php';
+require_once 'flashMeldung.php';
+
+?>
 
 </body>
