@@ -2,8 +2,8 @@
 
 namespace classes\database;
 
-use Exception;
 use mysqli;
+use RuntimeException;
 
 /**
  * Class DatabaseConnector
@@ -37,7 +37,7 @@ final class DatabaseConnector
         }
         try {
             self::$instance->getConnection();
-        } catch (Exception $exception) {
+        } catch (RuntimeException $exception) {
             throw $exception;
         }
         return (self::$instance->conn);
@@ -45,13 +45,12 @@ final class DatabaseConnector
 
     /**
      * @return object
-     * @throws Exception
      */
     private function getConnection(): object
     {
         $this->conn = new mysqli($this->dbServerName, $this->dbUserName, $this->dbUserPwd, $this->dbName);
         if ($this->conn->connect_errno) {
-            throw new Exception('Verbindung mit Datenbank konnte nicht hergestellt werden');
+            throw new RuntimeException('Verbindung mit Datenbank konnte nicht hergestellt werden');
         }
         return $this->conn;
     }
