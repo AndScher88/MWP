@@ -11,25 +11,42 @@ use RuntimeException;
  */
 final class DatabaseConnector
 {
+
     /**
-     * @var object
-     * @var string
-     * @var string
-     * @var string
-     * @var string
-     * @var object
+     * @var
      */
     private static $instance;
+    /**
+     * @var string
+     */
     private $dbName = 'mwp-systems';
+    /**
+     * @var string
+     */
     private $dbUserName = 'root';
+    /**
+     * @var string
+     */
     private $dbUserPwd = '';
+    /**
+     * @var string
+     */
     private $dbServerName = 'localhost';
+    /**
+     * @var
+     */
     private $conn;
 
+    /**
+     * DatabaseConnector constructor.
+     */
     private function __construct()
     {
     }
 
+    /**
+     * @return mixed
+     */
     public static function getAccess()
     {
         if (empty(self::$instance)) {
@@ -55,10 +72,16 @@ final class DatabaseConnector
         return $this->conn;
     }
 
+    /**
+     *
+     */
     public function __clone()
     {
     }
 
+    /**
+     *
+     */
     public function __wakeup()
     {
     }

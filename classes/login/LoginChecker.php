@@ -7,22 +7,72 @@ namespace classes\database;
 require 'classes\database\DatabaseConnector.php';
 
 use RuntimeException;
+use mysqli;
 
+/**
+ * Class LoginChecker
+ * @package classes\database
+ */
 class LoginChecker
 {
+    /**
+     * @var string
+     */
     private $user;
+    /**
+     * @var string
+     */
     private $pwd;
+    /**
+     * @var
+     */
     private $stmtId;
+    /**
+     * @var
+     */
     private $stmtLoginName;
+    /**
+     * @var
+     */
     private $stmtIdMitarbeiter;
+    /**
+     * @var
+     */
     private $stmtPwdHash;
+    /**
+     * @var
+     */
     private $stmtBlocked;
+    /**
+     * @var
+     */
     private $stmt;
+    /**
+     * @var
+     */
     private $mysqli;
+    /**
+     *
+     */
     private const COST = 13;
+    /**
+     *
+     */
     private const PEPPER = ';a0sdbn.ui$%Dbzti/&%/()#(hj§pü';
+    /**
+     * @var
+     */
     private $valid;
+    /**
+     * @var
+     */
     private  $realUsername;
+
+    /**
+     * LoginChecker constructor.
+     * @param string $user
+     * @param string $pwd
+     */
     public function __construct(string $user, string $pwd)
     {
         $this->user = $user;
@@ -31,6 +81,9 @@ class LoginChecker
     }
 
 
+    /**
+     * @return mixed
+     */
     public function loginUser()
     {
         try {
@@ -63,6 +116,9 @@ class LoginChecker
         return $this->ret;
     }
 
+    /**
+     *
+     */
     private function checkUser()
     {
         if (!preg_match('#^[a-z]+$#', $this->user)) {
@@ -70,6 +126,9 @@ class LoginChecker
         }
     }
 
+    /**
+     *
+     */
     private function getAccountData()
     {
         try {
@@ -87,7 +146,7 @@ class LoginChecker
         if (($this->checkPrep || $this->checkBind || $this->checkExec) === false) {
             $this->stmt->close();
             $this->mysqli->close();
-            throw new Exception('Konnte Query nicht ausführen');
+            throw new RuntimeException('Konnte Query nicht ausführen');
         }
 
         $this->stmt->close();
@@ -99,6 +158,9 @@ class LoginChecker
     }
 
 
+    /**
+     *
+     */
     private function checkPwd()
     {
         //Password Definition: 8-20 Zeichen, Groß-und Kleinschreibung A-Z erlaubt, Zahlen erlaubt
@@ -143,6 +205,9 @@ class LoginChecker
 
     }
 
+    /**
+     * @return mixed
+     */
     private function getUserData()
     {
         try {
@@ -160,7 +225,7 @@ class LoginChecker
         if (($this->checkPrep || $this->checkBind || $this->checkExec) === false) {
             $this->stmt->close();
             $this->mysqli->close();
-            throw new Exception('Konnte Query nicht ausführen5');
+            throw new RuntimeException('Konnte Query nicht ausführen5');
         }
 
         $this->stmt->close();
