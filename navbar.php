@@ -8,7 +8,7 @@
             <div id="navbarNav" class="navbar-collapse collapse ">
                 <ul class="navbar-nav mr-auto mx-auto">
                 <a class="navbar-brand" href="index.php">
-                    <img src="Bilder/home.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                    <img src="bilder/home.png" width="32" height="32" class="d-inline-block align-top" alt="">
                 </a>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Stammdaten</a>
@@ -25,6 +25,12 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Mitarbeiterverwaltung</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="mitarbeitererstellen.php" >neuer Mitarbeiter</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Tools</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="index.php" >URI</a>
@@ -35,11 +41,11 @@
                         <!--###ADMIN###-->
                         <li class="nav-item dropdown">
                             <a  class="nav-link dropdown-toggle " data-toggle="dropdown" href="#">
-                                <!--###NAME###-->
+                                <?php echo $_SESSION['realUsername'];?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-right">
-                                <a class="dropdown-item" href="index.php" >Passwort ändern</a>
-                                <a class="dropdown-item" href="index.php" >Abmelden</a>
+                                <a class="dropdown-item" href="accountpassword.php" >Passwort ändern</a>
+                                <a class="dropdown-item" href="logout.php" >Abmelden</a>
                             </ul>
                         </li>
                     </ul>
