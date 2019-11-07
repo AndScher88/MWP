@@ -29,7 +29,7 @@ try {
 if ($ret !== '') {
     $_SESSION['login'] = 1;
     $_SESSION['realUsername'] = $ret;
-    $_SESSION['meldung'] = 'Wilkommen '.$ret;
+    $_SESSION['meldung'] = 'Willkommen '.$ret;
     $_SESSION['alert'] = 'alert-success';
     header('Location: index.php');
     exit();
