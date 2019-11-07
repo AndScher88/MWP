@@ -17,15 +17,8 @@ if (!isset($_SESSION['meldung'], $_SESSION['alert']))
 </head>
 <body>
 <?php
-if($_SESSION['meldung'] === '')
-{
-    $style='style="display:none;"';
-}
-else
-{
-    $style='style="display:inherit;"';
-}
-$alert = '<div class="container center-block text-center "><div '.$style.' class=" container text-center alert '.$_SESSION['alert'].'">'.$_SESSION['meldung'].'</div></div>';
+$style = ($_SESSION['meldung'] === '') ? 'style="display:none;"' : 'style="display:inherit;"';
+$alert = '<div class="container center-block text-center "><div ' . $style . ' class=" container text-center alert ' . $_SESSION['alert'] . '">' . $_SESSION['meldung'] . '</div></div>';
 
 echo $alert;
 $_SESSION['meldung'] = '';
