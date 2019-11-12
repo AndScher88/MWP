@@ -30,11 +30,11 @@ $_SESSION['meldung'] = '';
     <form  autocomplete="off" action="checklogin.php" method="post">
         <div class="form-group">
             <label id="benutzerlabel" for="benutzer">Benutzer: </label>
-            <input id="benutzer" style="width:200px;" name="ausgewählter_benutzer" class="form-control"/>
+            <input id="benutzer" style="width:200px;" name="ausgewählter_benutzer" class="form-control" required/>
         </div>
         <br>
         <label id="passwordfeldlabel" for="passwordfeld">Passwort: </label>
-        <input id="passwordfeld" style="width:200px;" name="password" type="password" class="form-control center-block">
+        <input id="passwordfeld" style="width:200px;" name="password" type="password" class="form-control center-block" required>
         <br>
         <br>
         <br>
