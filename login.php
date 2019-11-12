@@ -30,7 +30,7 @@ $_SESSION['meldung'] = '';
     <form  autocomplete="off" action="checklogin.php" method="post">
         <div class="form-group">
             <label id="benutzerlabel" for="benutzer">Benutzer: </label>
-            <input id="benutzer" style="width:200px;" name="ausgewählter_benutzer" class="form-control" required/>
+            <input id="benutzer" style="width:200px;" name="ausgewählter_benutzer" class="form-control" required>
         </div>
         <br>
         <label id="passwordfeldlabel" for="passwordfeld">Passwort: </label>
@@ -38,7 +38,7 @@ $_SESSION['meldung'] = '';
         <br>
         <br>
         <br>
-        <input id="passwordbestätigenbutton" name="password_bestätigen" value="Anmelden" type="submit" class="btn btn-success"/>
+        <input id="passwordbestätigenbutton" name="password_bestätigen" value="Anmelden" type="submit" class="btn btn-success">
     </form>
 </div>
 </body>
