@@ -17,7 +17,7 @@
                     <label id="nachnamelabel" class="form-text text-muted">Nachname</label>
                 </div>
                 <div class="col">
-                    <input type="date" name="gebdatum" class="form-control" id="geburtsdatum1" aria-describedby="geburtsdatumlabel"placeholder="dd.MM.YYYY" required>
+                    <input type="date" name="gebdatum" class="form-control" id="geburtsdatum1" aria-describedby="geburtsdatumlabel" required>
                     <label id="geburtsdatumlabel" class="form-text text-muted">Geburtsdatum</label>
                 </div>
             </div>
@@ -52,13 +52,13 @@
             <div class="form-row">
                 <div class="col">
                     <select class="custom-select" id="abteilung" required>
-                        <option selected>Wählen...</option>
+                        <option value="" >Wählen...</option>
                         <option value="1">Human Resources</option>
                         <option value="2">Engineering</option>
                         <option value="3">Production</option>
                         <option value="4">IT</option>
                     </select>
-                    <label id="abteilung" class="form-text text-muted">Abteilung</label>
+                    <label id="abteilunglabel" class="form-text text-muted">Abteilung</label>
                 </div>
             </div>
             <div class="btn-group" role="group" aria-label="hinzufügen">
