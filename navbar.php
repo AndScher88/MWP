@@ -28,6 +28,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Mitarbeiterverwaltung</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="mitarbeitererstellen.php" >neuer Mitarbeiter</a>
+                            <a class="dropdown-item" href="mitarbeiteranzeigen.php" >Mitarbeiter anzeigen</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
