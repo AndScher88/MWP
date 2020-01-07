@@ -2,11 +2,11 @@
 namespace classes\database;
 require "classes\database\DatabaseConnector.php";
 
-$conn = DatabaseConnector::getAccess("localhost", "root", "", "mwp-systems");
+$conn = DatabaseConnector::getAccess();
 
 if ($conn->connect_error)
 {
-    die("Connection failed: " . $conn -> connect_error);
+    die('Connection failed: ' . $conn -> connect_error);
 }
 //var_dump($_POST);
 $vorname = $_POST['vorname'];
@@ -25,11 +25,13 @@ if (count($_POST) > 0) {
 
     if ($conn->query($sql) === TRUE)
         {
-             echo "hat geklappt";
+            $_SESSION['meldung'] = 'Mitarbeiter wurde erfolgreich hinzugefügt!';
+            $_SESSION['alert'] = 'alert-success';
         }
     else
     {
-        echo "Error :" . $sql . "<br>" . $conn->connect_error;
+        $_SESSION['alert'] = 'Einfügen hat nicht geklappt';
+        $_SESSION['alert'] = 'alert-danger';
     }
     $conn->close();
 
