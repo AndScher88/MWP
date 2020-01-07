@@ -1,11 +1,10 @@
 <?php
 namespace classes\database;
 require "classes\database\DatabaseConnector.php";
-use mysqli;
 
 $conn = DatabaseConnector::getAccess("localhost", "root", "", "mwp-systems");
 
-$sql ="SELECT * FROM mitarbeiterdaten";
+$sql ="SELECT * FROM mitarbeiterdaten ORDER BY vorname ASC";
 
 $result = $conn->query($sql);
 $conn->close();
@@ -13,8 +12,8 @@ $conn->close();
 include "template.php";
 ?>
 
-<body class="text-center">
-<h3>Mitarbeiter-Infos</h3>
+<body >
+<h3 class="text-center">Daten aller Mitarbeiter</h3>
 <table class="table table-secondary">
     <thead>
         <tr>
@@ -26,6 +25,7 @@ include "template.php";
             <th class="text-left">Geburtsdatum</th>
             <th class="text-left">Telefonnummer</th>
             <th class="text-left">E-Mail-Adresse</th>
+            <th class="text-left"></th>
         </tr>
     </thead>
 
@@ -34,12 +34,14 @@ include "template.php";
         <tr>
             <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['vorname']); ?></td>
             <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['nachname']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['straße']) . " " . htmlspecialchars($mitarbeiter['hausnummer']); ?></td>
+            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['strasse']) . " " . htmlspecialchars($mitarbeiter['hausnummer']); ?></td>
             <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['stadt']); ?></td>
             <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['postleitzahl']); ?></td>
             <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['geburtsdatum']); ?></td>
             <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['telefonnummer']); ?></td>
             <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['email']); ?></td>
+            <td class="text-left"><a href="mitarbeiterbearbeiten.php?id=<?php htmlspecialchars($mitarbeiter['id'])?>">Bearbeiten...</a></td>
+            <td class="text-left"><a href="mitarbeiterloeschen.php?id=<?php htmlspecialchars($mitarbeiter['id'])?>">Löschen...</a></td>
         </tr>
     </tbody>
 
