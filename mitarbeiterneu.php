@@ -1,5 +1,10 @@
 <?php
 namespace classes\database;
+Session_Start();
+if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
+    Header('Location: login.php');
+    exit();
+}
 require "classes\database\DatabaseConnector.php";
 
 $conn = DatabaseConnector::getAccess();
@@ -30,7 +35,7 @@ if (count($_POST) > 0) {
         }
     else
     {
-        $_SESSION['alert'] = 'Einfügen hat nicht geklappt';
+        $_SESSION['meldung'] = 'Einfügen hat nicht geklappt';
         $_SESSION['alert'] = 'alert-danger';
     }
     $conn->close();
