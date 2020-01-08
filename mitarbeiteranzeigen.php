@@ -1,51 +1,57 @@
 <?php
-namespace classes\database;
-require "classes\database\DatabaseConnector.php";
+require_once __DIR__ . '/autoloader.php';
+require_once "template.php";
+use classes\database\DatabaseConnector;
 
-$conn = DatabaseConnector::getAccess("localhost", "root", "", "mwp-systems");
 
-$sql ="SELECT * FROM mitarbeiterdaten ORDER BY vorname ASC";
+$conn = DatabaseConnector::getAccess();
+
+$tabelle = new \classes\mitarbeiter\baueTabelle();
+
+$sql ='SELECT * FROM mitarbeiterdaten ORDER BY vorname';
 
 $result = $conn->query($sql);
 $conn->close();
 
-include "template.php";
+
 ?>
 
 <body >
 <h3 class="text-center">Daten aller Mitarbeiter</h3>
 <table class="table table-secondary">
     <thead>
-        <tr>
-            <th class="text-left">Vorname </th>
-            <th class="text-left">Nachname </th>
-            <th class="text-left">Anschrift</th>
-            <th class="text-left">Stadt</th>
-            <th class="text-left">Postleitzahl</th>
-            <th class="text-left">Geburtsdatum</th>
-            <th class="text-left">Telefonnummer</th>
-            <th class="text-left">E-Mail-Adresse</th>
-            <th class="text-left"></th>
+        <tr class="text-left">
+            <th>Vorname </th>
+            <th>Nachname </th>
+            <th>Anschrift</th>
+            <th>Stadt</th>
+            <th>Postleitzahl</th>
+            <th>Geburtsdatum</th>
+            <th>Telefonnummer</th>
+            <th>E-Mail-Adresse</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
 
-    <?php  foreach ($result as $mitarbeiter): ?>
     <tbody>
-        <tr>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['vorname']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['nachname']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['strasse']) . " " . htmlspecialchars($mitarbeiter['hausnummer']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['stadt']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['postleitzahl']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['geburtsdatum']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['telefonnummer']); ?></td>
-            <td class="text-left"><?php echo htmlspecialchars($mitarbeiter['email']); ?></td>
-            <td class="text-left"><a href="mitarbeiterbearbeiten.php?id=<?php htmlspecialchars($mitarbeiter['id'])?>">Bearbeiten...</a></td>
-            <td class="text-left"><a href="mitarbeiterloeschen.php?id=<?php htmlspecialchars($mitarbeiter['id'])?>">Löschen...</a></td>
-        </tr>
+        <?php  foreach ($result as $mitarbeiter): ?>
+            <tr class="text-left">
+                <td><?php echo htmlspecialchars($mitarbeiter['vorname']); ?></td>
+                <td><?php echo htmlspecialchars($mitarbeiter['nachname']); ?></td>
+                <td><?php echo htmlspecialchars($mitarbeiter['strasse']) . " "
+                             . htmlspecialchars($mitarbeiter['hausnummer']); ?></td>
+                <td><?php echo htmlspecialchars($mitarbeiter['stadt']); ?></td>
+                <td><?php echo htmlspecialchars($mitarbeiter['postleitzahl']); ?></td>
+                <td><?php echo htmlspecialchars($mitarbeiter['geburtsdatum']); ?></td>
+                <td><?php echo htmlspecialchars($mitarbeiter['telefonnummer']); ?></td>
+                <td><?php echo htmlspecialchars($mitarbeiter['email']); ?></td>
+                <td><a href="mitarbeiterbearbeiten.php?id=<?php htmlspecialchars($mitarbeiter['id'])?>">Bearbeiten...</a></td>
+                <td><a href="mitarbeiterloeschen.php?id=<?php htmlspecialchars($mitarbeiter['id'])?>">Löschen...</a></td>
+            </tr>
+        <?php endforeach; ?>
     </tbody>
 
-    <?php endforeach; ?>
 </table>
 
 

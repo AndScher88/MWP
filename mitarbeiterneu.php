@@ -1,5 +1,6 @@
 <?php
-namespace classes\database;
+require __DIR . '/autoloader.php';
+use classes\database\DatabaseConnector;
 Session_Start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
     Header('Location: login.php');
@@ -9,11 +10,6 @@ require "classes\database\DatabaseConnector.php";
 
 $conn = DatabaseConnector::getAccess();
 
-if ($conn->connect_error)
-{
-    die('Connection failed: ' . $conn -> connect_error);
-}
-//var_dump($_POST);
 $vorname = $_POST['vorname'];
 $nachname = $_POST['nachname'];
 $gebdatum = $_POST['gebdatum'];

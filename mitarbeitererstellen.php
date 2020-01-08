@@ -1,4 +1,5 @@
-<?php include "template.php" ?>
+<?php require_once 'template.php';
+?>
 <title>Mitarbeiter erstellen</title>
 <body class="text-center">
     <div class = "container-fluid">
