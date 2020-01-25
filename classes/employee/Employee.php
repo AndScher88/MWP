@@ -30,8 +30,8 @@ class Employee
     {
         $conn = DatabaseConnector::getAccess();
         $sql = "INSERT INTO mitarbeiterdaten (
-                               vorname, nachname, strasse, hausnummer, 
-                              stadt, postleitzahl, geburtsdatum, telefonnummer, email)
+                            vorname, nachname, strasse, hausnummer, 
+                            stadt, postleitzahl, geburtsdatum, telefonnummer, email)
                 VALUES  ('$this->vorname', '$this->nachname', '$this->strasse', '$this->hausnummer', 
                          '$this->stadt', '$this->postleitzahl', '$this->gebdatum', '$this->telefonnummer', '$this->email')";
         if ($conn->query($sql) === TRUE)
@@ -44,7 +44,7 @@ class Employee
             $_SESSION['meldung'] = 'Einfügen hat nicht geklappt';
             $_SESSION['alert'] = 'alert-danger';
         }
-        $conn->close();;
+        $conn->close();
     }
 
     public function queryEmployee()
