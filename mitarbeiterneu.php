@@ -1,12 +1,13 @@
 <?php
-require __DIR . '/autoloader.php';
+require __DIR__ . '/autoloader.php';
 use classes\database\DatabaseConnector;
+use classes\employee\Employee;
+
 Session_Start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
     Header('Location: login.php');
     exit();
 }
-require "classes\database\DatabaseConnector.php";
 
 $conn = DatabaseConnector::getAccess();
 
@@ -20,21 +21,21 @@ $postleitzahl = $_POST['postleitzahl'];
 $telefonnummer = $_POST['telefonnummer'];
 $email = $_POST['email'];
 
-if (count($_POST) > 0) {
-    $sql ="INSERT INTO mitarbeiterdaten (vorname, nachname, strasse, hausnummer, stadt, postleitzahl, geburtsdatum, telefonnummer, email) 
-            VALUES ('$vorname', '$nachname', '$strasse', '$hausnummer', '$stadt', '$postleitzahl', '$gebdatum', '$telefonnummer', '$email')";
+$employee = new Employee();
+$employee->setVorname($vorname);
+$employee->setNachname($nachname);
+$employee->setGebdatum($gebdatum);
+$employee->setStrasse($strasse);
+$employee->setHausnummer($hausnummer);
+$employee->setStadt($stadt);
+$employee->setPostleitzahl($postleitzahl);
+$employee->setTelefonnummer($telefonnummer);
+$employee->setEmail($email);
 
-    if ($conn->query($sql) === TRUE)
-        {
-            $_SESSION['meldung'] = 'Mitarbeiter wurde erfolgreich hinzugefügt!';
-            $_SESSION['alert'] = 'alert-success';
-        }
-    else
-    {
-        $_SESSION['meldung'] = 'Einfügen hat nicht geklappt';
-        $_SESSION['alert'] = 'alert-danger';
-    }
-    $conn->close();
+
+
+if (count($_POST) > 0) {
+    $employee->createEmployees();
 
     header('Location: mitarbeitererstellen.php');
     exit;
