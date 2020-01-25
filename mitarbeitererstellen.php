@@ -32,12 +32,12 @@
                     <label id="hausnummerlabel" class="form-text text-muted">Hausnummer</label>
                 </div>
                 <div class="col">
-                    <input type="text" name="stadt" class="form-control" id="stadt" aria-describedby="stadtlabel" placeholder="Hamburg" required>
-                    <label id="stadtlabel" class="form-text text-muted">Stadt</label>
-                </div>
-                <div class="col">
                     <input type="text" name="postleitzahl" class="form-control" id="postleitzahl1" aria-describedby="postleitzahllabel" placeholder="22880" required>
                     <label id="postleitzahllabel" class="form-text text-muted">Plz</label>
+                </div>
+                <div class="col">
+                    <input type="text" name="stadt" class="form-control" id="stadt" aria-describedby="stadtlabel" placeholder="Hamburg" required>
+                    <label id="stadtlabel" class="form-text text-muted">Stadt</label>
                 </div>
             </div>
             <div class="form-row">
@@ -46,13 +46,13 @@
                     <label id="telefonnummerlabel" class="form-text text-muted">Telefonnummer</label>
                 </div>
                 <div class="col">
-                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emaillabel" placeholder="max.mustermann@gmail.com" required>
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emaillabel" placeholder="max.mustermann@gmail.com">
                     <label id="emaillabel" class="form-text text-muted">E-Mail Adresse</label>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col">
-                    <select class="custom-select" id="abteilung" required>
+                    <select class="custom-select" id="abteilung">
                         <option value="" >Wählen...</option>
                         <option value="1">Human Resources</option>
                         <option value="2">Engineering</option>
