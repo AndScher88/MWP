@@ -32,6 +32,7 @@ class Table
     public function createTableBody(): void
     {
         $results = mysqli_fetch_all($this->result);
+
         echo '<tbody>';
         foreach ($results as $record) {
             echo '<tr>';

@@ -7,7 +7,7 @@ class Employee
 {
 
     public mysqli_result $result;
-    public int $empl_id = 0;
+    public int $empl_id;
     public string $vorname;
     public string $nachname;
     public $gebdatum;
