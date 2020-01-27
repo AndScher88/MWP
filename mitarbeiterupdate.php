@@ -19,6 +19,7 @@ $stadt = $_POST['stadt'];
 $postleitzahl = $_POST['postleitzahl'];
 $telefonnummer = $_POST['telefonnummer'];
 $email = $_POST['email'];
+$abteilung = $_POST['abteilung'];
 
 if (isset($_POST['id'])) {
     if ($_POST['id'] > 0) {
@@ -34,6 +35,7 @@ if (isset($_POST['id'])) {
         $employee->setPostleitzahl($postleitzahl);
         $employee->setTelefonnummer($telefonnummer);
         $employee->setEmail($email);
+        $employee->setAbteilung($abteilung);
         $employee->queryUpdateEmployee();
 
         header('Location: mitarbeiteranzeigen.php');
