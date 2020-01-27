@@ -6,9 +6,9 @@ require_once "template.php";
 use classes\employee\Employee;
 
 
-$empl_id = $_GET['id'];
+$emplId = $_GET['id'];
 $employee = new Employee();
-$employee->setEmplId($empl_id);
+$employee->setEmplId($emplId);
 $employee->queryEmployee();
 $resultEmployee = $employee->getResult();
 $test = mysqli_fetch_assoc($resultEmployee);
@@ -24,7 +24,7 @@ $test = mysqli_fetch_assoc($resultEmployee);
     <form class = "text-left" action="mitarbeiterupdate.php" method="post">
         <div class="text-left">
             <label class="text-muted">Bitte hier die neuen Daten des Mitarbeiters eingeben: </label>
-            <input type="hidden" name="id" value="<?php echo htmlspecialchars($empl_id) ?>">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($emplId) ?>">
         </div>
         <div class = "form-row">
             <div class = "col">
@@ -70,12 +70,14 @@ $test = mysqli_fetch_assoc($resultEmployee);
         </div>
         <div class="form-row">
             <div class="col">
-                <select class="custom-select" id="abteilung">
-                    <option value="" >Wählen...</option>
-                    <option value="1">Human Resources</option>
-                    <option value="2">Engineering</option>
-                    <option value="3">Production</option>
-                    <option value="4">IT</option>
+                <select class="custom-select" name="abteilung">
+                    <option value="<?php echo htmlspecialchars($test['abteilung']) ?>"><?php echo htmlspecialchars($test['abteilung']) ?></option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Production">Production</option>
+                    <option value="IT">IT</option>
+                    <option value="Lager">Lager</option>
+                    <option value="Sales">Sales</option>
                 </select>
                 <label id="abteilunglabel" class="form-text text-muted">Abteilung</label>
             </div>
