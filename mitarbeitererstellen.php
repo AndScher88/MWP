@@ -52,12 +52,14 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <select class="custom-select" id="abteilung">
+                    <select class="custom-select" name="abteilung">
                         <option value="" >Wählen...</option>
-                        <option value="1">Human Resources</option>
-                        <option value="2">Engineering</option>
-                        <option value="3">Production</option>
-                        <option value="4">IT</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Production">Production</option>
+                        <option value="IT">IT</option>
+                        <option value="Lager">IT</option>
+                        <option value="Sales">Sales</option>
                     </select>
                     <label id="abteilunglabel" class="form-text text-muted">Abteilung</label>
                 </div>
