@@ -1,6 +1,7 @@
 <?php
 namespace classes\frontend;
 
+
 use mysqli_result;
 
 
@@ -8,46 +9,46 @@ class Table
 {
 
     public mysqli_result $result;
-    public int $empl_id;
+    public int $emplId;
 
-    public function createTableHead(): void
+    public function createTable($resultEmployee)
     {
-        $keys = mysqli_fetch_assoc($this->result);
-        echo '<table class="table table-secondary text-left">';
-        echo '<thead>';
-        echo '<tr>';
-        array_shift($keys);
-        foreach (array_keys($keys) as $key) {
-                    echo '<th>';
-                    echo ucfirst($key);
-                    echo '</th>';
+        $table = new Table();
+        $table->setResult($resultEmployee);
+        $table->createTableHead();}
+
+    private function createTableHead(): void
+    {
+        $head = false;
+        while ($results = mysqli_fetch_assoc($this->result)) {
+            $this->emplId = $results['id'];
+            array_shift($results);
+                if ($head === false) {
+                    echo '<table class="table table-secondary text-left">' . '<thead>' . '<tr>';
+                    foreach (array_keys($results) as $key) {
+                        echo '<th>';
+                        echo ucfirst($key);
+                        echo '</th>';
+                    }
+                    echo '<th>Edit</th>' . '<th>Delete</th>' . '</tr>' . '</thead>';
+                    $head = true;
                 }
-                echo '<th></th>';
-                echo '<th></th>';
-        echo '</tr>';
-        echo '</thead>';
-    }
-
-
-    public function createTableBody(): void
-    {
-        $results = mysqli_fetch_all($this->result);
-
-        echo '<tbody>';
-        foreach ($results as $record) {
-            echo '<tr>';
-            $this->empl_id = $record[0];
-            array_shift($record);
-            foreach ($record as $value) {
-                echo '<td>';
-                echo $value;
-                echo '</td>';
+                echo '<tbody>' . '<tr>';
+                foreach ($results as $value) {
+                    echo '<td>' . $value . '</td>';
+                }
+                echo '<td><a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
+                    <abbr title="Edit">
+                    <img src="bilder/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">
+                    </abbr></a></td>';
+                echo '<td><a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
+                    <abbr title="Delete">
+                    <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt="">
+                    </abbr></a></td>';
+                echo '</tr>';
+                echo '</tbody>';
             }
-            echo '<td><a href="mitarbeiterbearbeiten.php?id=' . $this->empl_id . '"><abbr title="Edit"><i class="fas fa-edit fa-lg" ></i></abbr></a></td>';
-            echo '<td><a href="mitarbeiterloeschen.php?id=' . $this->empl_id . '"><abbr title="Delete"><i class="fas fa-dumpster fa-lg"></i></abbr></a></td>';
-            echo '</tr>';
-        }
-        echo '</tbody>';
+
     }
 
     /**
@@ -63,15 +64,15 @@ class Table
      */
     public function getEmplId(): int
     {
-        return $this->empl_id;
+        return $this->emplId;
     }
 
     /**
-     * @param int $empl_id
+     * @param int $emplId
      */
-    public function setEmplId(int $empl_id): void
+    public function setEmplId(int $emplId): void
     {
-        $this->empl_id = $empl_id;
+        $this->emplId = $emplId;
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 namespace classes\employee;
+
+use classes\frontend\Table;
 use classes\database\DatabaseConnector;
 use mysqli_result;
 
@@ -7,21 +9,31 @@ class Employee
 {
 
     public mysqli_result $result;
-    public int $empl_id;
+    public int $emplId;
     public string $vorname;
     public string $nachname;
-    public $gebdatum;
+    public  $gebdatum;
     public string $strasse;
     public string $hausnummer;
     public string $stadt;
     public string $postleitzahl;
     public string $telefonnummer;
     public string $email;
+    public  $abteilung;
+
+    public function createEmployeeTable()
+    {
+        $employee = new Employee();
+        $employee->queryEmployees();
+        $resultEmployee = $employee->getResult();
+        $table = new Table();
+        $table->createTable($resultEmployee);
+    }
 
     public function queryEmployees()
     {
         $conn = DatabaseConnector::getAccess();
-        $sql ='SELECT * FROM mitarbeiterdaten ORDER BY nachname';
+        $sql ='SELECT * FROM mitarbeiterdaten ORDER BY nachname, vorname';
         $this->result = $conn->query($sql);
         $conn->close();
     }
@@ -31,9 +43,9 @@ class Employee
         $conn = DatabaseConnector::getAccess();
         $sql = "INSERT INTO mitarbeiterdaten (
                             vorname, nachname, strasse, hausnummer, 
-                            stadt, postleitzahl, geburtsdatum, telefonnummer, email)
+                            stadt, postleitzahl, geburtsdatum, telefonnummer, email, abteilung)
                 VALUES  ('$this->vorname', '$this->nachname', '$this->strasse', '$this->hausnummer', 
-                         '$this->stadt', '$this->postleitzahl', '$this->gebdatum', '$this->telefonnummer', '$this->email')";
+                         '$this->stadt', '$this->postleitzahl', '$this->gebdatum', '$this->telefonnummer', '$this->email', '$this->abteilung')";
         if ($conn->query($sql) === TRUE)
         {
             $_SESSION['meldung'] = 'Mitarbeiter wurde erfolgreich hinzugefügt!';
@@ -50,8 +62,8 @@ class Employee
     public function queryEmployee()
     {
         $conn = DatabaseConnector::getAccess();
-        $sql = "SELECT id, vorname, nachname, strasse, hausnummer, stadt, postleitzahl, geburtsdatum, telefonnummer, email 
-                FROM mitarbeiterdaten WHERE id = $this->empl_id";
+        $sql = "SELECT id, vorname, nachname, strasse, hausnummer, stadt, postleitzahl, geburtsdatum, telefonnummer, email, abteilung 
+                FROM mitarbeiterdaten WHERE id = '$this->emplId'";
         $this->result = $conn->query($sql);
         $conn->close();
     }
@@ -68,8 +80,9 @@ class Employee
                     postleitzahl = '$this->postleitzahl',
                     geburtsdatum = '$this->gebdatum',
                     telefonnummer = '$this->telefonnummer',
-                    email = '$this->email'                
-                WHERE id = '$this->empl_id'";
+                    email = '$this->email',
+                    abteilung = '$this->abteilung'
+                WHERE id = '$this->emplId'";
         $conn->query($sql);
         $conn->close();
     }
@@ -78,7 +91,7 @@ class Employee
     public function queryDeleteEmployee()
     {
         $conn = DatabaseConnector::getAccess();
-        $sql = "DELETE FROM mitarbeiterdaten WHERE id = $this->empl_id";
+        $sql = "DELETE FROM mitarbeiterdaten WHERE id = '$this->emplId'";
         $conn->query($sql);
         $conn->close();
     }
@@ -94,11 +107,11 @@ class Employee
     }
 
     /**
-     * @param $empl_id
+     * @param $emplId
      */
-    public function setEmplId($empl_id): void
+    public function setEmplId($emplId): void
     {
-        $this->empl_id = $empl_id;
+        $this->emplId = $emplId;
     }
 
     /**
@@ -171,6 +184,14 @@ class Employee
     public function setEmail(string $email): void
     {
         $this->email = $email;
+    }
+
+    /**
+     * @param string $abteilung
+     */
+    public function setAbteilung(string $abteilung): void
+    {
+        $this->abteilung = $abteilung;
     }
 
 }
