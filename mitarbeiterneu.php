@@ -20,6 +20,7 @@ $stadt = $_POST['stadt'];
 $postleitzahl = $_POST['postleitzahl'];
 $telefonnummer = $_POST['telefonnummer'];
 $email = $_POST['email'];
+$abteilung = $_POST['abteilung'];
 
 $employee = new Employee();
 $employee->setVorname($vorname);
@@ -31,6 +32,7 @@ $employee->setStadt($stadt);
 $employee->setPostleitzahl($postleitzahl);
 $employee->setTelefonnummer($telefonnummer);
 $employee->setEmail($email);
+$employee->setAbteilung($abteilung);
 
 
 
