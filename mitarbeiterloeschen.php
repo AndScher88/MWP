@@ -10,10 +10,10 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
 }
 
 
-$empl_id = $_GET['id'];
+$emplId = $_GET['id'];
 
 $employee = new Employee();
-$employee->setEmplId($empl_id);
+$employee->setEmplId($emplId);
 $employee->queryDeleteEmployee();
 
 header('Location: mitarbeiteranzeigen.php');
