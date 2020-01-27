@@ -4,51 +4,44 @@ namespace classes\frontend;
 
 use mysqli_result;
 
-
 class Table
 {
 
     public mysqli_result $result;
     public int $emplId;
+    public $results;
+    public bool $head = false;
 
-    public function createTable($resultEmployee)
+    public function createTableHead(): void
     {
-        $table = new Table();
-        $table->setResult($resultEmployee);
-        $table->createTableHead();}
+        echo  '<thead>' . '<tr>';
+        foreach (array_keys($this->results) as $key) {
+            echo '<th>' . ucfirst($key) . '</th>';
+        }
+        echo '<th>Edit</th>' . '<th>Delete</th>' . '</tr>' . '</thead>';
+        $this->head = true;
+    }
 
-    private function createTableHead(): void
+    public function createTable()
     {
-        $head = false;
-        while ($results = mysqli_fetch_assoc($this->result)) {
-            $this->emplId = $results['id'];
-            array_shift($results);
-                if ($head === false) {
-                    echo '<table class="table table-secondary text-left">' . '<thead>' . '<tr>';
-                    foreach (array_keys($results) as $key) {
-                        echo '<th>';
-                        echo ucfirst($key);
-                        echo '</th>';
-                    }
-                    echo '<th>Edit</th>' . '<th>Delete</th>' . '</tr>' . '</thead>';
-                    $head = true;
-                }
-                echo '<tbody>' . '<tr>';
-                foreach ($results as $value) {
-                    echo '<td>' . $value . '</td>';
-                }
-                echo '<td><a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
-                    <abbr title="Edit">
-                    <img src="bilder/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">
-                    </abbr></a></td>';
-                echo '<td><a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
-                    <abbr title="Delete">
-                    <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt="">
-                    </abbr></a></td>';
-                echo '</tr>';
-                echo '</tbody>';
+        while ($this->results = mysqli_fetch_assoc($this->result)) {
+            $this->emplId = $this->results['id'];
+            array_shift($this->results);
+            if ($this->head === false) {
+                $this->createTableHead();
             }
-
+            echo '<tbody>' . '<tr>';
+            foreach ($this->results as $value) {
+                echo '<td>' . $value . '</td>';
+            }
+            echo '<td> <a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
+                    <img src="bilder/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">
+                    </td>';
+            echo '<td> <a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
+                    <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt="">
+                    </td>';
+            echo '</tr>' . '</tbody>';
+        }
     }
 
     /**

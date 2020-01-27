@@ -21,15 +21,6 @@ class Employee
     public string $email;
     public  $abteilung;
 
-    public function createEmployeeTable()
-    {
-        $employee = new Employee();
-        $employee->queryEmployees();
-        $resultEmployee = $employee->getResult();
-        $table = new Table();
-        $table->createTable($resultEmployee);
-    }
-
     public function queryEmployees()
     {
         $conn = DatabaseConnector::getAccess();
