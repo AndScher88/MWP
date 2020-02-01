@@ -1,7 +1,6 @@
 <?php
 namespace classes\employee;
 
-use classes\frontend\Table;
 use classes\database\DatabaseConnector;
 use mysqli_result;
 
@@ -19,7 +18,7 @@ class Employee
     public string $postleitzahl;
     public string $telefonnummer;
     public string $email;
-    public  $abteilung;
+    public string $abteilung;
 
     public function queryEmployees()
     {
