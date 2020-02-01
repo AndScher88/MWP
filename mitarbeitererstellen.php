@@ -58,7 +58,7 @@
                         <option value="Engineering">Engineering</option>
                         <option value="Production">Production</option>
                         <option value="IT">IT</option>
-                        <option value="Lager">IT</option>
+                        <option value="Lager">Lager</option>
                         <option value="Sales">Sales</option>
                     </select>
                     <label id="abteilunglabel" class="form-text text-muted">Abteilung</label>
