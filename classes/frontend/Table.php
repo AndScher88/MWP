@@ -7,12 +7,27 @@ use mysqli_result;
 class Table
 {
 
-    public mysqli_result $result;
-    public int $emplId;
-    public $results;
-    public bool $head = false;
+    private mysqli_result $result;
+    private int $emplId;
+    private $results;
+    private bool $head = false;
 
-    public function createTableHead(): void
+
+    public function createTable(): void
+    {
+        while ($this->results = mysqli_fetch_assoc($this->result)) {
+            $this->emplId = $this->results['id'];
+            array_shift($this->results);
+            if ($this->head === false) {
+                $this->createTableHead();
+                $this->createTableBody();
+            }else {
+                $this->createTableBody();
+            }
+        }
+    }
+
+    private function createTableHead(): void
     {
         echo  '<thead>' . '<tr>';
         foreach (array_keys($this->results) as $key) {
@@ -22,26 +37,20 @@ class Table
         $this->head = true;
     }
 
-    public function createTable()
+    private function createTableBody(): void
     {
-        while ($this->results = mysqli_fetch_assoc($this->result)) {
-            $this->emplId = $this->results['id'];
-            array_shift($this->results);
-            if ($this->head === false) {
-                $this->createTableHead();
-            }
-            echo '<tbody>' . '<tr>';
-            foreach ($this->results as $value) {
-                echo '<td>' . $value . '</td>';
-            }
-            echo '<td> <a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
-                    <img src="bilder/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">
-                    </td>';
-            echo '<td> <a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
-                    <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt="">
-                    </td>';
-            echo '</tr>' . '</tbody>';
+        echo '<tbody>' . '<tr>';
+        foreach ($this->results as $value) {
+            echo '<td>' . $value . '</td>';
         }
+        echo '<td> <a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
+              <img src="bilder/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">
+              </td>';
+        echo '<td> <a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
+              <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt="">
+              </td>';
+        echo '</tr>' . '</tbody>';
+
     }
 
     /**
