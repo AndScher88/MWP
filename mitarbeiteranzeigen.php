@@ -11,6 +11,6 @@ use classes\employee\Employee;
 <h3 class="text-center">Daten aller Mitarbeiter</h3>
 <?php
 $employee = new Employee();
-$employee->queryALLEmployees();
+$employee->queryAllEmployees();
 ?>
 </body>

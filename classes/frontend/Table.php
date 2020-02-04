@@ -6,42 +6,39 @@ use mysqli_result;
 
 class Table
 {
-
     private mysqli_result $result;
     private int $emplId;
-    private $results;
+    //public $results;
     private bool $head = false;
 
     public function createTable(): void
     {
         echo '<table class="table table-secondary text-left">';
-        while ($this->results = mysqli_fetch_assoc($this->result)) {
-            $this->emplId = $this->results['id'];
-            array_shift($this->results);
+        while ($results = mysqli_fetch_assoc($this->result)) {
+            $this->emplId = $results['id'];
+            array_shift($results);
             if ($this->head === false) {
-                $this->createTableHead();
-                $this->createTableBody();
-            }else {
-                $this->createTableBody();
+                $this->createTableHead($results);
             }
+            $this->createTableBody();
         }
         echo '</table>';
     }
 
-    private function createTableHead(): void
+    private function createTableHead($results): void
     {
         echo '<thead><tr>';
-        foreach (array_keys($this->results) as $key) {
+        foreach (array_keys($results) as $key) {
             echo '<th>' . ucfirst($key) . '</th>';
         }
         echo '<th>Edit</th><th>Delete</th></tr></thead>';
         $this->head = true;
     }
 
-    private function createTableBody(): void
+    private function createTableBody($results): void
     {
         echo '<tr>';
-        foreach ($this->results as $value) {
+        foreach ($results as $value) {
             echo '<td>' . $value . '</td>';
         }
         echo '<td> <a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
@@ -60,22 +57,5 @@ class Table
     {
         $this->result = $result;
     }
-
-    /**
-     * @return int
-     */
-    public function getEmplId(): int
-    {
-        return $this->emplId;
-    }
-
-    /**
-     * @param int $emplId
-     */
-    public function setEmplId(int $emplId): void
-    {
-        $this->emplId = $emplId;
-    }
-
 }
 

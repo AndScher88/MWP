@@ -13,7 +13,7 @@ class Employee
     public int $emplId;
     public string $vorname;
     public string $nachname;
-    public  $gebdatum;
+    public string $gebdatum;
     public string $strasse;
     public string $hausnummer;
     public string $stadt;
@@ -22,7 +22,7 @@ class Employee
     public string $email;
     public string $abteilung;
 
-    public function queryALLEmployees()
+    public function queryAllEmployees()
     {
         $conn = DatabaseConnector::getAccess();
         $sql ='SELECT * FROM mitarbeiterdaten ORDER BY nachname, vorname';
