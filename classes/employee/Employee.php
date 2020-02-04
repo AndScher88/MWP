@@ -3,6 +3,8 @@ namespace classes\employee;
 
 use classes\database\DatabaseConnector;
 use mysqli_result;
+use classes\frontend\Table;
+
 
 class Employee
 {
@@ -20,12 +22,15 @@ class Employee
     public string $email;
     public string $abteilung;
 
-    public function queryEmployees()
+    public function queryALLEmployees()
     {
         $conn = DatabaseConnector::getAccess();
         $sql ='SELECT * FROM mitarbeiterdaten ORDER BY nachname, vorname';
         $this->result = $conn->query($sql);
         $conn->close();
+        $table = new Table();
+        $table->setResult($this->result);
+        $table->createTable();
     }
 
     public function createEmployees()
@@ -58,7 +63,7 @@ class Employee
         $conn->close();
     }
 
-    public function queryUpdateEmployee()
+    public function updateEmployee()
     {
         $conn = DatabaseConnector::getAccess();
         $sql = "UPDATE mitarbeiterdaten 
@@ -78,7 +83,7 @@ class Employee
     }
 
 
-    public function queryDeleteEmployee()
+    public function deleteEmployee()
     {
         $conn = DatabaseConnector::getAccess();
         $sql = "DELETE FROM mitarbeiterdaten WHERE id = '$this->emplId'";

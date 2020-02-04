@@ -12,9 +12,9 @@ class Table
     private $results;
     private bool $head = false;
 
-
     public function createTable(): void
     {
+        echo '<table class="table table-secondary text-left">';
         while ($this->results = mysqli_fetch_assoc($this->result)) {
             $this->emplId = $this->results['id'];
             array_shift($this->results);
@@ -25,31 +25,31 @@ class Table
                 $this->createTableBody();
             }
         }
+        echo '</table>';
     }
 
     private function createTableHead(): void
     {
-        echo  '<thead>' . '<tr>';
+        echo '<thead><tr>';
         foreach (array_keys($this->results) as $key) {
             echo '<th>' . ucfirst($key) . '</th>';
         }
-        echo '<th>Edit</th>' . '<th>Delete</th>' . '</tr>' . '</thead>';
+        echo '<th>Edit</th><th>Delete</th></tr></thead>';
         $this->head = true;
     }
 
     private function createTableBody(): void
     {
-        echo '<tbody>' . '<tr>';
+        echo '<tr>';
         foreach ($this->results as $value) {
             echo '<td>' . $value . '</td>';
         }
         echo '<td> <a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
               <img src="bilder/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">
               </td>';
-        echo '<td> <a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
-              <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt="">
-              </td>';
-        echo '</tr>' . '</tbody>';
+        echo '<td><a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
+              <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
+        echo '</tr>';
 
     }
 
@@ -78,3 +78,4 @@ class Table
     }
 
 }
+

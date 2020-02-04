@@ -36,7 +36,7 @@ if (isset($_POST['id'])) {
         $employee->setTelefonnummer($telefonnummer);
         $employee->setEmail($email);
         $employee->setAbteilung($abteilung);
-        $employee->queryUpdateEmployee();
+        $employee->updateEmployee();
 
         header('Location: mitarbeiteranzeigen.php');
     }

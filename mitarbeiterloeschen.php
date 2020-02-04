@@ -14,6 +14,6 @@ $emplId = $_GET['id'];
 
 $employee = new Employee();
 $employee->setEmplId($emplId);
-$employee->queryDeleteEmployee();
+$employee->deleteEmployee();
 
 header('Location: mitarbeiteranzeigen.php');
