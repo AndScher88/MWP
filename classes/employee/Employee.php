@@ -28,9 +28,9 @@ class Employee
         $sql ='SELECT * FROM mitarbeiterdaten ORDER BY nachname, vorname';
         $this->result = $conn->query($sql);
         $conn->close();
-        $table = new Table();
-        $table->setResult($this->result);
-        $table->createTable();
+        //$table = new Table();
+        //$table->setResult($this->result);
+        //$table->createTable();
     }
 
     public function createEmployees()

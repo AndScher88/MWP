@@ -2,17 +2,26 @@
 namespace classes\frontend;
 
 
+use classes\employee\Employee;
 use mysqli_result;
 
 class Table
 {
     private mysqli_result $result;
     private int $emplId;
-    //public $results;
     private bool $head = false;
+    protected $employees;
 
-    public function createTable(): void
+
+    public function __construct()
     {
+        $this->employees = new Employee();
+    }
+    
+    public function createTable()
+    {
+        $this->employees->queryAllEmployees();
+        $this->result = $this->employees->getResult();
         echo '<table class="table table-secondary text-left">';
         while ($results = mysqli_fetch_assoc($this->result)) {
             $this->emplId = $results['id'];
@@ -20,12 +29,16 @@ class Table
             if ($this->head === false) {
                 $this->createTableHead($results);
             }
-            $this->createTableBody();
+            $this->createTableBody($results);
         }
         echo '</table>';
     }
 
-    private function createTableHead($results): void
+    /**
+     * @param array $results
+     * @return string
+     */
+    private function createTableHead(array $results)
     {
         echo '<thead><tr>';
         foreach (array_keys($results) as $key) {
@@ -35,19 +48,22 @@ class Table
         $this->head = true;
     }
 
-    private function createTableBody($results): void
+    /**
+     * @param array $results
+     * @return string
+     */
+    private function createTableBody(array $results)
     {
         echo '<tr>';
         foreach ($results as $value) {
             echo '<td>' . $value . '</td>';
         }
-        echo '<td> <a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
+        echo  '<td> <a href="mitarbeiterbearbeiten.php?id=' . $this->emplId . '">
               <img src="bilder/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">
               </td>';
         echo '<td><a href="mitarbeiterloeschen.php?id=' . $this->emplId . '">
               <img src="bilder/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
         echo '</tr>';
-
     }
 
     /**
