@@ -3,13 +3,16 @@
 namespace classes\frontend;
 
 
-class FormEmployee
+class Form
 {
-    public string $contentSubmitButton;
-
-    public function WeißIchNochNicht()
+    public string $objectName;
+	protected string $employeeDB;
+	protected string $articleDB;
+	
+	
+	public function übergabeKey()
     {
-
+    
     }
 
 
@@ -21,6 +24,4 @@ class FormEmployee
     {
         $this->contentSubmitButton = $contentSubmitButton;
     }
-
-
 }

@@ -28,7 +28,7 @@ USE `mwp-systems`;
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `account`
+-- Tabellenstruktur für Table `account`
 --
 
 DROP TABLE IF EXISTS `account`;
@@ -42,7 +42,7 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Daten für Tabelle `account`
+-- Daten für Table `account`
 --
 
 REPLACE INTO `account` (`id`, `loginname`, `pwdhash`, `firstlogin`, `blocked`, `idmitarbeiter`) VALUES
@@ -52,7 +52,7 @@ REPLACE INTO `account` (`id`, `loginname`, `pwdhash`, `firstlogin`, `blocked`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `mitarbeiterdaten`
+-- Tabellenstruktur für Table `mitarbeiterdaten`
 --
 
 DROP TABLE IF EXISTS `mitarbeiterdaten`;
@@ -70,7 +70,7 @@ CREATE TABLE `mitarbeiterdaten` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Daten für Tabelle `mitarbeiterdaten`
+-- Daten für Table `mitarbeiterdaten`
 --
 
 REPLACE INTO `mitarbeiterdaten` (`id`, `vorname`, `nachname`, `straße`, `hausnummer`, `stadt`, `postleitzahl`, `geburtsdatum`, `telefonnummer`, `email`) VALUES
@@ -82,7 +82,7 @@ REPLACE INTO `mitarbeiterdaten` (`id`, `vorname`, `nachname`, `straße`, `hausnu
 --
 
 --
--- Indizes für die Tabelle `account`
+-- Indizes für die Table `account`
 --
 ALTER TABLE `account`
   ADD PRIMARY KEY (`id`),
@@ -90,7 +90,7 @@ ALTER TABLE `account`
   ADD UNIQUE KEY `account_loginname_uindex` (`loginname`);
 
 --
--- Indizes für die Tabelle `mitarbeiterdaten`
+-- Indizes für die Table `mitarbeiterdaten`
 --
 ALTER TABLE `mitarbeiterdaten`
   ADD PRIMARY KEY (`id`),
@@ -102,13 +102,13 @@ ALTER TABLE `mitarbeiterdaten`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `account`
+-- AUTO_INCREMENT für Table `account`
 --
 ALTER TABLE `account`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT für Tabelle `mitarbeiterdaten`
+-- AUTO_INCREMENT für Table `mitarbeiterdaten`
 --
 ALTER TABLE `mitarbeiterdaten`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
