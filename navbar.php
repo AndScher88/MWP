@@ -13,7 +13,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Stammdaten</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="index.php" >Artikel</a>
+                            <a class="dropdown-item" href="artikelanzeigen.php" >Artikel anzeigen</a>
                             <a class="dropdown-item" href="index.php" >Leistungen</a>
                             <a class="dropdown-item" href="index.php" >Kunden</a>
                         </div>
@@ -28,7 +28,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Mitarbeiterverwaltung</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="mitarbeitererstellen.php" >neuer Mitarbeiter</a>
-                            <a class="dropdown-item" href="mitarbeiteranzeigen.php" >Mitarbeiter anzeigen</a>
+                            <a class="dropdown-item" href="mitarbeiteranzeigen.php?link=mitarbeiteranzeigen">Mitarbeiter anzeigen</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
