@@ -10,14 +10,12 @@ use classes\frontend\Table;
 ?>
 
 <body>
-<h3 class="text-center">Daten aller Mitarbeiter</h3>
-<?php
-$query = new Employee();
-$query->queryAllEmployees();
-$queryResult = $query->getResult();
-
-$table = new Table();
-$table->setResult($queryResult);
-$table->create();
-?>
+<h2 style="text-align: center">Daten aller Mitarbeiter</h2>
+<div>
+	<?php
+	$data = new Employee();
+	$table = new Table($data->getAll());
+	$table->render();
+	?>
+</div>
 </body>

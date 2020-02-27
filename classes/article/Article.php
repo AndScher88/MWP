@@ -3,31 +3,25 @@
 namespace classes\article;
 
 use classes\database\DatabaseConnector;
-use mysqli_result;
-use classes\frontend\Table;
 
 class Article
 {
-	public mysqli_result $result;
-	public string $artikelnummer;
-	public string $benennung;
-
-
-	public function alleArtikel()
+	public function getAll()
 	{
 		$conn = DatabaseConnector::getAccess();
-		$sql = 'SELECT * FROM artikeldaten ORDER BY id';
-		$this->result = $conn->query($sql);
-		$conn->close();
+		$sql = 'SELECT
+       	artikelstammdaten.id,
+       	artikelstammdaten.artikelnummer, 
+       	artikelstammdaten.match_code AS Matchcode, 
+       	artikelstammdaten.bezeichnung, 
+       	artikelstammdaten.spezifikation,
+        lieferanten.match_code AS Lieferant,
+       	artikelstammdaten.bestellnummer1 AS Bestellnummer,
+		artikelstammdaten.lagerort, 
+       	artikelstammdaten.bestand,
+       	artikelstammdaten.id_warengruppe AS Warengruppe
+		FROM artikelstammdaten
+		LEFT JOIN lieferanten on artikelstammdaten.id_lieferant1 = lieferanten.id';
+		return $conn->query($sql);
 	}
-
-	/**
-	 * @return mysqli_result
-	 */
-	public function getResult(): mysqli_result
-	{
-		return $this->result;
-	}
-
-
 }

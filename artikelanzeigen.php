@@ -10,15 +10,22 @@ use classes\frontend\Table;
 ?>
 
 <body>
-<h3 class="text-center">Daten aller Mitarbeiter</h3>
-<?php
-$query = new Article();
-$query->alleArtikel();
-$queryResult = $query->getResult();
+    <div>
+		<?php
+		Session_Start();
+		if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
+			Header('Location: login.php');
+			exit();
+		}
 
-$table = new Table();
-$table->setResult($queryResult);
-$table->create();
-?>
+		//require_once 'flashMeldung.php';
+
+		?>
+    </div>
+    <h2>Artikelstammdaten</h2>
+	<?php
+	$data = new Article();
+	$table = new Table($data->getAll());
+	$table->render();
+	?>
 </body>
-

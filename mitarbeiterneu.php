@@ -37,7 +37,7 @@ $employee->setAbteilung($abteilung);
 
 
 if (count($_POST) > 0) {
-    $employee->createEmployees();
+    $employee->create();
 
     header('Location: mitarbeitererstellen.php');
     exit;

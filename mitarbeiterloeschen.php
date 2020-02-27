@@ -13,7 +13,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
 $emplId = $_GET['id'];
 
 $employee = new Employee();
-$employee->setEmplId($emplId);
+$employee->setId($emplId);
 $employee->deleteEmployee();
 
 header('Location: mitarbeiteranzeigen.php');

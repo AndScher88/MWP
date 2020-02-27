@@ -1,55 +1,45 @@
-	<div class="container=100%">
-		<nav class="navbar navbar-expand-md bg-secondary navbar-dark border border-dark justify-content-center navbar-fixed-top">
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-                Navigation
-            </button>
-            <div id="navbarNav" class="navbar-collapse collapse ">
-                <ul class="navbar-nav mr-auto mx-auto">
-                <a class="navbar-brand" href="index.php">
-                    <img src="bilder/home.png" width="32" height="32" class="d-inline-block align-top" alt="">
-                </a>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Stammdaten</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="artikelanzeigen.php" >Artikel anzeigen</a>
-                            <a class="dropdown-item" href="index.php" >Leistungen</a>
-                            <a class="dropdown-item" href="index.php" >Kunden</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Zeiterfassung</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="index.php" >Arbeitszeit hinzufügen</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Mitarbeiterverwaltung</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="mitarbeitererstellen.php" >neuer Mitarbeiter</a>
-                            <a class="dropdown-item" href="mitarbeiteranzeigen.php?link=mitarbeiteranzeigen">Mitarbeiter anzeigen</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Tools</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="index.php" >URI</a>
-                        </div>
-                    </li>
-                </ul>
-                    <ul class="navbar-nav">
-                        <!--###ADMIN###-->
-                        <li class="nav-item dropdown">
-                            <a  class="nav-link dropdown-toggle " data-toggle="dropdown" href="#">
-                                <?php echo $_SESSION['realUsername'];?>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-lg-right">
-                                <a class="dropdown-item" href="accountpassword.php" >Passwort ändern</a>
-                                <a class="dropdown-item" href="logout.php" >Abmelden</a>
-                            </ul>
-                        </li>
-                    </ul>
+<nav>
+    <ul>
+        <!--<div>
+            <a class="logo" href="index.php">
+                <img src="bilder/home.png" width="40" height="40" class="d-inline-block align-top" alt="">
+            </a>
+        </div>-->
+        <div class="dropdown">
+            <button class="dropdown-btn">Mitarbeiterverwaltung</button>
+            <div class="dropdown-content">
+                <a href="mitarbeitererstellen.php">neuer Mitarbeiter</a>
+                <a href="mitarbeiteranzeigen.php?link=mitarbeiteranzeigen">Mitarbeiter anzeigen</a>
             </div>
-		</nav>
-	</div>
+        </div>
+        <div class="dropdown">
+            <button class="dropdown-btn">Artikelverwaltung</button>
+            <div class="dropdown-content">
+                <a href="artikelanzeigen.php">Artikel anzeigen</a>
+                <a href="index.php">Artikel erstellen</a>
+                <a href="index.php">Artikel suchen</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropdown-btn">Zeiterfassung</button>
+            <div class="dropdown-content">
+                <a href="index.php">Arbeitszeit hinzufügen</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropdown-btn">Tools</button>
+            <div class="dropdown-content">
+                <a href="index.php">URI</a>
+            </div>
+        </div>
+        <!--###ADMIN###-->
+        <div class="dropdown">
+            <button class="dropdown-btn">User<?//php echo $_SESSION['realUsername']; ?></button>
+            <div class="dropdown-content">
+                <a href="accountpassword.php">Passwort ändern</a>
+                <a href="logout.php">Abmelden</a>
+            </div>
+        </div>
+    </ul>
+</nav>
+

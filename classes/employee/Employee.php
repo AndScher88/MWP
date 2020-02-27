@@ -4,14 +4,11 @@ namespace classes\employee;
 
 use classes\database\DatabaseConnector;
 use mysqli_result;
-use classes\frontend\Table;
-
 
 class Employee
 {
 
 	public mysqli_result $result;
-	public int $emplId;
 	public string $vorname;
 	public string $nachname;
 	public string $gebdatum;
@@ -23,15 +20,14 @@ class Employee
 	public string $email;
 	public string $abteilung;
 
-	public function queryAllEmployees()
+	public function getAll()
 	{
 		$conn = DatabaseConnector::getAccess();
 		$sql = 'SELECT * FROM mitarbeiterdaten ORDER BY nachname, vorname';
-		$this->result = $conn->query($sql);
-		$conn->close();
+		return $conn->query($sql);
 	}
 
-	public function createEmployees()
+	public function create()
 	{
 		$conn = DatabaseConnector::getAccess();
 		$sql = "INSERT INTO mitarbeiterdaten (
@@ -49,16 +45,15 @@ class Employee
 		$conn->close();
 	}
 
-	public function queryEmployee()
+	public function getOne(int $id)
 	{
 		$conn = DatabaseConnector::getAccess();
 		$sql = "SELECT id, vorname, nachname, strasse, hausnummer, stadt, postleitzahl, geburtsdatum, telefonnummer, email, abteilung 
-                FROM mitarbeiterdaten WHERE id = '$this->emplId'";
-		$this->result = $conn->query($sql);
-		$conn->close();
+                FROM mitarbeiterdaten WHERE id = '$id'";
+		return $conn->query($sql);
 	}
 
-	public function updateEmployee()
+	public function update()
 	{
 		$conn = DatabaseConnector::getAccess();
 		$sql = "UPDATE mitarbeiterdaten 
@@ -72,7 +67,7 @@ class Employee
                     telefonnummer = '$this->telefonnummer',
                     email = '$this->email',
                     abteilung = '$this->abteilung'
-                WHERE id = '$this->emplId'";
+                WHERE id = '$this->id'";
 		$conn->query($sql);
 		$conn->close();
 	}
@@ -81,7 +76,7 @@ class Employee
 	public function deleteEmployee()
 	{
 		$conn = DatabaseConnector::getAccess();
-		$sql = "DELETE FROM mitarbeiterdaten WHERE id = '$this->emplId'";
+		$sql = "DELETE FROM mitarbeiterdaten WHERE id = '$this->id'";
 		$conn->query($sql);
 		$conn->close();
 	}
@@ -98,7 +93,7 @@ class Employee
 	/**
 	 * @param $emplId
 	 */
-	public function setEmplId($emplId): void
+	public function setId($emplId): void
 	{
 		$this->emplId = $emplId;
 	}
