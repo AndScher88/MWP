@@ -58,8 +58,6 @@ h2 {
 }
 
 header {
-    justify-content: space-between;
-    display: flex;
     background: #BDBDBD;
     padding: 2em 0;
     border-radius: 0 0 5px 5px;
@@ -89,16 +87,11 @@ ul {
     margin: 0;
     padding: 0;
     display: inline-flex;
-    /*
-    border: 1px solid magenta;
-    */
 }
 
 .dropdown {
     font-family: 'Ubuntu', sans-serif;
     padding: 0;
-    justify-content: space-between;
-
 }
 
 .dropdown-btn  {
@@ -236,14 +229,14 @@ ul {
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
 
-.form-form:after {
+.form-form {
     content: "";
     display: block;
     clear: both;
 }
 
 
-.form-label {
+.form-form label {
     font-size: 20px;
     float: left;
     width: 25%;
@@ -251,7 +244,7 @@ ul {
     /*border-bottom: 1px solid #143774;*/
 }
 
-.form-input {
+.form-form input {
     font-size: 20px;
     border: 1PX solid #cccccc;
     border-radius: 4px 4px 4px 4px;
@@ -261,7 +254,7 @@ ul {
     margin-top: 16px;
 }
 
-.form-select {
+.form-form select {
     font-size: 20px;
     color: #707070;
     border: 1PX solid #cccccc;
