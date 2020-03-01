@@ -4,7 +4,7 @@ namespace classes\login;
 
 namespace classes\database;
 //error_reporting(0);
-require 'classes\database\DatabaseConnector.php';
+require __DIR__.'/../database/DatabaseConnector.php';
 
 use RuntimeException;
 use mysqli;

@@ -27,11 +27,11 @@ final class DatabaseConnector
     /**
      * @var string
      */
-    private $dbUserPwd = '';
+    private $dbUserPwd = 'root';
     /**
      * @var string
      */
-    private $dbServerName = 'localhost';
+    private $dbServerName = 'mwp-systems_db_1';
     /**
      * @var
      */

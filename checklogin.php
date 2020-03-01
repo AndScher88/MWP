@@ -7,7 +7,7 @@ namespace classes\login;
 use classes\database\LoginChecker;
 use Exception;
 
-require 'classes\login\LoginChecker.php';
+require __DIR__.'/classes/login/LoginChecker.php';
 
 
 SESSION_START();
