@@ -69,6 +69,7 @@ final class DatabaseConnector
         if ($this->conn->connect_errno) {
             throw new RuntimeException('Verbindung mit Datenbank konnte nicht hergestellt werden');
         }
+        $this->conn->set_charset("utf8");
         return $this->conn;
     }
 

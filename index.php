@@ -1,6 +1,7 @@
 <?php include 'template.php' ?>
 
 <body>
+<?php echo phpinfo(); ?>
 <div class="container">
     <h1>MWP-Systems</h1>
     <br>
