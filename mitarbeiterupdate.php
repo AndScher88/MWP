@@ -9,7 +9,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
     exit();
 }
 
-$empl_id = $_POST['id'];
+$id = $_POST['id'];
 $vorname = $_POST['vorname'];
 $nachname = $_POST['nachname'];
 $gebdatum = $_POST['gebdatum'];
@@ -25,7 +25,7 @@ if (isset($_POST['id'])) {
     if ($_POST['id'] > 0) {
         $empl_id = $_POST['id'];
         $employee = new Employee();
-        $employee->setEmplId($empl_id);
+        $employee->setId($id);
         $employee->setVorname($vorname);
         $employee->setNachname($nachname);
         $employee->setGebdatum($gebdatum);
@@ -36,7 +36,7 @@ if (isset($_POST['id'])) {
         $employee->setTelefonnummer($telefonnummer);
         $employee->setEmail($email);
         $employee->setAbteilung($abteilung);
-        $employee->updateEmployee();
+        $employee->update();
 
         header('Location: mitarbeiteranzeigen.php');
     }

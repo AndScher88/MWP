@@ -1,25 +1,32 @@
+<?php
+Session_Start();
+if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
+	Header('Location: login.php');
+	exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="utf-8">
     <link rel="icon" href="bilder/favicon.ico">
     <title>Title</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
-
-<?php
-Session_Start();
-if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
-    Header('Location: login.php');
-    exit();
-}
-
-include 'navbar.php';
-require_once 'flashMeldung.php';
-
-?>
-
+<header>
+    <div class="container container-nav">
+        <div class="logolink">
+            <a href="index.php">
+            <h1 class="logo-h1">MWP-Systems</h1>
+            <p class="subtitle">für eine bessere Organisation</p>
+            </a>
+        </div>
+	    <?php include 'navbar.php';?>
+    </div>
+</header>
+<div class="container login-flash">
+	<?php include 'flashMeldung.php'; ?>
+</div>
 </body>

@@ -4,20 +4,18 @@ require_once __DIR__ . '/autoloader.php';
 require_once 'template.php';
 
 
-use classes\employee\Employee;
+use classes\article\Article;
 use classes\frontend\Table;
 
 ?>
 
 <body>
 <br>
-<h1 style="text-align: center">Daten aller Mitarbeiter</h1>
+    <h1 style="text-align: center">Artikelstammdaten</h1>
 <br>
-<div>
 	<?php
-	$data = new Employee();
+	$data = new Article();
 	$table = new Table($data->getAll());
 	$table->render();
 	?>
-</div>
 </body>

@@ -1,9 +1,12 @@
 <?php include 'template.php' ?>
 
-<body class="text-center">
-<div>
-    <h1>Header 1</h1>
+<body>
+<div class="container">
+    <h1>MWP-Systems</h1>
     <br>
-    <h2>Header 2</h2>
+    <p>
+        Hier steht irgendwas zum Unternehmen....
+        Und vielleicht noch irgendwas anderes :D!!
+    </p>
 </div>
 </body>
