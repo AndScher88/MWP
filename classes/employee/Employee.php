@@ -73,11 +73,17 @@ class Employee
 	}
 
 
-	public function deleteEmployee()
+	public function deleteEmployee($id)
 	{
 		$conn = DatabaseConnector::getAccess();
-		$sql = "DELETE FROM mitarbeiterdaten WHERE id = '$this->id'";
-		$conn->query($sql);
+		$sql = "DELETE FROM mitarbeiterdaten WHERE id = '$id'";
+		if ($conn->query($sql) === TRUE) {
+			$_SESSION['meldung'] = 'Mitarbeiter wurde erfolgreich hinzugefügt!';
+			$_SESSION['alert'] = 'alert-success';
+		} else {
+			$_SESSION['meldung'] = 'Einfügen hat nicht geklappt';
+			$_SESSION['alert'] = 'alert-danger';
+		}
 		$conn->close();
 	}
 

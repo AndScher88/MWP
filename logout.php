@@ -21,7 +21,7 @@ if (!isset($_SESSION['login']) && $_SESSION['login'] == 0) {
 <header>
     <div class="container container-nav">
         <div class="logolink">
-                <h1>MWP-Systems</h1>
+                <h1 class="logo-h1">MWP-Systems</h1>
                 <p class="subtitle">für eine bessere Organisation</p>
         </div>
     </div>

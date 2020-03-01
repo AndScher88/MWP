@@ -10,7 +10,9 @@ use classes\frontend\Table;
 ?>
 
 <body>
-<h2 style="text-align: center">Daten aller Mitarbeiter</h2>
+<br>
+<h1 style="text-align: center">Daten aller Mitarbeiter</h1>
+<br>
 <div>
 	<?php
 	$data = new Employee();

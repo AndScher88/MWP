@@ -1,3 +1,11 @@
+<?php
+Session_Start();
+if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
+	Header('Location: login.php');
+	exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -11,11 +19,14 @@
     <div class="container container-nav">
         <div class="logolink">
             <a href="index.php">
-            <h1>MWP-Systems</h1>
+            <h1 class="logo-h1">MWP-Systems</h1>
             <p class="subtitle">für eine bessere Organisation</p>
             </a>
         </div>
-		<?php include 'navbar.php'; ?>
+	    <?php include 'navbar.php';?>
     </div>
 </header>
+<div class="container login-flash">
+	<?php include 'flashMeldung.php'; ?>
+</div>
 </body>

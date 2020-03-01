@@ -275,3 +275,10 @@ ul {
     font-weight: 500;
     border-radius: 4px 4px 4px 4px;
 }
+
+.login-flash {
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: limegreen;
+}

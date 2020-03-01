@@ -1,9 +1,11 @@
 <?php require_once 'template.php';
 ?>
 <title>Mitarbeiter erstellen</title>
-<body class="text-center">
+<body>
 <div class="container">
-    <h2>Mitarbeiter erstellen</h2>
+    <br>
+    <h1>Mitarbeiter erstellen</h1>
+    <br>
     <form class="container-form" action="mitarbeiterneu.php" method="post">
 
         <div>
