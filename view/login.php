@@ -10,9 +10,9 @@ if (!isset($_SESSION['meldung'], $_SESSION['alert'])) {
 <html lang="de">
 <head>
     <meta charset=utf-8">
-    <link rel="icon" href="bilder/favicon.ico">
+    <link rel="icon" href="../img/favicon.ico">
     <title>MWP-System Login</title>
-    <link rel="stylesheet"  href="css/stylesheet.css">
+    <link rel="stylesheet"  href="../css/stylesheet.css">
 </head>
 <body>
 <?php
@@ -34,7 +34,7 @@ $_SESSION['meldung'] = '';
     <br>
 <h1>Login</h1>
     <br>
-    <form class="container-form" autocomplete="off" action="checklogin.php" method="post">
+    <form class="container-form" autocomplete="off" action="../controller/checklogin.php" method="post">
         <div class="form-form">
             <label id="benutzerlabel" for="benutzer">Benutzer: </label>
             <input id="benutzer" name="ausgewählter_benutzer" required>

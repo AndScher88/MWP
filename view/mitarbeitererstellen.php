@@ -6,7 +6,7 @@
     <br>
     <h1>Mitarbeiter erstellen</h1>
     <br>
-    <form class="container-form" action="mitarbeiterneu.php" method="post">
+    <form class="container-form" action="../controller/mitarbeiterneu.php" method="post">
 
         <div>
             <label class="label-headline">Bitte hier die Daten des neuen Mitarbeiters eingeben: </label>

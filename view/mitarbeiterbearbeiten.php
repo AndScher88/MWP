@@ -19,7 +19,7 @@ $value = mysqli_fetch_assoc($resultEmployee);
 <body class="text-center">
 <div>
     <h3 style="text-align: center">Mitarbeiter bearbeiten</h3>
-    <form action="mitarbeiterupdate.php" method="post">
+    <form action="../controller/mitarbeiterupdate.php" method="post">
         <div>
             <label class="text-muted">Bitte hier die neuen Daten des Mitarbeiters eingeben: </label>
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($id) ?>">

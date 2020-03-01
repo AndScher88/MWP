@@ -14,9 +14,9 @@ if (!isset($_SESSION['login']) && $_SESSION['login'] == 0) {
 <head>
     <meta charset=utf-8">
     <meta http-equiv="refresh" content="2" ; URL="login.php">
-    <link rel="icon" href="bilder/favicon.ico">
+    <link rel="icon" href="../img/favicon.ico">
     <title>MWP-System - Logout</title>
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../css/stylesheet.css">
 </head>
 <header>
     <div class="container container-nav">
