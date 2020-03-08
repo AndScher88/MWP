@@ -1,7 +1,7 @@
 <?php
 Session_Start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
-	Header('Location: login.php');
+	Header('Location: view/login.php');
 	exit();
 }
 ?>
@@ -10,15 +10,15 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] === 0) {
 <html lang="de">
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="../img/favicon.ico">
-    <title>Title</title>
-    <link rel="stylesheet" href="../css/stylesheet.css">
+    <link rel="icon" href="img/favicon.ico">
+    <title>MWP-Systems</title>
+    <link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
 <header>
     <div class="container container-nav">
         <div class="logolink">
-            <a href="../index.php">
+            <a href="index.php">
             <h1 class="logo-h1">MWP-Systems</h1>
             <p class="subtitle">für eine bessere Organisation</p>
             </a>

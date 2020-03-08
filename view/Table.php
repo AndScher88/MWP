@@ -1,6 +1,6 @@
 <?php
 
-namespace classes\frontend;
+namespace view;
 
 use mysqli_result;
 

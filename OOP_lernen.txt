@@ -1,0 +1,36 @@
+Objektorientierte Programmierung
+
+Prinzip 1: Prinzip einer einzigen Veranwortung
+	Modlue: -Ein Modul ist ein eigenständiger Teil einer Anwendung.
+			-ein Modul hat in einer Anwendung eine ganz bestimmte Aufgabe.
+
+	Verantwortung:	Ein Modul hat in einer Anwendung eine Aufgaben, für die das Modul die
+					Verantwortung trägt und die es erfüllen muss.
+
+	Jedes Modul soll genau eine Verantwortung übernehmen und jede Verantwortung soll genau einem Modul zugeordent werden.
+	Es gibt nur einen einzigen Grund einen warum ein Modul angepasst werden muss, undzwar, wenn die Anforderungen,
+	für die es die Verantortung trägt, sich geändert haben.
+
+	Kohäsion: 	Das bedeutet, dass ein Modul zusammenhängend sein soll (kohäsiv).
+				Im Umkehrschluss heißt das, haben Teile eines Moduls keinen Bezug zu anderen Teilen, können diese Teile
+				als eigenständige Module implementiert werden. Eine Zerlegung in Teilmodule bietet sich damit an.
+
+	Kopplung minimieren:	Kopplung kann minimiert werden, indem man die Verantrwortung für die Koordination einem
+							weiteren/neuen Modul zuweist.
+
+
+Prinzip 2: Trennung der Anliegen
+	Ein in der Anwedung identifizierbares Anliegen soll durch ein Modul repräsentiert werden. Ein Anliegen soll nicht
+	über mehrere Module verstreut sein.
+
+Prinzip 3: Wiederholungen vermeiden
+	Wenn Funktionalität doppelt vorkommt, kann diese in ein Modul ausgelagert werden und an den benötigten stellen
+	aufgerufen werden.
+
+Prinzip 4:	offen für Erweiterungen, geschlossen für Änderung
+
+Prinzip 5:	Trennung der Schnittstelle von der Implementierung
+
+Prinzip 6:	Umkehr der Abhängigkeiten
+
+Prinzip 7:	Mach es testbar

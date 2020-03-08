@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__ . '/autoloader.php';
+require_once __DIR__ . '\autoloader.php';
 require_once 'template.php';
 
 
-use classes\employee\Employee;
-use classes\frontend\Table;
+use model\Employee;
+use view\Table;
 
 ?>
 

@@ -1,4 +1,5 @@
-<?php require_once 'template.php';
+<?php
+require 'template.php';
 ?>
 <title>Mitarbeiter erstellen</title>
 <body>

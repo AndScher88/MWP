@@ -1,6 +1,6 @@
 <?php
 
-namespace classes\database;
+namespace model;
 
 use mysqli;
 use RuntimeException;

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace classes\login;
+namespace controller;
 
 
-use classes\database\LoginChecker;
+use model\LoginChecker;
 use Exception;
 
-require 'classes\login\LoginChecker.php';
+require '../model/LoginChecker.php';
 
 
 SESSION_START();
@@ -23,7 +23,7 @@ try {
 } catch (Exception $exception) {
     $_SESSION['meldung'] = $exception->getMessage();
     $_SESSION['alert'] = 'alert-danger';
-    header('Location: login.php');
+    header('Location: ../../view/login.php');
     exit();
 }
 if ($ret !== '') {
@@ -31,6 +31,6 @@ if ($ret !== '') {
     $_SESSION['realUsername'] = $ret;
     $_SESSION['meldung'] = 'Willkommen '.$ret;
     $_SESSION['alert'] = 'alert-success';
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit();
 }

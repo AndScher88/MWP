@@ -1,8 +1,8 @@
 <?php
 
-namespace classes\employee;
+namespace model;
 
-use classes\database\DatabaseConnector;
+use model\DatabaseConnector;
 use mysqli_result;
 
 class Employee

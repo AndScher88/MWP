@@ -1,4 +1,4 @@
-<?php include 'template.php' ?>
+<?php include 'view/template.php' ?>
 
 <body>
 <div class="container">

@@ -1,10 +1,9 @@
 <?php
 
-namespace classes\login;
+namespace model;
 
-namespace classes\database;
 //error_reporting(0);
-require 'classes\database\DatabaseConnector.php';
+require '../model\DatabaseConnector.php';
 
 use RuntimeException;
 use mysqli;

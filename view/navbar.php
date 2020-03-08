@@ -8,16 +8,16 @@
         <div class="dropdown">
             <button class="dropdown-btn">Mitarbeiterverwaltung</button>
             <div class="dropdown-content">
-                <a href="mitarbeitererstellen.php">neuer Mitarbeiter</a>
-                <a href="mitarbeiteranzeigen.php?link=mitarbeiteranzeigen">Mitarbeiter anzeigen</a>
+                <a href="view/mitarbeitererstellen.php">neuer Mitarbeiter</a>
+                <a href="view/mitarbeiteranzeigen.php?link=mitarbeiteranzeigen">Mitarbeiter anzeigen</a>
             </div>
         </div>
         <div class="dropdown">
             <button class="dropdown-btn">Artikelverwaltung</button>
             <div class="dropdown-content">
-                <a href="artikelanzeigen.php">Artikel anzeigen</a>
-                <a href="../index.php">Artikel erstellen</a>
-                <a href="../index.php">Artikel suchen</a>
+                <a href="view/artikelanzeigen.php">Artikel anzeigen</a>
+                <a href="index.php">Artikel erstellen</a>
+                <a href="index.php">Artikel suchen</a>
             </div>
         </div>
         <div class="dropdown">
@@ -37,7 +37,7 @@
             <button class="dropdown-btn">User<?//php echo $_SESSION['realUsername']; ?></button>
             <div class="dropdown-content">
                 <a href="accountpassword.php">Passwort ändern</a>
-                <a href="logout.php">Abmelden</a>
+                <a href="view/logout.php">Abmelden</a>
             </div>
         </div>
     </ul>
