@@ -1,10 +1,5 @@
 <?php
 
-namespace model;
-
-use mysqli;
-use RuntimeException;
-
 /**
  * Class DatabaseConnector
  * @package classes\database
@@ -69,7 +64,8 @@ final class DatabaseConnector
         if ($this->conn->connect_errno) {
             throw new RuntimeException('Verbindung mit Datenbank konnte nicht hergestellt werden');
         }
-        return $this->conn;
+
+	    return $this->conn;
     }
 
     /**

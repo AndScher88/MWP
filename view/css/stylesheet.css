@@ -2,6 +2,7 @@ body {
     margin: 0;
     font-family: 'Ubuntu', sans-serif;
     background-color: #f1f1f1;
+    color: #143774;
 }
 
 /* ========================
@@ -11,22 +12,21 @@ body {
     font-family: 'Lora', serif;
     font-weight: 400;
     color: #143774;
-    font-size: 2rem;
+    font-size: 36px;
     margin: 0 auto;
 }
 h1 {
-    font-family: 'Ubuntu', sans-serif;
     font-weight: 400;
-    color: #143774;
-    font-size: 2rem;
     margin: 0 auto;
 }
 h2 {
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: 400;
-    color: #143774;
-    font-size: 2rem;
     margin: 10px;
+}
+
+p{
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
 }
 
 .subtitle {
@@ -41,7 +41,7 @@ h2 {
  ==========================*/
 
 .container {
-    width: 90%;
+    width: 100%;
     max-width: 1800px;
     margin: 0 auto;
 }
@@ -90,7 +90,6 @@ ul {
 }
 
 .dropdown {
-    font-family: 'Ubuntu', sans-serif;
     padding: 0;
 }
 
@@ -211,7 +210,6 @@ ul {
 
 .label-headline {
     text-align: center;
-    font-family: 'Ubuntu', sans-serif;
     font-weight: 400;
     color: #143774;
     font-size: 18px;
@@ -281,4 +279,34 @@ ul {
     font-size: 24px;
     font-family: 'Ubuntu', sans-serif;
     background-color: limegreen;
+}
+
+/* ========================
+ Form search
+ ==========================*/
+
+.search {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 10px 24px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.search-input{
+    font-size: 18px;
+    margin-right: 10px;
+    border: 2px solid #143774;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.search-btn{
+    background-color: #f1f1f1;
+    border: 2px solid #143774;
+    color: #143774;
+    padding: 0 24px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 4px 4px 4px 4px;
 }
