@@ -1,10 +1,5 @@
 <?php
 
-namespace classes\database;
-
-use mysqli;
-use RuntimeException;
-
 /**
  * Class DatabaseConnector
  * @package classes\database
@@ -27,11 +22,11 @@ final class DatabaseConnector
     /**
      * @var string
      */
-    private $dbUserPwd = 'root';
+    private $dbUserPwd = '';
     /**
      * @var string
      */
-    private $dbServerName = 'mwp-systems_db_1';
+    private $dbServerName = 'localhost';
     /**
      * @var
      */
@@ -69,7 +64,7 @@ final class DatabaseConnector
         if ($this->conn->connect_errno) {
             throw new RuntimeException('Verbindung mit Datenbank konnte nicht hergestellt werden');
         }
-        $this->conn->set_charset("utf8");
+        $this->conn->set_charset('utf8');
         return $this->conn;
     }
 
