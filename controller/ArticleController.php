@@ -7,6 +7,24 @@ require_once 'model/Form.php';
 
 class ArticleController
 {
+	/** @var array */
+	private const CONFIG_EDIT = [
+		'title' => 'Artikel bearbeiten',
+		'headline' => 'Bitte hier die neuen Daten des Artikels eingeben:',
+		'action' => '/article/update',
+		'type' => '',
+		'selectOption' => ['warengruppe']
+	];
+
+	/** @var array */
+	private const CONFIG_NEW = [
+		'title' => 'Artikel anlegen',
+		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
+		'action' => '/article/newArticle',
+		'type' => 'new',
+		'selectOption' => ['warengruppe']
+	];
+
 	public function __construct()
 	{
 	}
@@ -23,7 +41,7 @@ class ArticleController
 	public function search($methodParam)
 	{
 		include 'view/article/showArticle.php';
-		echo '<p class="container">Hier sind die Ergebnisse zu: '  . $methodParam.  ' !</p>';
+		echo '<p class="container">Hier sind die Ergebnisse zu: ' . $methodParam . ' !</p>';
 		echo '<br>';
 
 		$data = new Article();
@@ -36,11 +54,19 @@ class ArticleController
 	{
 		#Abfrage der entsprechenden Tabelle nach den Spaltennamen
 		#Form bauen
-		include 'view/article/newArticle.php';
-		$test = $_POST;
+		require_once 'view/templates/template.php';
+		require_once 'view/templates/navbar.php';
+
+		$article = new Article;
+		$columns = $article->getColumns();
+		$flippedColumns = array_flip($columns);
+		$optionData = $this->getProductgroupOptionData($article);
+		$flippedColumns['warengruppe'] = $optionData;
+		$form = new Form($flippedColumns, self::CONFIG_NEW);
+		$form->render();
+		$masterData = $_POST;
 		$data = new Article();
-		$data->createArticle($test);
-		#Artikeldaten in der Tabelle speichern
+		$data->createArticle($masterData);
 	}
 
 	public function delete()
@@ -57,8 +83,11 @@ class ArticleController
 		$id = $_GET['id'];
 		$article = new Article();
 		$data = $article->getOne($id);
-		$groupData = $article->getProductgroup();
-		$form = new Form($data, $groupData, $parameter = 'Artikel bearbeiten');
+		$selectKey = $data['warengruppe'];
+		$optionData = $this->getProductgroupOptionData($article);
+		$data['warengruppe'] = $optionData;
+		$data['warengruppe']['selectKey'] = (int)$selectKey;
+		$form = new Form($data, self::CONFIG_EDIT);
 		require_once 'view/templates/template.php';
 		require_once 'view/templates/navbar.php';
 		$form->render();
@@ -71,6 +100,22 @@ class ArticleController
 		$article->update($data);
 		echo 'Update war erfolgreich';
 		header('Location: /article/showAll');
+	}
+
+	/**
+	 * @param Article $article
+	 * @return array
+	 */
+	public function getProductgroupOptionData(Article $article): array
+	{
+		$optionDataArray = $article->getProductgroup();
+		foreach ($optionDataArray as $value) {
+			$masterData = array_values($value);
+			$key = $masterData[0];
+			$val = $masterData[1];
+			$optionData[$key] = $val;
+		}
+		return $optionData;
 	}
 
 }
