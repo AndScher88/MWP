@@ -56,5 +56,9 @@ class ProductgroupController
 	public function show()
 	{
 		#Hier sollen die Warengruppen angezeigt werden
+		$productgroup = new Productgroup();
+		$test = $productgroup->getAll();
+		var_dump($test);
+		die();
 	}
 }

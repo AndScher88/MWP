@@ -15,9 +15,15 @@ class Productgroup
 	{
 	}
 
-	public function show()
+	public function getAll()
 	{
-
+		$conn = DatabaseConnector::getAccess();
+		$sql = 'SELECT warengruppe FROM productgroup';
+		$this->result = $conn->query($sql);
+		if ($this->result->num_rows <= 0) {
+			return [];
+		}
+		return $this->result->fetch_all(MYSQLI_ASSOC);
 	}
 
 	public function new(array $data)
