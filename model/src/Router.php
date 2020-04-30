@@ -34,6 +34,7 @@ class Router
 
 		switch ($controllerName) {
 			case 'ArticleController':
+			case 'ProductgroupController':
 				$controller = new $controllerName;
 				$controller->$controllerMethod($methodParam);
 				break;
