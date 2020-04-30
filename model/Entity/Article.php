@@ -28,7 +28,7 @@ class Article
 				artikelstammdaten.erwSpezifikation,
 				artikelstammdaten.hersteller,
 				artikelstammdaten.bestand,
-				productgroup.groupName as Warengruppe
+				productgroup.warengruppe as Warengruppe
 				FROM artikelstammdaten
 				LEFT JOIN productgroup on artikelstammdaten.warengruppe = productgroup.id
 				WHERE artikelstammdaten.id = $id';
