@@ -2,6 +2,7 @@
 
 require_once 'model/Entity/Productgroup.php';
 require_once 'model/Form.php';
+require_once 'model/Table.php';
 
 class ProductgroupController
 {
@@ -56,5 +57,10 @@ class ProductgroupController
 	public function show()
 	{
 		#Hier sollen die Warengruppen angezeigt werden
+		$productgroup = new Productgroup();
+		$result = $productgroup->getAll();
+		require_once 'view/productgroup/show.php';
+		$table = new Table($result);
+		$table->render();
 	}
 }
