@@ -18,7 +18,7 @@ class Productgroup
 	public function getAll()
 	{
 		$conn = DatabaseConnector::getAccess();
-		$sql = 'SELECT warengruppe FROM productgroup';
+		$sql = 'SELECT * FROM productgroup';
 		$this->result = $conn->query($sql);
 		if ($this->result->num_rows <= 0) {
 			return [];
