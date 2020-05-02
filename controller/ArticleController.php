@@ -25,16 +25,24 @@ class ArticleController
 		'selectOption' => ['warengruppe']
 	];
 
+	private const CONFIG_TABLE = [
+		'title' => 'Artikel übersicht',
+		'actionSearch' => '/article/search/',
+		'editLink' => '/article/edit/',
+		'deleteLink' => '/article/delete/'
+	];
+
 	public function __construct()
 	{
 	}
 
 	public function showAll()
 	{
-		require_once 'view/article/showArticle.php';
+		require_once 'view/templates/template.php';
+		require_once 'view/templates/navbar.php';
 		$data = new Article();
 		$result = $data->getAll();
-		$table = new Table($result);
+		$table = new Table($result, self::CONFIG_TABLE);
 		$table->render();
 	}
 
