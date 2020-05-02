@@ -90,4 +90,14 @@ class ProductgroupController
 		$table = new Table($result,self::CONFIG_TABLE);
 		$table->render();
 	}
+
+	public function search($methodParam)
+	{
+		require_once 'view/templates/template.php';
+		require_once 'view/templates/navbar.php';
+		$data = new Productgroup();
+		$result = $data->getSearchValue($methodParam);
+		$table = new Table($result,self::CONFIG_TABLE, $methodParam);
+		$table->render();
+	}
 }

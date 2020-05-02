@@ -86,4 +86,18 @@ class Productgroup
 		$conn->query($sql);
 		$conn->close();
 	}
+
+	public function getSearchValue(string $methodParam)
+	{
+		$conn = DatabaseConnector::getAccess();
+		$sql = "SELECT id, warengruppe
+		FROM productgroup
+		WHERE warengruppe LIKE '%$methodParam%'";
+		$this->result = $conn->query($sql);
+		if ($this->result->num_rows <= 0){
+			return [];
+		}
+
+		return $this->result->fetch_all(MYSQLI_ASSOC);
+	}
 }
