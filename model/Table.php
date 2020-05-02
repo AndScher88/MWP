@@ -6,17 +6,34 @@ class Table implements foo
 {
 	protected array $data;
 	private bool $head = false;
-	public string $editLink = '/article/edit/';
-	public string $deleteLink = '/article/delete/';
+	private array $config;
 
-	public function __construct(array $alldata)
+	public function __construct(array $alldata, array $config)
 	{
 		$this->data = $alldata;
+		$this->config = $config;
 	}
 
+	public function head()
+	{
+		echo '<br>';
+		echo '<h1 style="text-align: center">' . $this->config['title'] . '</h1>';
+		echo '<br>';
+	}
+
+	public function searchField()
+	{
+		echo '<form method="get" action="'. $this->config['actionSearch'] .'" class="search">';
+		echo '<label for="suchen"></label>';
+		echo '<input class="search-input" id="suchen" type="search" name="value" autofocus="autofocus"/>';
+		echo '<input class="search-btn" type="submit" value="Suchen">';
+		echo '</form>';
+	}
 
 	public function render()
 	{
+		$this->head();
+		$this->searchField();
 		if (empty($this->data)) {
 			echo 'Keine Daten!';
 			exit;
@@ -51,10 +68,10 @@ class Table implements foo
 	public function createTableBody($data)
 	{
 		echo '<tr>';
-		echo '<td width="50px"> <a href="' . $this->editLink . '?id=' . $data['id'] . '">';
+		echo '<td width="50px"> <a href="' . $this->config['editLink'] . '?id=' . $data['id'] . '">';
 		echo '<img src="/view/img/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">';
 		echo '</td>';
-		echo '<td width="50px"><a href="' . $this->deleteLink . '?id=' . $data['id'] . '">';
+		echo '<td width="50px"><a href="' . $this->config['deleteLink'] . '?id=' . $data['id'] . '">';
 		echo '<img src="/view/img/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {

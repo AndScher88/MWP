@@ -24,6 +24,13 @@ class ProductgroupController
 		'selectOption' => []
 	];
 
+	private const CONFIG_TABLE = [
+		'title' => 'Warengruppe übersicht',
+		'actionSearch' => '/productgroup/search/',
+		'editLink' => '/productgroup/edit/',
+		'deleteLink' => '/productgroup/delete/'
+	];
+
 	public function __construct()
 	{
 	}
@@ -59,8 +66,9 @@ class ProductgroupController
 		#Hier sollen die Warengruppen angezeigt werden
 		$productgroup = new Productgroup();
 		$result = $productgroup->getAll();
-		require_once 'view/productgroup/show.php';
-		$table = new Table($result);
+		require_once 'view/templates/template.php';
+		require_once 'view/templates/navbar.php';
+		$table = new Table($result, self::CONFIG_TABLE);
 		$table->render();
 	}
 }
