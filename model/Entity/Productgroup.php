@@ -26,6 +26,18 @@ class Productgroup
 		return $this->result->fetch_all(MYSQLI_ASSOC);
 	}
 
+	public function getOne($id)
+	{
+		$conn = DatabaseConnector::getAccess();
+		$sql = "SELECT * FROM productgroup WHERE id = '$id'";
+		$this->result = $conn->query($sql);
+		if ($this->result->num_rows <= 0){
+			return [];
+		}
+		$data = $this->result->fetch_all(MYSQLI_ASSOC);
+		return $data[0];
+	}
+
 	public function new(array $data)
 	{
 		if (!empty($data)) {
@@ -37,14 +49,12 @@ class Productgroup
 		}
 	}
 
-	public function edit()
+	public function delete($id)
 	{
-
-	}
-
-	public function delete()
-	{
-
+		$conn = DatabaseConnector::getAccess();
+		$sql = "DELETE FROM productgroup WHERE id = '$id'";
+		$conn->query($sql);
+		$conn->close();
 	}
 
 	public function getColumns()
