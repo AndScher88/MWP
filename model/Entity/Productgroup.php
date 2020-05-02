@@ -20,6 +20,7 @@ class Productgroup
 		$conn = DatabaseConnector::getAccess();
 		$sql = 'SELECT * FROM productgroup';
 		$this->result = $conn->query($sql);
+		$conn->close();
 		if ($this->result->num_rows <= 0) {
 			return [];
 		}
@@ -31,6 +32,7 @@ class Productgroup
 		$conn = DatabaseConnector::getAccess();
 		$sql = "SELECT * FROM productgroup WHERE id = '$id'";
 		$this->result = $conn->query($sql);
+		$conn->close();
 		if ($this->result->num_rows <= 0){
 			return [];
 		}
@@ -62,6 +64,7 @@ class Productgroup
 		$conn = DatabaseConnector::getAccess();
 		$sql = 'SHOW COLUMNS FROM productgroup';
 		$this->result = $conn->query($sql);
+		$conn->close();
 
 		if ($this->result->num_rows <= 0){
 			echo 'Es stehen keine Daten zur Verfügung!';
@@ -72,5 +75,15 @@ class Productgroup
 			$this->columns [] = $value['Field'];
 		}
 		return $this->columns;
+	}
+
+	public function update($data)
+	{
+		$id = $data['id'];
+		$warengruppe = $data['warengruppe'];
+		$conn = DatabaseConnector::getAccess();
+		$sql = "UPDATE productgroup SET warengruppe = '$warengruppe' WHERE id = '$id'";
+		$conn->query($sql);
+		$conn->close();
 	}
 }

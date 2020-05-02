@@ -10,7 +10,7 @@ class ProductgroupController
 	private const CONFIG_EDIT = [
 		'title' => 'Warengruppe bearbeiten',
 		'headline' => 'Bitte irgendwas ändern:',
-		'action' => '/productgoup/update',
+		'action' => '/Productgroup/update',
 		'type' => '',
 		'selectOption' => []
 	];
@@ -61,6 +61,14 @@ class ProductgroupController
 		require_once 'view/templates/template.php';
 		require_once 'view/templates/navbar.php';
 		$form->render();
+	}
+
+	public function update()
+	{
+		$data = $_POST;
+		$productgroup = new Productgroup();
+		$productgroup->update($data);
+		header('Location: /productgroup/show');
 	}
 
 	public function delete()
