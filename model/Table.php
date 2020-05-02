@@ -7,11 +7,13 @@ class Table implements foo
 	protected array $data;
 	private bool $head = false;
 	private array $config;
+	private $methodParam;
 
-	public function __construct(array $alldata, array $config)
+	public function __construct(array $alldata, array $config, $methodParam = null)
 	{
 		$this->data = $alldata;
 		$this->config = $config;
+		$this->methodParam = $methodParam;
 	}
 
 	public function head()
@@ -24,6 +26,10 @@ class Table implements foo
 	public function searchField()
 	{
 		echo '<form method="get" action="'. $this->config['actionSearch'] .'" class="search">';
+		if ($this->methodParam !== null) {
+			echo '<p class="container">Hier sind die Ergebnisse zu: ' . $this->methodParam . ' !</p>';
+			echo '<br>';
+		}
 		echo '<label for="suchen"></label>';
 		echo '<input class="search-input" id="suchen" type="search" name="value" autofocus="autofocus"/>';
 		echo '<input class="search-btn" type="submit" value="Suchen">';

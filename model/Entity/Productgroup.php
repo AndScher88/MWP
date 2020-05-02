@@ -20,10 +20,24 @@ class Productgroup
 		$conn = DatabaseConnector::getAccess();
 		$sql = 'SELECT * FROM productgroup';
 		$this->result = $conn->query($sql);
+		$conn->close();
 		if ($this->result->num_rows <= 0) {
 			return [];
 		}
 		return $this->result->fetch_all(MYSQLI_ASSOC);
+	}
+
+	public function getOne($id)
+	{
+		$conn = DatabaseConnector::getAccess();
+		$sql = "SELECT * FROM productgroup WHERE id = '$id'";
+		$this->result = $conn->query($sql);
+		$conn->close();
+		if ($this->result->num_rows <= 0){
+			return [];
+		}
+		$data = $this->result->fetch_all(MYSQLI_ASSOC);
+		return $data[0];
 	}
 
 	public function new(array $data)
@@ -37,14 +51,12 @@ class Productgroup
 		}
 	}
 
-	public function edit()
+	public function delete($id)
 	{
-
-	}
-
-	public function delete()
-	{
-
+		$conn = DatabaseConnector::getAccess();
+		$sql = "DELETE FROM productgroup WHERE id = '$id'";
+		$conn->query($sql);
+		$conn->close();
 	}
 
 	public function getColumns()
@@ -52,6 +64,7 @@ class Productgroup
 		$conn = DatabaseConnector::getAccess();
 		$sql = 'SHOW COLUMNS FROM productgroup';
 		$this->result = $conn->query($sql);
+		$conn->close();
 
 		if ($this->result->num_rows <= 0){
 			echo 'Es stehen keine Daten zur Verfügung!';
@@ -62,5 +75,29 @@ class Productgroup
 			$this->columns [] = $value['Field'];
 		}
 		return $this->columns;
+	}
+
+	public function update($data)
+	{
+		$id = $data['id'];
+		$warengruppe = $data['warengruppe'];
+		$conn = DatabaseConnector::getAccess();
+		$sql = "UPDATE productgroup SET warengruppe = '$warengruppe' WHERE id = '$id'";
+		$conn->query($sql);
+		$conn->close();
+	}
+
+	public function getSearchValue(string $methodParam)
+	{
+		$conn = DatabaseConnector::getAccess();
+		$sql = "SELECT id, warengruppe
+		FROM productgroup
+		WHERE warengruppe LIKE '%$methodParam%'";
+		$this->result = $conn->query($sql);
+		if ($this->result->num_rows <= 0){
+			return [];
+		}
+
+		return $this->result->fetch_all(MYSQLI_ASSOC);
 	}
 }

@@ -42,19 +42,17 @@ class ArticleController
 		require_once 'view/templates/navbar.php';
 		$data = new Article();
 		$result = $data->getAll();
-		$table = new Table($result, self::CONFIG_TABLE);
+		$table = new Table($result,self::CONFIG_TABLE);
 		$table->render();
 	}
 
 	public function search($methodParam)
 	{
-		include 'view/article/showArticle.php';
-		echo '<p class="container">Hier sind die Ergebnisse zu: ' . $methodParam . ' !</p>';
-		echo '<br>';
-
+		require_once 'view/templates/template.php';
+		require_once 'view/templates/navbar.php';
 		$data = new Article();
 		$result = $data->getSearchValue($methodParam);
-		$table = new Table($result);
+		$table = new Table($result,self::CONFIG_TABLE, $methodParam);
 		$table->render();
 	}
 
