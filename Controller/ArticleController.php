@@ -1,9 +1,11 @@
 <?php
 
-require_once 'model/Entity/Article.php';
-require_once 'model/Table.php';
-require_once 'model/Form.php';
+namespace MWP\Controller;
 
+
+use MWP\Model\Form;
+use MWP\Model\Table;
+use MWP\Model\Entity\Article;
 
 class ArticleController
 {
@@ -11,7 +13,7 @@ class ArticleController
 	private const CONFIG_EDIT = [
 		'title' => 'Artikel bearbeiten',
 		'headline' => 'Bitte hier die neuen Daten des Artikels eingeben:',
-		'action' => '/article/update',
+		'action' => '/Article/update',
 		'type' => '',
 		'selectOption' => ['warengruppe']
 	];
@@ -20,16 +22,16 @@ class ArticleController
 	private const CONFIG_NEW = [
 		'title' => 'Artikel anlegen',
 		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
-		'action' => '/article/new',
+		'action' => '/Article/new',
 		'type' => 'new',
 		'selectOption' => ['warengruppe']
 	];
 
 	private const CONFIG_TABLE = [
 		'title' => 'Artikel übersicht',
-		'actionSearch' => '/article/search/',
-		'editLink' => '/article/edit/',
-		'deleteLink' => '/article/delete/'
+		'actionSearch' => '/Article/search/',
+		'editLink' => '/Article/edit/',
+		'deleteLink' => '/Article/delete/'
 	];
 
 	public function __construct()
@@ -38,8 +40,8 @@ class ArticleController
 
 	public function show()
 	{
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		$data = new Article();
 		$result = $data->getAll();
 		$table = new Table($result,self::CONFIG_TABLE);
@@ -48,8 +50,8 @@ class ArticleController
 
 	public function search($methodParam)
 	{
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		$data = new Article();
 		$result = $data->getSearchValue($methodParam);
 		$table = new Table($result,self::CONFIG_TABLE, $methodParam);
@@ -60,8 +62,8 @@ class ArticleController
 	{
 		#Abfrage der entsprechenden Tabelle nach den Spaltennamen
 		#Form bauen
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 
 		$article = new Article;
 		$columns = $article->getColumns();
@@ -81,7 +83,7 @@ class ArticleController
 		$id = $_GET['id'];
 		$article = new Article();
 		$article->delete($id);
-		header('Location: /article/show');
+		header('Location: /Article/show');
 	}
 
 	public function edit()
@@ -94,8 +96,8 @@ class ArticleController
 		$data['warengruppe'] = $optionData;
 		$data['warengruppe']['selectKey'] = (int)$selectKey;
 		$form = new Form($data, self::CONFIG_EDIT);
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		$form->render();
 	}
 
@@ -105,7 +107,7 @@ class ArticleController
 		$article = new Article();
 		$article->update($data);
 		echo 'Update war erfolgreich';
-		header('Location: /article/show');
+		header('Location: /Article/show');
 	}
 
 	/**

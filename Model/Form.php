@@ -1,5 +1,6 @@
 <?php
-require_once 'model/src/DatabaseConnector.php';
+
+namespace MWP\Model;
 
 class Form
 {

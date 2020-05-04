@@ -1,6 +1,9 @@
 <?php
 
-require_once 'model/foo.php';
+namespace MWP\Src;
+
+use MWP\Controller\ArticleController;
+use MWP\Controller\ProductgroupController;
 
 class Router
 {
@@ -17,8 +20,10 @@ class Router
 			$this->homepage();
 		}
 
+
 		$controllerName = ucfirst($url[1]) . 'Controller';
 		$controllerMethod = $url[2];
+
 
 		$methodParam = '';
 		if (isset($url[3])) {
@@ -26,27 +31,28 @@ class Router
 			$methodParam = $url[1];
 		}
 
-		require_once 'controller/' . $controllerName . '.php';
-
-		if (!class_exists($controllerName) || !method_exists($controllerName, $controllerMethod)) {
-			$this->homepage();
-		}
+//		if (!class_exists($controllerName) || !method_exists($controllerName, $controllerMethod)) {
+//			$this->homepage();
+//		}
 
 		switch ($controllerName) {
 			case 'ArticleController':
+				$controller = new ArticleController();
+				break;
 			case 'ProductgroupController':
-				$controller = new $controllerName;
-				$controller->$controllerMethod($methodParam);
+				$controller = new ProductgroupController();
 				break;
 			default:
-				require_once 'view/home.php';
+				$this->homepage();
 				break;
 		}
+
+		$controller->$controllerMethod($methodParam);
 	}
 
 	public function homepage(): void
 	{
-		require_once 'view/home.php';
+		require_once 'View/home.php';
 		die();
 	}
 

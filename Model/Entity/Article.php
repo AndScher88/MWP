@@ -1,8 +1,9 @@
 <?php
 
-require_once 'model/src/DatabaseConnector.php';
-require_once 'model/Table.php';
-require_once 'model/foo.php';
+namespace MWP\Model\Entity;
+
+use mysqli_result;
+use MWP\Src\DatabaseConnector;
 
 class Article
 {
@@ -114,7 +115,7 @@ class Article
 				artikelstammdaten.bestand,
 				artikelstammdaten.warengruppe
 				FROM artikelstammdaten
-				LEFT JOIN productgroup on artikelstammdaten.warengruppe = productgroup.id
+				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
 				WHERE artikelstammdaten.id = '$id'";
 		$this->result = $conn->query($sql);
 
@@ -164,7 +165,7 @@ class Article
 	public function getProductgroup(): array
 	{
 		$conn = DatabaseConnector::getAccess();
-		$sql = 'SELECT * FROM productgroup';
+		$sql = 'SELECT * FROM Productgroup';
 		$this->result = $conn->query($sql);
 		if ($this->result->num_rows <= 0) {
 			echo '<p>Es stehen keine Daten zur Verfügung!</p>';

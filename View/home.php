@@ -1,6 +1,6 @@
 <?php
-require_once 'templates/template.php';
-require_once 'view/templates/navbar.php';
+require_once 'Templates/template.php';
+require_once 'View/Templates/navbar.php';
 ?>
 
 <body>

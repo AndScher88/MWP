@@ -1,8 +1,8 @@
 <?php
 
-require_once 'foo.php';
+namespace MWP\Model;
 
-class Table implements foo
+class Table implements Foo
 {
 	protected array $data;
 	private bool $head = false;
@@ -75,10 +75,10 @@ class Table implements foo
 	{
 		echo '<tr>';
 		echo '<td width="50px"> <a href="' . $this->config['editLink'] . '?id=' . $data['id'] . '">';
-		echo '<img src="/view/img/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">';
+		echo '<Img Src="/View/Img/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">';
 		echo '</td>';
 		echo '<td width="50px"><a href="' . $this->config['deleteLink'] . '?id=' . $data['id'] . '">';
-		echo '<img src="/view/img/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
+		echo '<Img Src="/View/Img/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {
 				continue;
