@@ -1,5 +1,10 @@
 <?php
 
+namespace MWP\Src;
+
+use mysqli;
+use RuntimeException;
+
 /**
  * Class DatabaseConnector
  * @package classes\database

@@ -1,7 +1,8 @@
 <?php
 
+namespace MWP\Model;
 
-interface foo
+interface Foo
 {
 	public function cleanOutput($parameter, $encoding='utf-8');
 }

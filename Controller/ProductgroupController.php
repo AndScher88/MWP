@@ -1,8 +1,11 @@
 <?php
 
-require_once 'model/Entity/Productgroup.php';
-require_once 'model/Form.php';
-require_once 'model/Table.php';
+namespace MWP\Controller;
+
+
+use MWP\Model\Entity\Productgroup;
+use MWP\Model\Form;
+use MWP\Model\Table;
 
 class ProductgroupController
 {
@@ -25,8 +28,8 @@ class ProductgroupController
 	];
 
 	private const CONFIG_TABLE = [
-		'title' => 'Warengruppe übersicht',
-		'actionSearch' => '/productgroup/search/',
+		'title' => 'Übersicht Warengruppen',
+		'actionSearch' => '/Productgroup/search/',
 		'editLink' => '/Productgroup/edit/',
 		'deleteLink' => '/Productgroup/delete/'
 	];
@@ -38,8 +41,8 @@ class ProductgroupController
 	public function new()
 	{
 		#Hier müssen neue Warengruppen erstellt werden können
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 
 		$productgroup = new Productgroup();
 		$columns = $productgroup->getColumns();
@@ -48,7 +51,7 @@ class ProductgroupController
 		$form->render();
 		$groupname = $_POST;
 		$productgroup->new($groupname);
-		//header('Location: /productgroup/show');
+		//header('Location: /Productgroup/show');
 	}
 
 	public function edit()
@@ -58,8 +61,8 @@ class ProductgroupController
 		$productgroup = new Productgroup();
 		$data = $productgroup->getOne($id);
 		$form = new Form($data, self::CONFIG_EDIT);
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		$form->render();
 	}
 
@@ -68,7 +71,7 @@ class ProductgroupController
 		$data = $_POST;
 		$productgroup = new Productgroup();
 		$productgroup->update($data);
-		header('Location: /productgroup/show');
+		header('Location: /Productgroup/show');
 	}
 
 	public function delete()
@@ -77,7 +80,7 @@ class ProductgroupController
 		$id = $_GET['id'];
 		$productgroup = new Productgroup();
 		$productgroup->delete($id);
-		header('Location: /productgroup/show');
+		header('Location: /Productgroup/show');
 	}
 
 	public function show()
@@ -85,16 +88,16 @@ class ProductgroupController
 		#Hier sollen die Warengruppen angezeigt werden
 		$productgroup = new Productgroup();
 		$result = $productgroup->getAll();
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		$table = new Table($result,self::CONFIG_TABLE);
 		$table->render();
 	}
 
 	public function search($methodParam)
 	{
-		require_once 'view/templates/template.php';
-		require_once 'view/templates/navbar.php';
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		$data = new Productgroup();
 		$result = $data->getSearchValue($methodParam);
 		$table = new Table($result,self::CONFIG_TABLE, $methodParam);

@@ -1,11 +1,11 @@
 <?php
-include 'view/templates/template.php';
+include 'View/Templates/template.php';
 ?>
 
 <body>
 
 <?php
-include 'view/templates/navbar.php';
+include 'View/Templates/navbar.php';
 ?>
 
 <br>
