@@ -11,8 +11,8 @@
                 <div class="dropdown">
                     <button class="dropdown-btn">Artikelverwaltung</button>
                     <div class="dropdown-content">
-                        <a href="/article/showAll">Artikel anzeigen</a>
-                        <a href="/article/newArticle">Artikel erstellen</a>
+                        <a href="/article/show">Artikel anzeigen</a>
+                        <a href="/article/new">Artikel erstellen</a>
                         <a href="/productgroup/show">Warengruppe anzeigen</a>
                         <a href="/productgroup/new">Warengruppe erstellen</a>
                     </div>

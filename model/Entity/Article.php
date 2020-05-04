@@ -19,21 +19,6 @@ class Article
        	artikelstammdaten.bestand
 		FROM artikelstammdaten';
 
-	private const EDIT = 'SELECT
-				artikelstammdaten.id,
-				artikelstammdaten.artikelnummer,
-				artikelstammdaten.typ,
-				artikelstammdaten.bezeichnung,
-				artikelstammdaten.spezifikation,
-				artikelstammdaten.erwSpezifikation,
-				artikelstammdaten.hersteller,
-				artikelstammdaten.bestand,
-				productgroup.warengruppe as Warengruppe
-				FROM artikelstammdaten
-				LEFT JOIN productgroup on artikelstammdaten.warengruppe = productgroup.id
-				WHERE artikelstammdaten.id = $id';
-
-
 	/**
 	 * @return array|mixed
 	 */
@@ -83,7 +68,7 @@ class Article
 	/**
 	 * @param array $data
 	 */
-	public function createArticle(array $data): void
+	public function create(array $data): void
 	{
 		if (array_key_exists('id', $data)){
 			unset($data['id']);
