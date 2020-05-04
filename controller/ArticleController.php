@@ -20,7 +20,7 @@ class ArticleController
 	private const CONFIG_NEW = [
 		'title' => 'Artikel anlegen',
 		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
-		'action' => '/article/newArticle',
+		'action' => '/article/new',
 		'type' => 'new',
 		'selectOption' => ['warengruppe']
 	];
@@ -36,7 +36,7 @@ class ArticleController
 	{
 	}
 
-	public function showAll()
+	public function show()
 	{
 		require_once 'view/templates/template.php';
 		require_once 'view/templates/navbar.php';
@@ -56,7 +56,7 @@ class ArticleController
 		$table->render();
 	}
 
-	public function newArticle()
+	public function new()
 	{
 		#Abfrage der entsprechenden Tabelle nach den Spaltennamen
 		#Form bauen
@@ -72,7 +72,7 @@ class ArticleController
 		$form->render();
 		$masterData = $_POST;
 		$data = new Article();
-		$data->createArticle($masterData);
+		$data->create($masterData);
 	}
 
 	public function delete()
@@ -81,7 +81,7 @@ class ArticleController
 		$id = $_GET['id'];
 		$article = new Article();
 		$article->delete($id);
-		header('Location: /article/showAll');
+		header('Location: /article/show');
 	}
 
 	public function edit()
@@ -105,7 +105,7 @@ class ArticleController
 		$article = new Article();
 		$article->update($data);
 		echo 'Update war erfolgreich';
-		header('Location: /article/showAll');
+		header('Location: /article/show');
 	}
 
 	/**
