@@ -13,7 +13,7 @@ class ArticleController
 	private const CONFIG_EDIT = [
 		'title' => 'Artikel bearbeiten',
 		'headline' => 'Bitte hier die neuen Daten des Artikels eingeben:',
-		'action' => '/Article/update',
+		'action' => '/article/update',
 		'type' => '',
 		'selectOption' => ['warengruppe']
 	];
@@ -22,16 +22,16 @@ class ArticleController
 	private const CONFIG_NEW = [
 		'title' => 'Artikel anlegen',
 		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
-		'action' => '/Article/new',
+		'action' => '/article/new',
 		'type' => 'new',
 		'selectOption' => ['warengruppe']
 	];
 
 	private const CONFIG_TABLE = [
 		'title' => 'Artikel übersicht',
-		'actionSearch' => '/Article/search/',
-		'editLink' => '/Article/edit/',
-		'deleteLink' => '/Article/delete/'
+		'actionSearch' => '/article/search/',
+		'editLink' => '/article/edit/',
+		'deleteLink' => '/article/delete/'
 	];
 
 	public function __construct()
@@ -83,7 +83,7 @@ class ArticleController
 		$id = $_GET['id'];
 		$article = new Article();
 		$article->delete($id);
-		header('Location: /Article/show');
+		header('Location: /article/show');
 	}
 
 	public function edit()
@@ -107,7 +107,7 @@ class ArticleController
 		$article = new Article();
 		$article->update($data);
 		echo 'Update war erfolgreich';
-		header('Location: /Article/show');
+		header('Location: /article/show');
 	}
 
 	/**
