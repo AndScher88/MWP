@@ -13,7 +13,7 @@ class ProductgroupController
 	private const CONFIG_EDIT = [
 		'title' => 'Warengruppe bearbeiten',
 		'headline' => 'Bitte irgendwas ändern:',
-		'action' => '/Productgroup/update',
+		'action' => '/productgroup/update',
 		'type' => '',
 		'selectOption' => []
 	];
@@ -22,16 +22,16 @@ class ProductgroupController
 	private const CONFIG_NEW = [
 		'title' => 'Warengruppe anlegen',
 		'headline' => 'Bitte geben sie den Namen der Warengruppe ein:',
-		'action' => '/Productgroup/new',
+		'action' => '/productgroup/new',
 		'type' => 'new',
 		'selectOption' => []
 	];
 
 	private const CONFIG_TABLE = [
 		'title' => 'Übersicht Warengruppen',
-		'actionSearch' => '/Productgroup/search/',
-		'editLink' => '/Productgroup/edit/',
-		'deleteLink' => '/Productgroup/delete/'
+		'actionSearch' => '/productgroup/search/',
+		'editLink' => '/productgroup/edit/',
+		'deleteLink' => '/productgroup/delete/'
 	];
 
 	public function __construct()
@@ -51,7 +51,6 @@ class ProductgroupController
 		$form->render();
 		$groupname = $_POST;
 		$productgroup->new($groupname);
-		//header('Location: /Productgroup/show');
 	}
 
 	public function edit()
@@ -71,7 +70,7 @@ class ProductgroupController
 		$data = $_POST;
 		$productgroup = new Productgroup();
 		$productgroup->update($data);
-		header('Location: /Productgroup/show');
+		header('Location: /productgroup/show');
 	}
 
 	public function delete()
@@ -80,7 +79,7 @@ class ProductgroupController
 		$id = $_GET['id'];
 		$productgroup = new Productgroup();
 		$productgroup->delete($id);
-		header('Location: /Productgroup/show');
+		header('Location: /productgroup/show');
 	}
 
 	public function show()
