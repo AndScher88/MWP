@@ -4,38 +4,30 @@ namespace MWP\Model;
 
 class Form
 {
-	private array $data;
-	private array $config;
+	/** @var bool */
 	private bool $newEntity;
 
-	/**
-	 * Form constructor.
-	 * @param array $data
-	 * @param array $config
-	 */
-	public function __construct(array $data, array $config)
+	public function __construct()
 	{
-		$this->data = $data;
-		$this->config = $config;
 		$this->newEntity = false;
 	}
 
-	public function render(): void
+	public function render(array $data, array $config): void
 	{
-		if (empty($this->data)) {
+		if (empty($data)) {
 			echo 'Keine Daten!';
 			exit;
 		}
 
-		if ($this->config['type'] === 'new') {
+		if ($config['type'] === 'new') {
 			$this->newEntity = true;
 		}
 		ob_start();
 
-		$this->renderFormHead($this->config['title'], $this->config['action'], $this->config['headline']);
+		$this->renderFormHead($config['title'], $config['action'], $config['headline']);
 
-		foreach ($this->data as $key => $value) {
-			if (in_array($key, $this->config['selectOption'], true)) {
+		foreach ($data as $key => $value) {
+			if (in_array($key, $config['selectOption'], true)) {
 				$this->buildSelect($key, $value);
 
 				continue;

@@ -2,27 +2,30 @@
 
 namespace MWP\Model\Entity;
 
+use MWP\Src\DatabaseClass;
 use mysqli_result;
-use MWP\Src\DatabaseConnector;
+use mysqli;
 
 class Productgroup
 {
 	public mysqli_result $result;
 	private array $columns;
+	private mysqli $conn;
 
 	/**
 	 * Productgroup constructor.
 	 */
 	public function __construct()
 	{
+		$database = new DatabaseClass();
+		$this->conn = $database->dbConnect();
 	}
 
 	public function getAll()
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = 'SELECT * FROM Productgroup';
-		$this->result = $conn->query($sql);
-		$conn->close();
+		$this->result = $this->conn->query($sql);
+		$this->conn->close();
 		if ($this->result->num_rows <= 0) {
 			return [];
 		}
@@ -31,10 +34,9 @@ class Productgroup
 
 	public function getOne($id)
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = "SELECT * FROM Productgroup WHERE id = '$id'";
-		$this->result = $conn->query($sql);
-		$conn->close();
+		$this->result = $this->conn->query($sql);
+		$this->conn->close();
 		if ($this->result->num_rows <= 0){
 			return [];
 		}
@@ -46,27 +48,24 @@ class Productgroup
 	{
 		if (!empty($data)) {
 			$warengroup = $data['warengruppe'];
-			$conn = DatabaseConnector::getAccess();
 			$sql = "INSERT INTO Productgroup (warengruppe) VALUES ('$warengroup')";
-			$conn->query($sql);
-			$conn->close();
+			$this->conn->query($sql);
+			$this->conn->close();
 		}
 	}
 
 	public function delete($id)
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = "DELETE FROM Productgroup WHERE id = '$id'";
-		$conn->query($sql);
-		$conn->close();
+		$this->conn->query($sql);
+		$this->conn->close();
 	}
 
 	public function getColumns()
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = 'SHOW COLUMNS FROM Productgroup';
-		$this->result = $conn->query($sql);
-		$conn->close();
+		$this->result = $this->conn->query($sql);
+		$this->conn->close();
 
 		if ($this->result->num_rows <= 0){
 			echo 'Es stehen keine Daten zur Verfügung!';
@@ -83,19 +82,17 @@ class Productgroup
 	{
 		$id = $data['id'];
 		$warengruppe = $data['warengruppe'];
-		$conn = DatabaseConnector::getAccess();
 		$sql = "UPDATE Productgroup SET warengruppe = '$warengruppe' WHERE id = '$id'";
-		$conn->query($sql);
-		$conn->close();
+		$this->conn->query($sql);
+		$this->conn->close();
 	}
 
 	public function getSearchValue(string $methodParam)
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = "SELECT id, warengruppe
 		FROM Productgroup
 		WHERE warengruppe LIKE '%$methodParam%'";
-		$this->result = $conn->query($sql);
+		$this->result = $this->conn->query($sql);
 		if ($this->result->num_rows <= 0){
 			return [];
 		}

@@ -2,18 +2,37 @@
 
 namespace MWP\Model;
 
-class Table implements Foo
+class Table implements Output
 {
-	protected array $data;
 	private bool $head = false;
 	private array $config;
 	private $methodParam;
 
-	public function __construct(array $alldata, array $config, $methodParam = null)
+	public function __construct()
 	{
-		$this->data = $alldata;
+
+	}
+
+	public function render(array $alldata, array $config, $methodParam = null)
+	{
 		$this->config = $config;
 		$this->methodParam = $methodParam;
+		$this->head();
+		$this->searchField();
+		if (empty($alldata)) {
+			echo 'Keine Daten!';
+			exit;
+		}
+		ob_start();
+		echo '<table class="container content-table">';
+		foreach ($alldata as $item) {
+			if ($this->head === false) {
+				$this->createTableHead($item);
+			}
+			$this->createTableBody($item);
+		}
+		echo '</table></body>';
+		ob_end_flush();
 	}
 
 	public function head()
@@ -34,26 +53,6 @@ class Table implements Foo
 		echo '<input class="search-input" id="suchen" type="search" name="value" autofocus="autofocus"/>';
 		echo '<input class="search-btn" type="submit" value="Suchen">';
 		echo '</form>';
-	}
-
-	public function render()
-	{
-		$this->head();
-		$this->searchField();
-		if (empty($this->data)) {
-			echo 'Keine Daten!';
-			exit;
-		}
-		ob_start();
-		echo '<table class="container content-table">';
-		foreach ($this->data as $item) {
-			if ($this->head === false) {
-				$this->createTableHead($item);
-			}
-			$this->createTableBody($item);
-		}
-		echo '</table></body>';
-		ob_end_flush();
 	}
 
 	public function createTableHead($data)

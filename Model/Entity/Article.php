@@ -2,13 +2,15 @@
 
 namespace MWP\Model\Entity;
 
+use mysqli;
 use mysqli_result;
-use MWP\Src\DatabaseConnector;
+use MWP\Src\DatabaseClass;
 
 class Article
 {
 	public mysqli_result $result;
 	private array $columns;
+	private mysqli $conn;
 
 	private const GET_ALL = 'SELECT
        	artikelstammdaten.id,
@@ -20,13 +22,21 @@ class Article
        	artikelstammdaten.bestand
 		FROM artikelstammdaten';
 
+
+	/** @var DatabaseClass */
+
+	public function __construct()
+	{
+		$database = new DatabaseClass();
+		$this->conn = $database->dbConnect();
+	}
+
 	/**
 	 * @return array|mixed
 	 */
 	public function getAll()
 	{
-		$conn = DatabaseConnector::getAccess();
-		$this->result = $conn->query(self::GET_ALL);
+		$this->result = $this->conn->query(self::GET_ALL);
 		if ($this->result->num_rows <= 0) {
 			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
 			return [];
@@ -40,7 +50,6 @@ class Article
 	 */
 	public function getSearchValue(string $searchValue): array
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = "SELECT
 			artikelstammdaten.id,
 			artikelstammdaten.artikelnummer,
@@ -59,7 +68,7 @@ class Article
 			erwSpezifikation LIKE '%$searchValue%' OR
 			hersteller LIKE '%$searchValue%'";
 
-		$this->result = $conn->query($sql);
+		$this->result = $this->conn->query($sql);
 		if ($this->result->num_rows <= 0) {
 			return [];
 		}
@@ -85,14 +94,13 @@ class Article
 			$bestand = $data['bestand'];
 			$warengruppe = $data['warengruppe'];
 
-			$conn = DatabaseConnector::getAccess();
 			$sql = "INSERT INTO artikelstammdaten (
                             artikelnummer, typ,  bezeichnung, spezifikation, erwSpezifikation, 
                             hersteller, bestand, warengruppe)
                 	VALUES  ('$artikelnummer', '$typ', '$bezeichnung', '$spezifikation', '$erw_spezi', '$hersteller', '$bestand', '$warengruppe')";
 
-			$conn->query($sql);
-			$conn->close();
+			$this->conn->query($sql);
+			$this->conn->close();
 		}
 
 	}
@@ -103,7 +111,6 @@ class Article
 	 */
 	public function getOne(int $id): array
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = "SELECT
 				artikelstammdaten.id,
 				artikelstammdaten.artikelnummer,
@@ -117,7 +124,7 @@ class Article
 				FROM artikelstammdaten
 				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
 				WHERE artikelstammdaten.id = '$id'";
-		$this->result = $conn->query($sql);
+		$this->result = $this->conn->query($sql);
 
 		if ($this->result->num_rows <= 0) {
 			return [];
@@ -143,7 +150,6 @@ class Article
 		$warengruppe = $data['warengruppe'];
 
 
-		$conn = DatabaseConnector::getAccess();
 		$sql = "UPDATE artikelstammdaten SET 
             	artikelnummer = '$artikelnummer',
 				typ = '$typ', 
@@ -155,8 +161,8 @@ class Article
 				warengruppe = $warengruppe
 				WHERE id = $id
 				";
-		$conn->query($sql);
-		$conn->close();
+		$this->conn->query($sql);
+		$this->conn->close();
 	}
 
 	/**
@@ -164,9 +170,8 @@ class Article
 	 */
 	public function getProductgroup(): array
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = 'SELECT * FROM Productgroup';
-		$this->result = $conn->query($sql);
+		$this->result = $this->conn->query($sql);
 		if ($this->result->num_rows <= 0) {
 			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
 			return [];
@@ -179,9 +184,8 @@ class Article
 	 */
 	public function getColumns(): array
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = 'SHOW COLUMNS FROM artikelstammdaten';
-		$this->result = $conn->query($sql);
+		$this->result = $this->conn->query($sql);
 		if ($this->result->num_rows <= 0) {
 			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
 			return [];
@@ -198,10 +202,9 @@ class Article
 	 */
 	public function delete(int $id): void
 	{
-		$conn = DatabaseConnector::getAccess();
 		$sql = "DELETE FROM artikelstammdaten WHERE id = '$id'";
-		$conn->query($sql);
-		$conn->close();
+		$this->conn->query($sql);
+		$this->conn->close();
 	}
 
 }
