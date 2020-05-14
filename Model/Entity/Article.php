@@ -10,7 +10,10 @@ class Article
 {
 	public mysqli_result $result;
 	private array $columns;
+	/** @var mysqli */
 	private mysqli $conn;
+	/** @var DatabaseClass */
+	private DatabaseClass $database;
 
 	private const GET_ALL = 'SELECT
        	artikelstammdaten.id,
@@ -22,13 +25,24 @@ class Article
        	artikelstammdaten.bestand
 		FROM artikelstammdaten';
 
+	private const GET_SEARCHVALUE = 'select * FROM artikelstammdaten
+		where artikelnummer like ? or 
+		typ like ? or 
+		bezeichnung like ? or 
+		spezifikation like ? or 
+		erwSpezifikation like ? or 
+		hersteller like ?
+		';
 
-	/** @var DatabaseClass */
+	private const NEW = 'INSERT INTO artikelstammdaten (
+                            artikelnummer, typ,  bezeichnung, spezifikation, erwSpezifikation, 
+                            hersteller, bestand, warengruppe
+                            )
+                	VALUES  (?, ?, ?, ?, ?, ?, ?, ?)';
 
 	public function __construct()
 	{
-		$database = new DatabaseClass();
-		$this->conn = $database->dbConnect();
+		$this->database = new DatabaseClass();
 	}
 
 	/**
@@ -36,12 +50,7 @@ class Article
 	 */
 	public function getAll()
 	{
-		$this->result = $this->conn->query(self::GET_ALL);
-		if ($this->result->num_rows <= 0) {
-			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
-			return [];
-		}
-		return $this->result->fetch_all(MYSQLI_ASSOC);
+		return $this->database->getAll(self::GET_ALL);
 	}
 
 	/**
@@ -50,59 +59,15 @@ class Article
 	 */
 	public function getSearchValue(string $searchValue): array
 	{
-		$sql = "SELECT
-			artikelstammdaten.id,
-			artikelstammdaten.artikelnummer,
-			artikelstammdaten.typ,
-			artikelstammdaten.bezeichnung,
-			artikelstammdaten.spezifikation,
-			artikelstammdaten.erwSpezifikation,
-			artikelstammdaten.hersteller,
-			artikelstammdaten.bestand
-			FROM artikelstammdaten
-			WHERE
-			artikelnummer LIKE '%$searchValue%' OR
-			typ LIKE '%$searchValue%' OR
-			bezeichnung LIKE '%$searchValue%' OR
-			spezifikation LIKE '%$searchValue%' OR
-			erwSpezifikation LIKE '%$searchValue%' OR
-			hersteller LIKE '%$searchValue%'";
-
-		$this->result = $this->conn->query($sql);
-		if ($this->result->num_rows <= 0) {
-			return [];
-		}
-		return $this->result->fetch_all(MYSQLI_ASSOC);
+		return $this->database->getSearchValue(self::GET_SEARCHVALUE, $searchValue);
 	}
 
 	/**
 	 * @param array $data
 	 */
-	public function create(array $data): void
+	public function new(array $data): void
 	{
-		if (array_key_exists('id', $data)){
-			unset($data['id']);
-	}
-
-		if (!empty($data)) {
-			$artikelnummer = $data['artikelnummer'];
-			$typ = $data['typ'];
-			$bezeichnung = $data['bezeichnung'];
-			$spezifikation = $data['spezifikation'];
-			$erw_spezi = $data['erwSpezifikation'];
-			$hersteller = $data['hersteller'];
-			$bestand = $data['bestand'];
-			$warengruppe = $data['warengruppe'];
-
-			$sql = "INSERT INTO artikelstammdaten (
-                            artikelnummer, typ,  bezeichnung, spezifikation, erwSpezifikation, 
-                            hersteller, bestand, warengruppe)
-                	VALUES  ('$artikelnummer', '$typ', '$bezeichnung', '$spezifikation', '$erw_spezi', '$hersteller', '$bestand', '$warengruppe')";
-
-			$this->conn->query($sql);
-			$this->conn->close();
-		}
-
+		$this->database->new(self::NEW, $data);
 	}
 
 	/**
@@ -185,7 +150,9 @@ class Article
 	public function getColumns(): array
 	{
 		$sql = 'SHOW COLUMNS FROM artikelstammdaten';
-		$this->result = $this->conn->query($sql);
+		$this->database->getColumns($sql);
+		die();
+		$this->result = $conn->query($sql);
 		if ($this->result->num_rows <= 0) {
 			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
 			return [];

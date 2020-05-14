@@ -6,6 +6,7 @@ namespace MWP\Controller;
 use MWP\Model\Form;
 use MWP\Model\Table;
 use MWP\Model\Entity\Article;
+use MWP\Src\DatabaseClass;
 
 class ArticleController
 {
@@ -53,6 +54,9 @@ class ArticleController
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
 		$result = $this->article->getAll();
+		if ($result === null) {
+			exit('<br><p style="color: red">Es liegen keine Daten vor!</p>');
+		}
 		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
@@ -74,7 +78,7 @@ class ArticleController
 		$flippedColumns['warengruppe'] = $optionData;
 		$this->form->render($flippedColumns, self::CONFIG_NEW);
 		$masterData = $_POST;
-		$this->article->create($masterData);
+		$this->article->new($masterData);
 	}
 
 	public function delete()

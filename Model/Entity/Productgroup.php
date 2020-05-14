@@ -23,7 +23,7 @@ class Productgroup
 
 	public function getAll()
 	{
-		$sql = 'SELECT * FROM Productgroup';
+		$sql = 'SELECT * FROM productgroup';
 		$this->result = $this->conn->query($sql);
 		$this->conn->close();
 		if ($this->result->num_rows <= 0) {
@@ -34,7 +34,7 @@ class Productgroup
 
 	public function getOne($id)
 	{
-		$sql = "SELECT * FROM Productgroup WHERE id = '$id'";
+		$sql = "SELECT * FROM productgroup WHERE id = '$id'";
 		$this->result = $this->conn->query($sql);
 		$this->conn->close();
 		if ($this->result->num_rows <= 0){
@@ -44,11 +44,11 @@ class Productgroup
 		return $data[0];
 	}
 
-	public function new(array $data)
+	public function new(array $data): void
 	{
 		if (!empty($data)) {
-			$warengroup = $data['warengruppe'];
-			$sql = "INSERT INTO Productgroup (warengruppe) VALUES ('$warengroup')";
+			$warengruppe = $data['warengruppe'];
+			$sql = "INSERT INTO productgroup (warengruppe) VALUES ('$warengruppe')";
 			$this->conn->query($sql);
 			$this->conn->close();
 		}
@@ -56,7 +56,7 @@ class Productgroup
 
 	public function delete($id)
 	{
-		$sql = "DELETE FROM Productgroup WHERE id = '$id'";
+		$sql = "DELETE FROM productgroup WHERE id = '$id'";
 		$this->conn->query($sql);
 		$this->conn->close();
 	}
@@ -65,7 +65,6 @@ class Productgroup
 	{
 		$sql = 'SHOW COLUMNS FROM Productgroup';
 		$this->result = $this->conn->query($sql);
-		$this->conn->close();
 
 		if ($this->result->num_rows <= 0){
 			echo 'Es stehen keine Daten zur Verfügung!';
@@ -82,7 +81,7 @@ class Productgroup
 	{
 		$id = $data['id'];
 		$warengruppe = $data['warengruppe'];
-		$sql = "UPDATE Productgroup SET warengruppe = '$warengruppe' WHERE id = '$id'";
+		$sql = "UPDATE productgroup SET warengruppe = '$warengruppe' WHERE id = '$id'";
 		$this->conn->query($sql);
 		$this->conn->close();
 	}
@@ -90,7 +89,7 @@ class Productgroup
 	public function getSearchValue(string $methodParam)
 	{
 		$sql = "SELECT id, warengruppe
-		FROM Productgroup
+		FROM productgroup
 		WHERE warengruppe LIKE '%$methodParam%'";
 		$this->result = $this->conn->query($sql);
 		if ($this->result->num_rows <= 0){
