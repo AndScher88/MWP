@@ -1,8 +1,6 @@
 <?php
 
-
 namespace MWP\Src;
-
 
 use mysqli;
 
@@ -44,15 +42,15 @@ class DatabaseClass
 		);
 
 		if ($connectionString->connect_errno) {
-			exit( 'Verbindung zur Datenbank ist fehlgeschlagen:('
-				.$connectionString->connect_errno
-				. ')'.$connectionString->connect_error);
+			exit('Verbindung zur Datenbank ist fehlgeschlagen:('
+				. $connectionString->connect_errno
+				. ')' . $connectionString->connect_error);
 		}
 
 		return $connectionString;
 	}
 
-	public function getAll(string $sql)
+	public function select(string $sql)
 	{
 		$stmt = $this->conn->prepare($sql);
 		if ($stmt) {
@@ -63,17 +61,24 @@ class DatabaseClass
 		return $result;
 	}
 
+	public function getone($sql, $id)
+	{
+		$statement = $this->conn->prepare($sql);
+		if ($statement) {
+			$statement->bind_param('i', $id);
+			$statement->execute();
+			$data = $statement->get_result();
+			$result = $data->fetch_all(MYSQLI_ASSOC);
+		}
+		return $result[0];
+	}
+
 	public function getSearchValue($sql, $searchValue)
 	{
-		$searchValue = '%'.$searchValue.'%';
+		$searchValue = '%' . $searchValue . '%';
 		if ($stmt = $this->conn->prepare($sql)) {
 			$stmt->bind_param(
-				'ssssss',
-				$searchValue,
-				$searchValue,
-				$searchValue,
-				$searchValue,
-				$searchValue,
+				's',
 				$searchValue
 			);
 			$stmt->execute();
@@ -83,43 +88,89 @@ class DatabaseClass
 		return $result;
 	}
 
-	public function new($sql, $data)
+	public function insert($sql, $data)
 	{
 		if (array_key_exists('id', $data)) {
 			unset($data['id']);
 		}
 
-		if (empty($data)) {
-			exit('<p>Es wurden keine Daten übergeben!</p>');
+		if (!empty($data)) {
+			$artikelnummer = $data['artikelnummer'];
+			$typ = $data['typ'];
+			$bezeichnung = $data['bezeichnung'];
+			$spezifikation = $data['spezifikation'];
+			$erw_spezi = $data['erwSpezifikation'];
+			$hersteller = $data['hersteller'];
+			$bestand = $data['bestand'];
+			$warengruppe = $data['warengruppe'];
+
+
+			$stmt = $this->conn->prepare($sql);
+			$stmt->bind_param(
+				'ssssssss',
+				$artikelnummer,
+				$typ,
+				$bezeichnung,
+				$spezifikation,
+				$erw_spezi,
+				$hersteller,
+				$bestand,
+				$warengruppe
+			);
+			$stmt->execute();
 		}
-
-		$artikelnummer = $data['artikelnummer'];
-		$typ = $data['typ'];
-		$bezeichnung = $data['bezeichnung'];
-		$spezifikation = $data['spezifikation'];
-		$erw_spezi = $data['erwSpezifikation'];
-		$hersteller = $data['hersteller'];
-		$bestand = $data['bestand'];
-		$warengruppe = $data['warengruppe'];
-
-
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param(
-			'ssssssss',
-			$artikelnummer,
-			$typ,
-			$bezeichnung,
-			$spezifikation,
-			$erw_spezi,
-			$hersteller,
-			$bestand,
-			$warengruppe
-		);
-		$stmt->execute();
 	}
 
 	public function getColumns($sql)
 	{
+		$stmt = $this->conn->prepare($sql);
+		if ($stmt) {
+			$stmt->execute();
+			$article = $stmt->get_result();
+			$result = $article->fetch_all(MYSQLI_ASSOC);
+		}
+		foreach ($result as $key => $value) {
+			$columns [] = $value['Field'];
+		}
+		return $columns;
+	}
 
+	public function delete($sql, $id)
+	{
+		$statement = $this->conn->prepare($sql);
+		if ($statement) {
+			$statement->bind_param('i', $id);
+			$statement->execute();
+		}
+	}
+
+	public function update($sql, $data)
+	{
+		$id = $data['id'];
+		$artikelnummer = $data['artikelnummer'];
+		$typ = $data['typ'];
+		$bezeichnung = $data['bezeichnung'];
+		$spezifikation = $data['spezifikation'];
+		$erwSpezifikation = $data['erwSpezifikation'];
+		$hersteller = $data['hersteller'];
+		$bestand = $data['bestand'];
+		$warengruppe = $data['warengruppe'];
+
+		$statement = $this->conn->prepare($sql);
+		if ($statement) {
+			$statement->bind_param(
+				'ssssssisi',
+				$artikelnummer,
+				$typ,
+				$bezeichnung,
+				$spezifikation,
+				$erwSpezifikation,
+				$hersteller,
+				$bestand,
+				$warengruppe,
+				$id
+			);
+			$statement->execute();
+		}
 	}
 }
