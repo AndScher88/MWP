@@ -2,13 +2,12 @@
 
 namespace MWP\Model\Entity;
 
-use mysqli_result;
-use MWP\Src\DatabaseConnector;
+use MWP\Src\DatabaseClass;
 
 class Article
 {
-	public mysqli_result $result;
-	private array $columns;
+	/** @var DatabaseClass */
+	private DatabaseClass $database;
 
 	private const GET_ALL = 'SELECT
        	artikelstammdaten.id,
@@ -20,91 +19,30 @@ class Article
        	artikelstammdaten.bestand
 		FROM artikelstammdaten';
 
-	/**
-	 * @return array|mixed
-	 */
-	public function getAll()
-	{
-		$conn = DatabaseConnector::getAccess();
-		$this->result = $conn->query(self::GET_ALL);
-		if ($this->result->num_rows <= 0) {
-			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
-			return [];
-		}
-		return $this->result->fetch_all(MYSQLI_ASSOC);
-	}
+	private const GET_SEARCHVALUE = 'select * from 
+				artikelstammdaten 
+				where concat(artikelnummer,
+				typ, 
+				bezeichnung, 
+				spezifikation, 
+				hersteller, 
+				warengruppe) 
+                like ?
+		';
 
-	/**
-	 * @param string $searchValue
-	 * @return array
-	 */
-	public function getSearchValue(string $searchValue): array
-	{
-		$conn = DatabaseConnector::getAccess();
-		$sql = "SELECT
-			artikelstammdaten.id,
-			artikelstammdaten.artikelnummer,
-			artikelstammdaten.typ,
-			artikelstammdaten.bezeichnung,
-			artikelstammdaten.spezifikation,
-			artikelstammdaten.erwSpezifikation,
-			artikelstammdaten.hersteller,
-			artikelstammdaten.bestand
-			FROM artikelstammdaten
-			WHERE
-			artikelnummer LIKE '%$searchValue%' OR
-			typ LIKE '%$searchValue%' OR
-			bezeichnung LIKE '%$searchValue%' OR
-			spezifikation LIKE '%$searchValue%' OR
-			erwSpezifikation LIKE '%$searchValue%' OR
-			hersteller LIKE '%$searchValue%'";
-
-		$this->result = $conn->query($sql);
-		if ($this->result->num_rows <= 0) {
-			return [];
-		}
-		return $this->result->fetch_all(MYSQLI_ASSOC);
-	}
-
-	/**
-	 * @param array $data
-	 */
-	public function create(array $data): void
-	{
-		if (array_key_exists('id', $data)){
-			unset($data['id']);
-	}
-
-		if (!empty($data)) {
-			$artikelnummer = $data['artikelnummer'];
-			$typ = $data['typ'];
-			$bezeichnung = $data['bezeichnung'];
-			$spezifikation = $data['spezifikation'];
-			$erw_spezi = $data['erwSpezifikation'];
-			$hersteller = $data['hersteller'];
-			$bestand = $data['bestand'];
-			$warengruppe = $data['warengruppe'];
-
-			$conn = DatabaseConnector::getAccess();
-			$sql = "INSERT INTO artikelstammdaten (
+	private const NEW = 'INSERT INTO artikelstammdaten (
                             artikelnummer, typ,  bezeichnung, spezifikation, erwSpezifikation, 
-                            hersteller, bestand, warengruppe)
-                	VALUES  ('$artikelnummer', '$typ', '$bezeichnung', '$spezifikation', '$erw_spezi', '$hersteller', '$bestand', '$warengruppe')";
+                            hersteller, bestand, warengruppe
+                            )
+                	VALUES  (?, ?, ?, ?, ?, ?, ?, ?)';
 
-			$conn->query($sql);
-			$conn->close();
-		}
+	private const GET_COLUMNS = 'SHOW COLUMNS FROM artikelstammdaten';
 
-	}
+	private const GET_PRODUCTGROUP = 'SELECT * FROM Productgroup';
 
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function getOne(int $id): array
-	{
-		$conn = DatabaseConnector::getAccess();
-		$sql = "SELECT
+	private const DELETE = 'DELETE FROM artikelstammdaten WHERE id = ?';
+
+	private const GET_ONE = 'SELECT
 				artikelstammdaten.id,
 				artikelstammdaten.artikelnummer,
 				artikelstammdaten.typ,
@@ -116,47 +54,49 @@ class Article
 				artikelstammdaten.warengruppe
 				FROM artikelstammdaten
 				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
-				WHERE artikelstammdaten.id = '$id'";
-		$this->result = $conn->query($sql);
+				WHERE artikelstammdaten.id = ?';
 
-		if ($this->result->num_rows <= 0) {
-			return [];
-		}
-		$data = $this->result->fetch_all(MYSQLI_ASSOC);
+	private const UPDATE = 'UPDATE artikelstammdaten SET 
+            	artikelnummer = ?,
+				typ = ?, 
+				bezeichnung = ?,
+				spezifikation = ?,
+				erwSpezifikation = ?,
+				hersteller = ?,
+				bestand = ?,
+				warengruppe = ?
+				WHERE id = ?';
 
-		return $data[0];
+	public function __construct()
+	{
+		$this->database = new DatabaseClass();
 	}
 
 	/**
-	 * @param array $data
+	 * @return array|mixed
 	 */
-	public function update(array $data, array $productgroup = null)
+	public function getAll()
 	{
-		$id = $data['id'];
-		$artikelnummer = $data['artikelnummer'];
-		$typ = $data['typ'];
-		$bezeichnung = $data['bezeichnung'];
-		$spezifikation = $data['spezifikation'];
-		$erwSpezifikation = $data['erwSpezifikation'];
-		$hersteller = $data['hersteller'];
-		$bestand = $data['bestand'];
-		$warengruppe = $data['warengruppe'];
+		return $this->database->select(self::GET_ALL, $parameter = null);
+	}
 
+	/**
+	 * @param string $id
+	 * @return array
+	 */
+	public function getOne(string $id): array
+	{
+		return $this->database->selectOne(self::GET_ONE, $id);
+	}
 
-		$conn = DatabaseConnector::getAccess();
-		$sql = "UPDATE artikelstammdaten SET 
-            	artikelnummer = '$artikelnummer',
-				typ = '$typ', 
-				bezeichnung = '$bezeichnung',
-				spezifikation = '$spezifikation',
-				erwSpezifikation = '$erwSpezifikation',
-				hersteller = '$hersteller',
-				bestand = '$bestand',
-				warengruppe = $warengruppe
-				WHERE id = $id
-				";
-		$conn->query($sql);
-		$conn->close();
+	/**
+	 * @param string $searchValue
+	 * @return array
+	 */
+	public function getSearchValue(string $searchValue): array
+	{
+		$searchValue = '%' . $searchValue . '%';
+		return $this->database->select(self::GET_SEARCHVALUE, $searchValue);
 	}
 
 	/**
@@ -164,14 +104,7 @@ class Article
 	 */
 	public function getProductgroup(): array
 	{
-		$conn = DatabaseConnector::getAccess();
-		$sql = 'SELECT * FROM Productgroup';
-		$this->result = $conn->query($sql);
-		if ($this->result->num_rows <= 0) {
-			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
-			return [];
-		}
-		return $this->result->fetch_all(MYSQLI_ASSOC);
+		return $this->database->select(self::GET_PRODUCTGROUP, $parameter = null);
 	}
 
 	/**
@@ -179,18 +112,23 @@ class Article
 	 */
 	public function getColumns(): array
 	{
-		$conn = DatabaseConnector::getAccess();
-		$sql = 'SHOW COLUMNS FROM artikelstammdaten';
-		$this->result = $conn->query($sql);
-		if ($this->result->num_rows <= 0) {
-			echo '<p>Es stehen keine Daten zur Verfügung!</p>';
-			return [];
-		}
+		return $this->database->getColumns(self::GET_COLUMNS);
+	}
 
-		foreach ($this->result as $key => $value) {
-			$this->columns [] = $value['Field'];
-		}
-		return $this->columns;
+	/**
+	 * @param array $data
+	 */
+	public function new(array $data): void
+	{
+		$this->database->insert(self::NEW, $data);
+	}
+
+	/**
+	 * @param array $data
+	 */
+	public function update(array $data, array $productgroup = null)
+	{
+		$this->database->update(self::UPDATE, $data);
 	}
 
 	/**
@@ -198,10 +136,7 @@ class Article
 	 */
 	public function delete(int $id): void
 	{
-		$conn = DatabaseConnector::getAccess();
-		$sql = "DELETE FROM artikelstammdaten WHERE id = '$id'";
-		$conn->query($sql);
-		$conn->close();
+		$this->database->delete(self::DELETE, $id);
 	}
 
 }

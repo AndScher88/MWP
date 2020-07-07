@@ -34,78 +34,76 @@ class ArticleController
 		'deleteLink' => '/article/delete/'
 	];
 
+	/** @var Article */
+	private Article $article;
+	/** @var Table */
+	private Table $table;
+	/** @var Form */
+	private Form $form;
+
 	public function __construct()
 	{
+		$this->article = new Article();
+		$this->table = new Table();
+		$this->form = new Form();
 	}
 
 	public function show()
 	{
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
-		$data = new Article();
-		$result = $data->getAll();
-		$table = new Table($result,self::CONFIG_TABLE);
-		$table->render();
+		$result = $this->article->getAll();
+		if ($result === null) {
+			exit('<br><p style="color: red">Es liegen keine Daten vor!</p>');
+		}
+		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
 	public function search($methodParam)
 	{
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
-		$data = new Article();
-		$result = $data->getSearchValue($methodParam);
-		$table = new Table($result,self::CONFIG_TABLE, $methodParam);
-		$table->render();
+		$result = $this->article->getSearchValue($methodParam);
+		$this->table->render($result, self::CONFIG_TABLE, $methodParam);
 	}
 
 	public function new()
 	{
-		#Abfrage der entsprechenden Tabelle nach den Spaltennamen
-		#Form bauen
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
-
-		$article = new Article;
-		$columns = $article->getColumns();
+		$columns = $this->article->getColumns();
 		$flippedColumns = array_flip($columns);
-		$optionData = $this->getProductgroupOptionData($article);
+		$optionData = $this->getProductgroupOptionData($this->article);
 		$flippedColumns['warengruppe'] = $optionData;
-		$form = new Form($flippedColumns, self::CONFIG_NEW);
-		$form->render();
+		$this->form->render($flippedColumns, self::CONFIG_NEW);
 		$masterData = $_POST;
-		$data = new Article();
-		$data->create($masterData);
+		$this->article->new($masterData);
 	}
 
 	public function delete()
 	{
-		// Hier wird irgendwas gelöscht
 		$id = $_GET['id'];
-		$article = new Article();
-		$article->delete($id);
+		$this->article->delete($id);
 		header('Location: /article/show');
 	}
 
 	public function edit()
 	{
-		$id = $_GET['id'];
-		$article = new Article();
-		$data = $article->getOne($id);
-		$selectKey = $data['warengruppe'];
-		$optionData = $this->getProductgroupOptionData($article);
-		$data['warengruppe'] = $optionData;
-		$data['warengruppe']['selectKey'] = (int)$selectKey;
-		$form = new Form($data, self::CONFIG_EDIT);
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
-		$form->render();
+		$id = $_GET['id'];
+		$data = $this->article->getOne($id);
+		$selectKey = $data['warengruppe'];
+		$optionData = $this->getProductgroupOptionData($this->article);
+		$data['warengruppe'] = $optionData;
+		$data['warengruppe']['selectKey'] = (int)$selectKey;
+		$this->form->render($data, self::CONFIG_EDIT);
 	}
 
 	public function update()
 	{
 		$data = $_POST;
-		$article = new Article();
-		$article->update($data);
+		$this->article->update($data);
 		echo 'Update war erfolgreich';
 		header('Location: /article/show');
 	}

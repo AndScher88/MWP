@@ -4,6 +4,7 @@ namespace MWP\Src;
 
 use MWP\Controller\ArticleController;
 use MWP\Controller\ProductgroupController;
+use MWP\Controller\SupplierController;
 
 class Router
 {
@@ -41,6 +42,12 @@ class Router
 				break;
 			case 'ProductgroupController':
 				$controller = new ProductgroupController();
+				break;
+			case 'SupplierController':
+				$controller = new SupplierController();
+				break;
+			case 'CustomerController':
+				$controller = new CustomerController();
 				break;
 			default:
 				$this->homepage();

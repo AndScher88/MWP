@@ -2,7 +2,7 @@
 
 namespace MWP\Model;
 
-interface Foo
+interface Output
 {
 	public function cleanOutput($parameter, $encoding='utf-8');
 }
