@@ -3,6 +3,7 @@
 namespace MWP\Src;
 
 use mysqli;
+use mysqli_result;
 
 class DatabaseClass
 {
@@ -18,7 +19,7 @@ class DatabaseClass
 	/** @var string */
 	private const DB_NAME = 'mwp-systems';
 	private mysqli $conn;
-
+	private mysqli_result $result;
 
 	/**
 	 * @var DatabaseClass
@@ -50,42 +51,41 @@ class DatabaseClass
 		return $connectionString;
 	}
 
-	public function select(string $sql)
-	{
-		$stmt = $this->conn->prepare($sql);
-		if ($stmt) {
-			$stmt->execute();
-			$article = $stmt->get_result();
-			$result = $article->fetch_all(MYSQLI_ASSOC);
-		}
-		return $result;
-	}
-
-	public function getone($sql, $id)
+	public function select(string $sql, $parameter)
 	{
 		$statement = $this->conn->prepare($sql);
-		if ($statement) {
-			$statement->bind_param('i', $id);
-			$statement->execute();
-			$data = $statement->get_result();
-			$result = $data->fetch_all(MYSQLI_ASSOC);
+		if ($parameter !== null) {
+			$statement->bind_param('s', $parameter);
 		}
+		$statement->execute();
+		$this->result = $statement->get_result();
+		return $this->result->fetch_all(MYSQLI_ASSOC);
+	}
+
+	public function selectOne(string $sql, $parameter)
+	{
+		$statement = $this->conn->prepare($sql);
+		if ($parameter !== null) {
+			$statement->bind_param('s', $parameter);
+		}
+		$statement->execute();
+		$this->result = $statement->get_result();
+		$result = $this->result->fetch_all(MYSQLI_ASSOC);
+
 		return $result[0];
 	}
 
-	public function getSearchValue($sql, $searchValue)
+	public function getColumns($sql)
 	{
-		$searchValue = '%' . $searchValue . '%';
-		if ($stmt = $this->conn->prepare($sql)) {
-			$stmt->bind_param(
-				's',
-				$searchValue
-			);
-			$stmt->execute();
-			$article = $stmt->get_result();
-			$result = $article->fetch_all(MYSQLI_ASSOC);
+		$statement = $this->conn->prepare($sql);
+		$statement->execute();
+		$data = $statement->get_result();
+		$result = $data->fetch_all(MYSQLI_ASSOC);
+
+		foreach ($result as $key => $value) {
+			$columns [] = $value['Field'];
 		}
-		return $result;
+		return $columns;
 	}
 
 	public function insert($sql, $data)
@@ -104,38 +104,40 @@ class DatabaseClass
 			$bestand = $data['bestand'];
 			$warengruppe = $data['warengruppe'];
 
-
 			$stmt = $this->conn->prepare($sql);
-			$stmt->bind_param(
-				'ssssssss',
-				$artikelnummer,
-				$typ,
-				$bezeichnung,
-				$spezifikation,
-				$erw_spezi,
-				$hersteller,
-				$bestand,
-				$warengruppe
-			);
+			$this->bindParam($stmt, $data);
 			$stmt->execute();
 		}
 	}
 
-	public function getColumns($sql)
+	private function bindParam($stmt, $parameter)
 	{
-		$stmt = $this->conn->prepare($sql);
-		if ($stmt) {
-			$stmt->execute();
-			$article = $stmt->get_result();
-			$result = $article->fetch_all(MYSQLI_ASSOC);
+		$type = '';
+		foreach ($parameter as $value) {
+			switch (gettype($value)) {
+				case 'integer':
+					$type .= 'i';
+					break;
+				case 'double':
+					$type .= 'd';
+					break;
+				case 'string':
+					$type .= 's';
+					break;
+				case null:
+					break;
+			}
 		}
-		foreach ($result as $key => $value) {
-			$columns [] = $value['Field'];
+		$param = [];
+		foreach ($parameter as $value) {
+			$param [] = $value;
 		}
-		return $columns;
+		//echo $param;
+		return $stmt->bind_param($type, $param);
 	}
 
-	public function delete($sql, $id)
+	public
+	function delete($sql, $id)
 	{
 		$statement = $this->conn->prepare($sql);
 		if ($statement) {

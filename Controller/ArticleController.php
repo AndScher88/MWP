@@ -6,7 +6,6 @@ namespace MWP\Controller;
 use MWP\Model\Form;
 use MWP\Model\Table;
 use MWP\Model\Entity\Article;
-use MWP\Src\DatabaseClass;
 
 class ArticleController
 {

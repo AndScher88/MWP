@@ -13,7 +13,7 @@ class Table implements Output
 
 	}
 
-	public function render(array $alldata, array $config, $methodParam = null)
+	public function render(array $alldata, array $config, $methodParam = null): void
 	{
 		$this->config = $config;
 		$this->methodParam = $methodParam;
@@ -59,6 +59,7 @@ class Table implements Output
 	{
 		echo '<thead><tr>';
 		echo '<th></th><th></th>';
+
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {
 				//$this->id = $key;

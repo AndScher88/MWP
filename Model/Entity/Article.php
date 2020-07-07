@@ -2,15 +2,10 @@
 
 namespace MWP\Model\Entity;
 
-use mysqli;
-use mysqli_result;
 use MWP\Src\DatabaseClass;
 
 class Article
 {
-	public mysqli_result $result;
-	/** @var mysqli */
-	private mysqli $conn;
 	/** @var DatabaseClass */
 	private DatabaseClass $database;
 
@@ -82,7 +77,16 @@ class Article
 	 */
 	public function getAll()
 	{
-		return $this->database->select(self::GET_ALL);
+		return $this->database->select(self::GET_ALL, $parameter = null);
+	}
+
+	/**
+	 * @param string $id
+	 * @return array
+	 */
+	public function getOne(string $id): array
+	{
+		return $this->database->selectOne(self::GET_ONE, $id);
 	}
 
 	/**
@@ -91,15 +95,8 @@ class Article
 	 */
 	public function getSearchValue(string $searchValue): array
 	{
-		return $this->database->getSearchValue(self::GET_SEARCHVALUE, $searchValue);
-	}
-
-	/**
-	 * @param array $data
-	 */
-	public function new(array $data): void
-	{
-		$this->database->insert(self::NEW, $data);
+		$searchValue = '%' . $searchValue . '%';
+		return $this->database->select(self::GET_SEARCHVALUE, $searchValue);
 	}
 
 	/**
@@ -107,7 +104,7 @@ class Article
 	 */
 	public function getProductgroup(): array
 	{
-		return $this->database->select(self::GET_PRODUCTGROUP);
+		return $this->database->select(self::GET_PRODUCTGROUP, $parameter = null);
 	}
 
 	/**
@@ -119,12 +116,11 @@ class Article
 	}
 
 	/**
-	 * @param int $id
-	 * @return array
+	 * @param array $data
 	 */
-	public function getOne(int $id): array
+	public function new(array $data): void
 	{
-		return $this->database->getone(self::GET_ONE, $id);
+		$this->database->insert(self::NEW, $data);
 	}
 
 	/**

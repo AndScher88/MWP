@@ -15,6 +15,8 @@
                         <a href="/article/new">Artikel erstellen</a>
                         <a href="/productgroup/show">Warengruppe anzeigen</a>
                         <a href="/productgroup/new">Warengruppe erstellen</a>
+                        <a href="/supplier/show">Lieferanten anzeigen</a>
+                        <a href="/supplier/new">Lieferanten erstellen</a>
                     </div>
                 </div>
                 <!--###ADMIN###-->
