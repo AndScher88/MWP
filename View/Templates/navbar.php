@@ -19,6 +19,12 @@
                         <a href="/supplier/new">Lieferanten erstellen</a>
                     </div>
                 </div>
+                <div class="dropdown">
+                    <button class="dropdown-btn">Dataportal</button>
+                    <div class="dropdown-content">
+                        <a href="/dataportal/showvalues">Datenerfassung</a>
+                    </div>
+                </div>
                 <!--###ADMIN###-->
                 <div class="dropdown">
                     <button class="dropdown-btn">Andrej</button>

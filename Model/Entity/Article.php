@@ -10,37 +10,50 @@ class Article
 	private DatabaseClass $database;
 
 	private const GET_ALL = 'SELECT
-       	artikelstammdaten.id,
-       	artikelstammdaten.artikelnummer, 
-       	artikelstammdaten.typ,
-       	artikelstammdaten.bezeichnung, 
-       	artikelstammdaten.spezifikation,
-       	artikelstammdaten.hersteller,
-       	artikelstammdaten.bestand
-		FROM artikelstammdaten';
+       			artikelstammdaten.id,
+       			artikelstammdaten.artikelnummer, 
+       			artikelstammdaten.typ,
+       			artikelstammdaten.bezeichnung, 
+       			artikelstammdaten.spezifikation,
+       			lieferanten.firma,
+       			artikelstammdaten.bestand
+				FROM artikelstammdaten
+				LEFT JOIN lieferanten on artikelstammdaten.hersteller = lieferanten.id';
 
-	private const GET_SEARCHVALUE = 'select * from 
+	private const GET_SEARCHVALUE = 'SELECT 
+				artikelstammdaten.id,
+       			artikelstammdaten.artikelnummer, 
+       			artikelstammdaten.typ,
+       			artikelstammdaten.bezeichnung, 
+       			artikelstammdaten.spezifikation,
+       			lieferanten.firma,
+       			artikelstammdaten.bestand
+				FROM 
 				artikelstammdaten 
-				where concat(artikelnummer,
+				LEFT JOIN lieferanten on artikelstammdaten.hersteller = lieferanten.id
+				WHERE CONCAT(artikelnummer,
 				typ, 
 				bezeichnung, 
 				spezifikation, 
 				hersteller, 
 				warengruppe) 
-                like ?
+                LIKE :searchValue
 		';
 
-	private const NEW = 'INSERT INTO artikelstammdaten (
-                            artikelnummer, typ,  bezeichnung, spezifikation, erwSpezifikation, 
-                            hersteller, bestand, warengruppe
-                            )
-                	VALUES  (?, ?, ?, ?, ?, ?, ?, ?)';
+	private const NEW = '
+				INSERT INTO artikelstammdaten (
+                artikelnummer, typ,  bezeichnung, spezifikation, erwSpezifikation, 
+                hersteller, bestand, warengruppe
+                )
+                VALUES  (:artikelnummer, :typ, :bezeichnung, :spezifikation, :erwSpezifikation, :hersteller, :bestand, :warengruppe)';
 
 	private const GET_COLUMNS = 'SHOW COLUMNS FROM artikelstammdaten';
 
 	private const GET_PRODUCTGROUP = 'SELECT * FROM Productgroup';
 
-	private const DELETE = 'DELETE FROM artikelstammdaten WHERE id = ?';
+	private const GET_Supplier = 'SELECT id, firma FROM lieferanten';
+
+	private const DELETE = 'DELETE FROM artikelstammdaten WHERE id = :id';
 
 	private const GET_ONE = 'SELECT
 				artikelstammdaten.id,
@@ -54,19 +67,22 @@ class Article
 				artikelstammdaten.warengruppe
 				FROM artikelstammdaten
 				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
-				WHERE artikelstammdaten.id = ?';
+				WHERE artikelstammdaten.id = :id';
 
 	private const UPDATE = 'UPDATE artikelstammdaten SET 
-            	artikelnummer = ?,
-				typ = ?, 
-				bezeichnung = ?,
-				spezifikation = ?,
-				erwSpezifikation = ?,
-				hersteller = ?,
-				bestand = ?,
-				warengruppe = ?
-				WHERE id = ?';
+            	artikelnummer = :artikelnummer,
+				typ = :typ, 
+				bezeichnung = :bezeichnung,
+				spezifikation = :spezifikation,
+				erwSpezifikation = :erwSpezifikation,
+				hersteller = :hersteller,
+				bestand = :bestand,
+				warengruppe = :warengruppe
+				WHERE id = :id';
 
+	/**
+	 * Article constructor.
+	 */
 	public function __construct()
 	{
 		$this->database = new DatabaseClass();
@@ -75,16 +91,16 @@ class Article
 	/**
 	 * @return array|mixed
 	 */
-	public function getAll()
+	public function getAll(): array
 	{
 		return $this->database->select(self::GET_ALL, $parameter = null);
 	}
 
 	/**
-	 * @param string $id
+	 * @param int $id
 	 * @return array
 	 */
-	public function getOne(string $id): array
+	public function getOne(int $id): array
 	{
 		return $this->database->selectOne(self::GET_ONE, $id);
 	}
@@ -105,6 +121,11 @@ class Article
 	public function getProductgroup(): array
 	{
 		return $this->database->select(self::GET_PRODUCTGROUP, $parameter = null);
+	}
+
+	public function getSupplier(): array
+	{
+		return $this->database->select(self::GET_Supplier, $parameter = null);
 	}
 
 	/**
