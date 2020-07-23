@@ -9,6 +9,9 @@ class Article
 	/** @var DatabaseClass */
 	private DatabaseClass $database;
 
+	/**
+	 *  Select all data from table artikelstammdaten
+	 */
 	private const GET_ALL = 'SELECT
        			artikelstammdaten.id,
        			artikelstammdaten.artikelnummer, 
@@ -20,6 +23,9 @@ class Article
 				FROM artikelstammdaten
 				LEFT JOIN lieferanten on artikelstammdaten.hersteller = lieferanten.id';
 
+	/**
+	 * Select searchvalue from table artikelstammdaten
+	 */
 	private const GET_SEARCHVALUE = 'SELECT 
 				artikelstammdaten.id,
        			artikelstammdaten.artikelnummer, 
@@ -40,21 +46,40 @@ class Article
                 LIKE :searchValue
 		';
 
+	/**
+	 * Insert new dataset into table artikelstammdaten
+	 */
 	private const NEW = '
 				INSERT INTO artikelstammdaten (
                 artikelnummer, typ,  bezeichnung, spezifikation, erwSpezifikation, 
-                hersteller, bestand, warengruppe
+                hersteller, bestand, warengruppe, lagerort
                 )
-                VALUES  (:artikelnummer, :typ, :bezeichnung, :spezifikation, :erwSpezifikation, :hersteller, :bestand, :warengruppe)';
+                VALUES (:artikelnummer, :typ, :bezeichnung, :spezifikation, :erwSpezifikation, :hersteller, :bestand,
+                        :warengruppe, :lagerort)';
 
+	/**
+	 *  Select columns form table artikelstammdaten
+	 */
 	private const GET_COLUMNS = 'SHOW COLUMNS FROM artikelstammdaten';
 
+	/**
+	 *  Select all values form table productgroup
+	 */
 	private const GET_PRODUCTGROUP = 'SELECT * FROM Productgroup';
 
-	private const GET_Supplier = 'SELECT id, firma FROM lieferanten';
+	/**
+	 *  Select id and companyname form table lieferanten
+	 */
+	private const GET_SUPPLIER = 'SELECT id, firma FROM lieferanten';
 
+	/**
+	 *  Delete a dataset in the table artikelstammdaten where the id = id
+	 */
 	private const DELETE = 'DELETE FROM artikelstammdaten WHERE id = :id';
 
+	/**
+	 *  Select one dataset from table artikelstammdaten
+	 */
 	private const GET_ONE = 'SELECT
 				artikelstammdaten.id,
 				artikelstammdaten.artikelnummer,
@@ -64,11 +89,15 @@ class Article
 				artikelstammdaten.erwSpezifikation,
 				artikelstammdaten.hersteller,
 				artikelstammdaten.bestand,
-				artikelstammdaten.warengruppe
+				artikelstammdaten.warengruppe,
+       			artikelstammdaten.lagerort
 				FROM artikelstammdaten
 				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
 				WHERE artikelstammdaten.id = :id';
 
+	/**
+	 *  Update the dataset in the table artikelstammdaten where id = id
+	 */
 	private const UPDATE = 'UPDATE artikelstammdaten SET 
             	artikelnummer = :artikelnummer,
 				typ = :typ, 
@@ -77,7 +106,8 @@ class Article
 				erwSpezifikation = :erwSpezifikation,
 				hersteller = :hersteller,
 				bestand = :bestand,
-				warengruppe = :warengruppe
+				warengruppe = :warengruppe,
+                lagerort = :lagerort
 				WHERE id = :id';
 
 	/**
@@ -89,11 +119,12 @@ class Article
 	}
 
 	/**
-	 * @return array|mixed
+	 * @param string $parameter
+	 * @return array
 	 */
-	public function getAll(): array
+	public function getAll(?string $parameter): array
 	{
-		return $this->database->select(self::GET_ALL, $parameter = null);
+		return $this->database->select(self::GET_ALL, $parameter);
 	}
 
 	/**
@@ -118,14 +149,18 @@ class Article
 	/**
 	 * @return array
 	 */
-	public function getProductgroup(): array
+	public function getProductgroup($parameter): array
 	{
-		return $this->database->select(self::GET_PRODUCTGROUP, $parameter = null);
+		return $this->database->select(self::GET_PRODUCTGROUP, $parameter);
 	}
 
-	public function getSupplier(): array
+	/**
+	 * @param $parameter
+	 * @return array
+	 */
+	public function getSupplier($parameter): array
 	{
-		return $this->database->select(self::GET_Supplier, $parameter = null);
+		return $this->database->select(self::GET_SUPPLIER, $parameter);
 	}
 
 	/**
@@ -147,7 +182,7 @@ class Article
 	/**
 	 * @param array $data
 	 */
-	public function update(array $data, array $productgroup = null)
+	public function update(array $data)
 	{
 		$this->database->update(self::UPDATE, $data);
 	}

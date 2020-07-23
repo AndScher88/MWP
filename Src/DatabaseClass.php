@@ -3,6 +3,7 @@
 namespace MWP\Src;
 
 use PDO;
+use PDOException;
 
 class DatabaseClass
 {
@@ -25,7 +26,10 @@ class DatabaseClass
 		$this->conn = $this->dbConnect();
 	}
 
-	/** @return PDO */
+
+	/**
+	 * @return PDO
+	 */
 	public function dbConnect(): ?PDO
 	{
 		try {
@@ -37,8 +41,8 @@ class DatabaseClass
 					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
 				]
 			);
-		} catch (\PDOException $exception) {
-			throw new \PDOException($exception->getMessage(), $exception->getCode());
+		} catch (PDOException $exception) {
+			throw new PDOException($exception->getMessage(), $exception->getCode());
 		}
 	}
 

@@ -7,6 +7,10 @@ use MWP\Model\Form;
 use MWP\Model\Table;
 use MWP\Model\Entity\Article;
 
+/**
+ * Class ArticleController
+ * @package MWP\Controller
+ */
 class ArticleController
 {
 	/** @var array */
@@ -22,11 +26,12 @@ class ArticleController
 	private const CONFIG_NEW = [
 		'title' => 'Artikel anlegen',
 		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
-		'action' => '/article/new',
+		'action' => '/article/saveNewArticle',
 		'type' => 'new',
 		'selectOption' => ['warengruppe','hersteller']
 	];
 
+	/** @var array */
 	private const CONFIG_TABLE = [
 		'title' => 'Artikel übersicht',
 		'actionSearch' => '/article/search/',
@@ -40,29 +45,39 @@ class ArticleController
 	private Table $table;
 	/** @var Form */
 	private Form $form;
+	/** @var array */
+	private array$masterData;
 
-	public function __construct()
+	/**
+	 * ArticleController constructor.
+	 * @param $data
+	 */
+	public function __construct($data)
 	{
+		$this->masterData = $data;
 		$this->article = new Article();
 		$this->table = new Table();
 		$this->form = new Form();
 	}
 
-	public function show(): void
+	/**
+	 * @return string
+	 */
+	public function show(): string
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
-		$result = $this->article->getAll();
+		$parameter = null;
+		$result = $this->article->getAll($parameter);
 		if ($result === null) {
-			exit('<br><p style="color: red">Es liegen keine Daten vor!</p>');
+			echo '<br><p style="color: red">Es liegen keine Daten vor!</p>';
 		}
 		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
+	/**
+	 * @param $methodParam
+	 */
 	public function search($methodParam): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$result = $this->article->getSearchValue($methodParam);
 		$this->table->render($result, self::CONFIG_TABLE, $methodParam);
 	}
@@ -70,38 +85,38 @@ class ArticleController
 	/**
 	 *
 	 */
-	public function new(): void
+	public function newArticleForm(): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
+		$parameter = null;
 		$columns = $this->article->getColumns();
 		$flippedColumns = array_flip($columns);
-		$optionDataSupplier = $this->optionDataToArray($this->article->getSupplier());
-		$optionData = $this->optionDataToArray($this->article->getProductgroup());
+		$optionDataSupplier = $this->optionDataToArray($this->article->getSupplier($parameter));
+		$optionData = $this->optionDataToArray($this->article->getProductgroup($parameter));
 		$flippedColumns['hersteller'] = $optionDataSupplier;
 		$flippedColumns['warengruppe'] = $optionData;
 		$this->form->render($flippedColumns, self::CONFIG_NEW);
-		$masterData = $_POST;
-		$this->article->new($masterData);
+	}
+
+	public function saveNewArticle(): void
+	{
+		$this->article->new($this->masterData);
+		header('Location: /article/show');
 	}
 
 	public function delete(): void
 	{
-		$id = $_GET['id'];
-		$this->article->delete($id);
+		$this->article->delete((int)$this->masterData);
 		header('Location: /article/show');
 	}
 
 	public function edit(): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
-		$id = $_GET['id'];
-		$data = $this->article->getOne($id);
+		$parameter = null;
+		$data = $this->article->getOne((int)$this->masterData);
 		$selectKeySupplier = $data['hersteller'];
 		$selectKeyProductgoup = $data['warengruppe'];
-		$optionDataSupplier = $this->optionDataToArray($this->article->getSupplier());
-		$optionData = $this->optionDataToArray($this->article->getProductgroup());
+		$optionDataSupplier = $this->optionDataToArray($this->article->getSupplier($parameter));
+		$optionData = $this->optionDataToArray($this->article->getProductgroup($parameter));
 		$data['hersteller'] = $optionDataSupplier;
 		$data['hersteller']['selectKey'] = (int)$selectKeySupplier;
 		$data['warengruppe'] = $optionData;
@@ -109,10 +124,12 @@ class ArticleController
 		$this->form->render($data, self::CONFIG_EDIT);
 	}
 
+	/**
+	 *
+	 */
 	public function update(): void
 	{
-		$data = $_POST;
-		$this->article->update($data);
+		$this->article->update($this->masterData);
 		echo 'Update war erfolgreich';
 		header('Location: /article/show');
 	}
@@ -123,6 +140,7 @@ class ArticleController
 	 */
 	public function optionDataToArray(array $data): array
 	{
+		$optionData = null;
 		foreach ($data as $value) {
 			$masterData = array_values($value);
 			$key = $masterData[0];

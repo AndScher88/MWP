@@ -2,6 +2,10 @@
 
 namespace MWP\Model;
 
+/**
+ * Class Form
+ * @package MWP\Model
+ */
 class Form
 {
 	/** @var bool */
@@ -14,9 +18,11 @@ class Form
 
 	public function render(array $data, array $config): void
 	{
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		if (empty($data)) {
-			echo 'Keine Daten!';
-			exit;
+			echo '<p>Keine Daten!</p>';
+			return;
 		}
 
 		if ($config['type'] === 'new') {
@@ -64,7 +70,8 @@ class Form
 			$row = 'value="' . $value . '"';
 		}
 
-		echo '<input type="text" name="' . $key . '" id="' . $key . '" aria-describedby="' . $key . 'label" ' . $row . '>';
+		echo '<input type="text" name="' . $key . '" id="' . $key . '" aria-describedby="' . $key . 'label" '
+			. $row . '>';
 	}
 
 	/**

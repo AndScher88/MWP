@@ -52,8 +52,6 @@ class ProductgroupController
 
 	public function new(): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$columns = $this->productgroup->getColumns();
 		$columns = array_flip($columns);
 		$this->form->render($columns, self::CONFIG_NEW);
@@ -63,8 +61,6 @@ class ProductgroupController
 
 	public function edit(): void
 	{
-		require_once 'View/Templates/navbar.php';
-		require_once 'View/Templates/template.php';
 		$id = $_GET['id'];
 		$data = $this->productgroup->getOne($id);
 		$this->form->render($data, self::CONFIG_EDIT);
@@ -86,16 +82,12 @@ class ProductgroupController
 
 	public function show(): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$result = $this->productgroup->getAll();
 		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
 	public function search($methodParam): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$result = $this->productgroup->getSearchValue($methodParam);
 		$this->table->render($result, self::CONFIG_TABLE, $methodParam);
 	}
