@@ -3,99 +3,77 @@
 namespace MWP\Model\Entity;
 
 use MWP\Src\DatabaseClass;
-use mysqli_result;
-use mysqli;
+
 
 class Productgroup
 {
-	public mysqli_result $result;
-	private array $columns;
-	private mysqli $conn;
+	private DatabaseClass $database;
+
+	private const GET_ALL = 'SELECT * FROM productgroup';
+	private const GET_ONE = 'SELECT * FROM productgroup WHERE id = :id';
+	private const NEW = 'INSERT INTO productgroup (warengruppe) VALUES (:warengruppe)';
+	private const GET_COLUMNS = 'SHOW COLUMNS FROM Productgroup';
+	private const UPDATE = 'UPDATE productgroup SET warengruppe = :warengruppe WHERE id = :id';
+	private const DELETE = 'DELETE FROM productgroup WHERE id = :id';
+	private const GET_SEARCHVALUE = 'SELECT * FROM productgroup WHERE warengruppe LIKE :searchValue';
 
 	/**
 	 * Productgroup constructor.
 	 */
 	public function __construct()
 	{
-		$database = new DatabaseClass();
-		$this->conn = $database->dbConnect();
+		$this->database = new DatabaseClass();
 	}
 
-	public function getAll()
+	/** @return array */
+	public function getAll(): array
 	{
-		$sql = 'SELECT * FROM productgroup';
-		$this->result = $this->conn->query($sql);
-		$this->conn->close();
-		if ($this->result->num_rows <= 0) {
-			return [];
-		}
-		return $this->result->fetch_all(MYSQLI_ASSOC);
+		return $this->database->select(self::GET_ALL, $parameter = null);
 	}
 
+	/**
+	 * @param $id
+	 * @return mixed
+	 */
 	public function getOne($id)
 	{
-		$sql = "SELECT * FROM productgroup WHERE id = '$id'";
-		$this->result = $this->conn->query($sql);
-		$this->conn->close();
-		if ($this->result->num_rows <= 0){
-			return [];
-		}
-		$data = $this->result->fetch_all(MYSQLI_ASSOC);
-		return $data[0];
+		return $this->database->selectOne(self::GET_ONE, $id);
 	}
 
+	/** @param array $data */
 	public function new(array $data): void
 	{
-		if (!empty($data)) {
-			$warengruppe = $data['warengruppe'];
-			$sql = "INSERT INTO productgroup (warengruppe) VALUES ('$warengruppe')";
-			$this->conn->query($sql);
-			$this->conn->close();
-		}
+		$this->database->insert(self::NEW, $data);
 	}
 
-	public function delete($id)
+	/** @param $id */
+	public function delete($id): void
 	{
-		$sql = "DELETE FROM productgroup WHERE id = '$id'";
-		$this->conn->query($sql);
-		$this->conn->close();
+		$this->database->delete(self::DELETE, $id);
 	}
 
+	/** @return mixed */
 	public function getColumns()
 	{
-		$sql = 'SHOW COLUMNS FROM Productgroup';
-		$this->result = $this->conn->query($sql);
-
-		if ($this->result->num_rows <= 0){
-			echo 'Es stehen keine Daten zur Verfügung!';
-			return [];
-		}
-
-		foreach ($this->result as $key => $value) {
-			$this->columns [] = $value['Field'];
-		}
-		return $this->columns;
+		return $this->database->getColumns(self::GET_COLUMNS);
 	}
 
-	public function update($data)
+	/**
+	 * @param array $data
+	 * @param array|null $productgroup
+	 */
+	public function update(array $data, array $productgroup = null): void
 	{
-		$id = $data['id'];
-		$warengruppe = $data['warengruppe'];
-		$sql = "UPDATE productgroup SET warengruppe = '$warengruppe' WHERE id = '$id'";
-		$this->conn->query($sql);
-		$this->conn->close();
+		$this->database->update(self::UPDATE, $data);
 	}
 
-	public function getSearchValue(string $methodParam)
+	/**
+	 * @param string $searchValue
+	 * @return array
+	 */
+	public function getSearchValue(string $searchValue): array
 	{
-		$sql = "SELECT id, warengruppe
-		FROM productgroup
-		WHERE warengruppe LIKE '%$methodParam%'";
-		$this->result = $this->conn->query($sql);
-		if ($this->result->num_rows <= 0){
-			return [];
-		}
-
-		return $this->result->fetch_all(MYSQLI_ASSOC);
+		$searchValue = '%' . $searchValue . '%';
+		return $this->database->select(self::GET_SEARCHVALUE, $searchValue);
 	}
 }

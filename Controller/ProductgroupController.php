@@ -40,6 +40,9 @@ class ProductgroupController
 	/** @var Productgroup */
 	private Productgroup $productgroup;
 
+	/**
+	 * ProductgroupController constructor.
+	 */
 	public function __construct()
 	{
 		$this->table = new Table();
@@ -47,10 +50,8 @@ class ProductgroupController
 		$this->productgroup = new Productgroup();
 	}
 
-	public function new()
+	public function new(): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$columns = $this->productgroup->getColumns();
 		$columns = array_flip($columns);
 		$this->form->render($columns, self::CONFIG_NEW);
@@ -58,41 +59,35 @@ class ProductgroupController
 		$this->productgroup->new($groupname);
 	}
 
-	public function edit()
+	public function edit(): void
 	{
-		require_once 'View/Templates/navbar.php';
-		require_once 'View/Templates/template.php';
 		$id = $_GET['id'];
 		$data = $this->productgroup->getOne($id);
 		$this->form->render($data, self::CONFIG_EDIT);
 	}
 
-	public function update()
+	public function update(): void
 	{
 		$data = $_POST;
 		$this->productgroup->update($data);
 		header('Location: /productgroup/show');
 	}
 
-	public function delete()
+	public function delete(): void
 	{
 		$id = $_GET['id'];
 		$this->productgroup->delete($id);
 		header('Location: /productgroup/show');
 	}
 
-	public function show()
+	public function show(): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$result = $this->productgroup->getAll();
 		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
-	public function search($methodParam)
+	public function search($methodParam): void
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$result = $this->productgroup->getSearchValue($methodParam);
 		$this->table->render($result, self::CONFIG_TABLE, $methodParam);
 	}

@@ -22,8 +22,8 @@ class SupplierController
 	private const CONFIG_EDIT = [
 		'title' => 'Lieferanten bearbeiten',
 		'headline' => 'Bitte hier die neuen Daten des Lieferanten eingeben:',
-		'action' => '/supplier/edit',
-		'type' => 'new',
+		'action' => '/supplier/update',
+		'type' => '',
 		'selectOption' => ['lieferant']
 	];
 
@@ -42,14 +42,49 @@ class SupplierController
 		$this->supplier = new Supplier();
 	}
 
+	public function new()
+	{
+		$columns = $this->supplier->getColumns();
+		$flippedColumns = array_flip($columns);
+		$this->form->render($flippedColumns, self::CONFIG_NEW);
+		$masterData = $_POST;
+		$this->supplier->new($masterData);
+	}
+
 	public function show()
 	{
-		require_once 'View/Templates/template.php';
-		require_once 'View/Templates/navbar.php';
 		$result = $this->supplier->getAll();
 		if ($result === null) {
 			exit('<br><p style="color: red">Es liegen keine Daten vor!</p>');
 		}
 		$this->table->render($result, self::CONFIG_TABLE);
+	}
+
+	public function search($methodParam)
+	{
+		$result = $this->supplier->getSearchValue($methodParam);
+		$this->table->render($result, self::CONFIG_TABLE,$methodParam);
+	}
+
+	public function edit()
+	{
+		$id = $_GET['id'];
+		$data = $this->supplier->getOne($id);
+		$this->form->render($data, self::CONFIG_EDIT);
+	}
+
+	public function update()
+	{
+		$data = $_POST;
+		$this->supplier->update($data);
+		echo 'Update war erfolgreich';
+		header('Location: /supplier/show');
+	}
+
+	public function delete()
+	{
+		$id = $_GET['id'];
+		$this->supplier->delete($id);
+		header('Location: /supplier/show');
 	}
 }

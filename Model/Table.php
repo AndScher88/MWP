@@ -2,26 +2,32 @@
 
 namespace MWP\Model;
 
+/**
+ * Class Table
+ * @package MWP\Model
+ */
 class Table implements Output
 {
 	private bool $head = false;
 	private array $config;
-	private $methodParam;
+	private ?string $methodParam;
 
-	public function __construct()
-	{
-
-	}
-
+	/**
+	 * @param array $alldata
+	 * @param array $config
+	 * @param null $methodParam
+	 */
 	public function render(array $alldata, array $config, $methodParam = null): void
 	{
+		require_once 'View/Templates/template.php';
+		require_once 'View/Templates/navbar.php';
 		$this->config = $config;
 		$this->methodParam = $methodParam;
 		$this->head();
 		$this->searchField();
 		if (empty($alldata)) {
-			echo 'Keine Daten!';
-			exit;
+			echo '<p>Keine Daten!</p>';
+			return;
 		}
 		ob_start();
 		echo '<table class="container content-table">';
@@ -35,16 +41,16 @@ class Table implements Output
 		ob_end_flush();
 	}
 
-	public function head()
+	public function head(): void
 	{
 		echo '<br>';
 		echo '<h1 style="text-align: center">' . $this->config['title'] . '</h1>';
 		echo '<br>';
 	}
 
-	public function searchField()
+	public function searchField(): void
 	{
-		echo '<form method="get" action="'. $this->config['actionSearch'] .'" class="search">';
+		echo '<form method="get" action="' . $this->config['actionSearch'] . '" class="search">';
 		if ($this->methodParam !== null) {
 			echo '<p class="container">Hier sind die Ergebnisse zu: ' . $this->methodParam . ' !</p>';
 			echo '<br>';
@@ -55,14 +61,17 @@ class Table implements Output
 		echo '</form>';
 	}
 
+	/**
+	 * @param $data
+	 */
 	public function createTableHead($data)
 	{
 		echo '<thead><tr>';
 		echo '<th></th><th></th>';
 
-		foreach ($data as $key => $value) {
+		$test = array_keys($data);
+		foreach ($test as $key) {
 			if ($key === 'id') {
-				//$this->id = $key;
 				continue;
 			}
 			echo '<th>' . ucfirst($key) . '</th>';
@@ -71,7 +80,10 @@ class Table implements Output
 		$this->head = true;
 	}
 
-	public function createTableBody($data)
+	/**
+	 * @param $data
+	 */
+	public function createTableBody($data): void
 	{
 		echo '<tr>';
 		echo '<td width="50px"> <a href="' . $this->config['editLink'] . '?id=' . $data['id'] . '">';
@@ -98,4 +110,3 @@ class Table implements Output
 		return htmlentities(strip_tags($parameter), ENT_QUOTES | ENT_HTML5, $encoding);
 	}
 }
-

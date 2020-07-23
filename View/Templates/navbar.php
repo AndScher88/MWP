@@ -12,11 +12,17 @@
                     <button class="dropdown-btn">Artikelverwaltung</button>
                     <div class="dropdown-content">
                         <a href="/article/show">Artikel anzeigen</a>
-                        <a href="/article/new">Artikel erstellen</a>
+                        <a href="/article/newArticleForm">Artikel erstellen</a>
                         <a href="/productgroup/show">Warengruppe anzeigen</a>
                         <a href="/productgroup/new">Warengruppe erstellen</a>
                         <a href="/supplier/show">Lieferanten anzeigen</a>
                         <a href="/supplier/new">Lieferanten erstellen</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropdown-btn">Dataportal</button>
+                    <div class="dropdown-content">
+                        <a href="/dataportal/showvalues">Datenerfassung</a>
                     </div>
                 </div>
                 <!--###ADMIN###-->

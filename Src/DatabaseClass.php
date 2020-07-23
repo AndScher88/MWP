@@ -2,13 +2,13 @@
 
 namespace MWP\Src;
 
-use mysqli;
-use mysqli_result;
+use PDO;
+use PDOException;
 
 class DatabaseClass
 {
 	/** @var string */
-	private const HOSTNAME = 'localhost';
+	private const DSN = 'mysql:dbname=mwp-systems;host=localhost';
 
 	/** @var string */
 	private const USERNAME = 'root';
@@ -16,71 +16,71 @@ class DatabaseClass
 	/** @var string */
 	private const PASSWORD = '';
 
-	/** @var string */
-	private const DB_NAME = 'mwp-systems';
-	private mysqli $conn;
-	private mysqli_result $result;
+	/** @var PDO|null */
+	private ?PDO $conn;
 
-	/**
-	 * @var DatabaseClass
-	 */
+	/** @var DatabaseClass */
 
 	public function __construct()
 	{
 		$this->conn = $this->dbConnect();
 	}
 
+
 	/**
-	 * @return mysqli
+	 * @return PDO
 	 */
-	public function dbConnect()
+	public function dbConnect(): ?PDO
 	{
-		$connectionString = new mysqli(
-			self::HOSTNAME,
-			self::USERNAME,
-			self::PASSWORD,
-			self::DB_NAME
-		);
-
-		if ($connectionString->connect_errno) {
-			exit('Verbindung zur Datenbank ist fehlgeschlagen:('
-				. $connectionString->connect_errno
-				. ')' . $connectionString->connect_error);
+		try {
+			return new PDO(
+				self::DSN,
+				self::USERNAME,
+				self::PASSWORD,
+				[
+					PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+				]
+			);
+		} catch (PDOException $exception) {
+			throw new PDOException($exception->getMessage(), $exception->getCode());
 		}
-
-		return $connectionString;
 	}
 
-	public function select(string $sql, $parameter)
-	{
-		$statement = $this->conn->prepare($sql);
-		if ($parameter !== null) {
-			$statement->bind_param('s', $parameter);
-		}
-		$statement->execute();
-		$this->result = $statement->get_result();
-		return $this->result->fetch_all(MYSQLI_ASSOC);
-	}
-
-	public function selectOne(string $sql, $parameter)
+	/**
+	 * @param string $sql
+	 * @param $searchParameter
+	 * @return array
+	 */
+	public function select(string $sql, $searchParameter): array
 	{
 		$statement = $this->conn->prepare($sql);
-		if ($parameter !== null) {
-			$statement->bind_param('s', $parameter);
-		}
+		$statement->bindParam('searchValue', $searchParameter);
 		$statement->execute();
-		$this->result = $statement->get_result();
-		$result = $this->result->fetch_all(MYSQLI_ASSOC);
-
-		return $result[0];
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	/**
+	 * @param string $sql
+	 * @param int $id
+	 * @return mixed
+	 */
+	public function selectOne(string $sql, int $id)
+	{
+		$statement = $this->conn->prepare($sql);
+		if ($statement->bindParam('id', $id)) {
+			$statement->execute();
+		}
+		return $statement->fetch(PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * @param $sql
+	 * @return mixed
+	 */
 	public function getColumns($sql)
 	{
-		$statement = $this->conn->prepare($sql);
-		$statement->execute();
-		$data = $statement->get_result();
-		$result = $data->fetch_all(MYSQLI_ASSOC);
+		$statement = $this->conn->query($sql);
+		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 		foreach ($result as $key => $value) {
 			$columns [] = $value['Field'];
@@ -88,91 +88,50 @@ class DatabaseClass
 		return $columns;
 	}
 
-	public function insert($sql, $data)
+	/**
+	 * @param $sql
+	 * @param $data
+	 */
+	public function insert($sql, $data): void
 	{
-		if (array_key_exists('id', $data)) {
-			unset($data['id']);
-		}
+		$statement = $this->conn->prepare($sql);
 
-		if (!empty($data)) {
-			$artikelnummer = $data['artikelnummer'];
-			$typ = $data['typ'];
-			$bezeichnung = $data['bezeichnung'];
-			$spezifikation = $data['spezifikation'];
-			$erw_spezi = $data['erwSpezifikation'];
-			$hersteller = $data['hersteller'];
-			$bestand = $data['bestand'];
-			$warengruppe = $data['warengruppe'];
-
-			$stmt = $this->conn->prepare($sql);
-			$this->bindParam($stmt, $data);
-			$stmt->execute();
-		}
-	}
-
-	private function bindParam($stmt, $parameter)
-	{
-		$type = '';
-		foreach ($parameter as $value) {
-			switch (gettype($value)) {
-				case 'integer':
-					$type .= 'i';
-					break;
-				case 'double':
-					$type .= 'd';
-					break;
-				case 'string':
-					$type .= 's';
-					break;
-				case null:
-					break;
+		if ($data) {
+			foreach ($data as $key => $value) {
+				$statement->bindValue($key, $value);
 			}
-		}
-		$param = [];
-		foreach ($parameter as $value) {
-			$param [] = $value;
-		}
-		//echo $param;
-		return $stmt->bind_param($type, $param);
-	}
-
-	public
-	function delete($sql, $id)
-	{
-		$statement = $this->conn->prepare($sql);
-		if ($statement) {
-			$statement->bind_param('i', $id);
 			$statement->execute();
 		}
 	}
 
-	public function update($sql, $data)
+	/**
+	 * @param $sql
+	 * @param $id
+	 */
+	public function delete($sql, $id): void
 	{
-		$id = $data['id'];
-		$artikelnummer = $data['artikelnummer'];
-		$typ = $data['typ'];
-		$bezeichnung = $data['bezeichnung'];
-		$spezifikation = $data['spezifikation'];
-		$erwSpezifikation = $data['erwSpezifikation'];
-		$hersteller = $data['hersteller'];
-		$bestand = $data['bestand'];
-		$warengruppe = $data['warengruppe'];
-
 		$statement = $this->conn->prepare($sql);
 		if ($statement) {
-			$statement->bind_param(
-				'ssssssisi',
-				$artikelnummer,
-				$typ,
-				$bezeichnung,
-				$spezifikation,
-				$erwSpezifikation,
-				$hersteller,
-				$bestand,
-				$warengruppe,
-				$id
-			);
+			$statement->bindParam('id', $id);
 			$statement->execute();
 		}
+	}
+
+	/**
+	 * @param $sql
+	 * @param $data
+	 */
+	public function update($sql, $data): void
+	{
+		$statement = $this->conn->prepare($sql);
+		foreach ($data as $key => $value) {
+			if ($key === 'id') {
+				$id = $value;
+				continue;
+			}
+			$statement->bindValue($key, $value);
+		}
+		$statement->bindValue('id', $id);
+		$statement->execute();
 	}
 }

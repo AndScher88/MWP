@@ -8,14 +8,10 @@ use MWP\Controller\SupplierController;
 
 class Router
 {
-	public function __construct()
-	{
-	}
-
+	/** @param $url */
 	public function process($url): void
 	{
 		$url = explode('/', $url);
-
 
 		if (!isset($url[1]) || !isset($url[2])) {
 			$this->homepage();
@@ -38,7 +34,14 @@ class Router
 
 		switch ($controllerName) {
 			case 'ArticleController':
-				$controller = new ArticleController();
+				$data = null;
+				if ($_POST) {
+					$data = $_POST;
+				}
+				if (isset($_GET['id'])) {
+					$data = $_GET['id'];
+				}
+				$controller = new ArticleController($data);
 				break;
 			case 'ProductgroupController':
 				$controller = new ProductgroupController();
@@ -62,5 +65,4 @@ class Router
 		require_once 'View/home.php';
 		die();
 	}
-
 }
