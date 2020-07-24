@@ -4,6 +4,10 @@ namespace MWP\Model\Entity;
 
 use MWP\Src\DatabaseClass;
 
+/**
+ * Class Article
+ * @package MWP\Model\Entity
+ */
 class Article
 {
 	/** @var DatabaseClass */
@@ -128,12 +132,12 @@ class Article
 	}
 
 	/**
-	 * @param int $id
+	 * @param int $articleId
 	 * @return array
 	 */
-	public function getOne(int $id): array
+	public function getOne(int $articleId): array
 	{
-		return $this->database->selectOne(self::GET_ONE, $id);
+		return $this->database->selectOne(self::GET_ONE, $articleId);
 	}
 
 	/**
@@ -147,20 +151,21 @@ class Article
 	}
 
 	/**
+	 * @param $parameter
 	 * @return array
 	 */
-	public function getProductgroup($parameter): array
+	public function getProductgroup(): array
 	{
-		return $this->database->select(self::GET_PRODUCTGROUP, $parameter);
+		return $this->database->select(self::GET_PRODUCTGROUP, null);
 	}
 
 	/**
 	 * @param $parameter
 	 * @return array
 	 */
-	public function getSupplier($parameter): array
+	public function getSupplier(): array
 	{
-		return $this->database->select(self::GET_SUPPLIER, $parameter);
+		return $this->database->select(self::GET_SUPPLIER, null);
 	}
 
 	/**
@@ -182,18 +187,16 @@ class Article
 	/**
 	 * @param array $data
 	 */
-	public function update(array $data)
+	public function update(array $data): void
 	{
 		$this->database->update(self::UPDATE, $data);
 	}
 
 	/**
-	 * @param int $id
+	 * @param int $articleId
 	 */
-	public function delete(int $id): void
+	public function delete(int $articleId): void
 	{
-		$this->database->delete(self::DELETE, $id);
+		$this->database->delete(self::DELETE, $articleId);
 	}
-
 }
-

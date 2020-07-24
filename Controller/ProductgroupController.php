@@ -6,6 +6,10 @@ use MWP\Model\Entity\Productgroup;
 use MWP\Model\Form;
 use MWP\Model\Table;
 
+/**
+ * Class ProductgroupController
+ * @package MWP\Controller
+ */
 class ProductgroupController
 {
 	/** @var array */
@@ -21,11 +25,12 @@ class ProductgroupController
 	private const CONFIG_NEW = [
 		'title' => 'Warengruppe anlegen',
 		'headline' => 'Bitte geben sie den Namen der Warengruppe ein:',
-		'action' => '/productgroup/new',
+		'action' => '/productgroup/save',
 		'type' => 'new',
 		'selectOption' => []
 	];
 
+	/** @var array*/
 	private const CONFIG_TABLE = [
 		'title' => 'Übersicht Warengruppen',
 		'actionSearch' => '/productgroup/search/',
@@ -40,9 +45,7 @@ class ProductgroupController
 	/** @var Productgroup */
 	private Productgroup $productgroup;
 
-	/**
-	 * ProductgroupController constructor.
-	 */
+	/** ProductgroupController constructor.*/
 	public function __construct()
 	{
 		$this->table = new Table();
@@ -50,33 +53,38 @@ class ProductgroupController
 		$this->productgroup = new Productgroup();
 	}
 
-	public function new(): void
+	public function newProductgroupForm(): void
 	{
 		$columns = $this->productgroup->getColumns();
 		$columns = array_flip($columns);
 		$this->form->render($columns, self::CONFIG_NEW);
-		$groupname = $_POST;
-		$this->productgroup->new($groupname);
 	}
 
-	public function edit(): void
+	/** @param array $methodParameter */
+	public function save(array $methodParameter): void
 	{
-		$id = $_GET['id'];
-		$data = $this->productgroup->getOne($id);
-		$this->form->render($data, self::CONFIG_EDIT);
-	}
-
-	public function update(): void
-	{
-		$data = $_POST;
-		$this->productgroup->update($data);
+		$this->productgroup->new($methodParameter);
 		header('Location: /productgroup/show');
 	}
 
-	public function delete(): void
+	/** @param int $methodParameter */
+	public function edit(int $methodParameter): void
 	{
-		$id = $_GET['id'];
-		$this->productgroup->delete($id);
+		$data = $this->productgroup->getOne($methodParameter);
+		$this->form->render($data, self::CONFIG_EDIT);
+	}
+
+	/** @param array $methodParameter */
+	public function update(array $methodParameter): void
+	{
+		$this->productgroup->update($methodParameter);
+		header('Location: /productgroup/show');
+	}
+
+	/** @param int $methodParameter */
+	public function delete(int $methodParameter): void
+	{
+		$this->productgroup->delete($methodParameter);
 		header('Location: /productgroup/show');
 	}
 
@@ -86,7 +94,8 @@ class ProductgroupController
 		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
-	public function search($methodParam): void
+	/** @param string $methodParam */
+	public function search(string $methodParam): void
 	{
 		$result = $this->productgroup->getSearchValue($methodParam);
 		$this->table->render($result, self::CONFIG_TABLE, $methodParam);

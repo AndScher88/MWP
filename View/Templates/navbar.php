@@ -14,9 +14,9 @@
                         <a href="/article/show">Artikel anzeigen</a>
                         <a href="/article/newArticleForm">Artikel erstellen</a>
                         <a href="/productgroup/show">Warengruppe anzeigen</a>
-                        <a href="/productgroup/new">Warengruppe erstellen</a>
+                        <a href="/productgroup/newProductgroupForm">Warengruppe erstellen</a>
                         <a href="/supplier/show">Lieferanten anzeigen</a>
-                        <a href="/supplier/new">Lieferanten erstellen</a>
+                        <a href="/supplier/newSupplierForm">Lieferanten erstellen</a>
                     </div>
                 </div>
                 <div class="dropdown">

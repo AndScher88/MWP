@@ -86,10 +86,10 @@ class Table implements Output
 	public function createTableBody($data): void
 	{
 		echo '<tr>';
-		echo '<td width="50px"> <a href="' . $this->config['editLink'] . '?id=' . $data['id'] . '">';
+		echo '<td width="50px"> <a href="' . $this->config['editLink'] . $data['id'] . '">';
 		echo '<Img Src="/View/Img/edit.png" width="16" height="16" class="d-inline-block align-top" alt="">';
 		echo '</td>';
-		echo '<td width="50px"><a href="' . $this->config['deleteLink'] . '?id=' . $data['id'] . '">';
+		echo '<td width="50px"><a href="' . $this->config['deleteLink'] . $data['id'] . '">';
 		echo '<Img Src="/View/Img/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {

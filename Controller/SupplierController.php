@@ -1,24 +1,28 @@
 <?php
 
-
 namespace MWP\Controller;
-
 
 use MWP\Model\Entity\Article;
 use MWP\Model\Entity\Supplier;
 use MWP\Model\Form;
 use MWP\Model\Table;
 
+/**
+ * Class SupplierController
+ * @package MWP\Controller
+ */
 class SupplierController
 {
+	/** @var array*/
 	private const CONFIG_NEW = [
 		'title' => 'Lieferanten anlegen',
 		'headline' => 'Bitte hier die Daten des Lieferanten eintragen: ',
-		'action' => '/supplier/new',
+		'action' => '/supplier/save',
 		'type' => 'new',
 		'selectOption' => ['lieferant']
 	];
 
+	/** @var array*/
 	private const CONFIG_EDIT = [
 		'title' => 'Lieferanten bearbeiten',
 		'headline' => 'Bitte hier die neuen Daten des Lieferanten eingeben:',
@@ -27,6 +31,7 @@ class SupplierController
 		'selectOption' => ['lieferant']
 	];
 
+	/** @var array*/
 	private const  CONFIG_TABLE = [
 		'title' => 'Lieferanten übersicht',
 		'actionSearch' => '/supplier/search/',
@@ -34,57 +39,67 @@ class SupplierController
 		'deleteLink' => '/supplier/delete/'
 	];
 
+	/** @var Table */
+	private Table $table;
+	/** @var Form */
+	private Form $form;
+	/** @var Supplier */
+	private Supplier $supplier;
+
 	public function __construct()
 	{
-		$this->article = new Article();
+		//$this->article = new Article();
 		$this->table = new Table();
 		$this->form = new  Form();
 		$this->supplier = new Supplier();
 	}
 
-	public function new()
+	public function newSupplierForm(): void
 	{
 		$columns = $this->supplier->getColumns();
 		$flippedColumns = array_flip($columns);
 		$this->form->render($flippedColumns, self::CONFIG_NEW);
-		$masterData = $_POST;
-		$this->supplier->new($masterData);
 	}
 
-	public function show()
+	/** @param array $methodParameter */
+	public function save(array $methodParameter): void
+	{
+		$this->supplier->new($methodParameter);
+		header('Location: /supplier/show');
+	}
+
+	public function show(): void
 	{
 		$result = $this->supplier->getAll();
-		if ($result === null) {
-			exit('<br><p style="color: red">Es liegen keine Daten vor!</p>');
-		}
 		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
-	public function search($methodParam)
+	/** @param $methodParam */
+	public function search($methodParam): void
 	{
 		$result = $this->supplier->getSearchValue($methodParam);
-		$this->table->render($result, self::CONFIG_TABLE,$methodParam);
+		$this->table->render($result, self::CONFIG_TABLE, $methodParam);
 	}
 
-	public function edit()
+	/** @param int $methodParameter */
+	public function edit(int $methodParameter): void
 	{
-		$id = $_GET['id'];
-		$data = $this->supplier->getOne($id);
+		$data = $this->supplier->getOne($methodParameter);
 		$this->form->render($data, self::CONFIG_EDIT);
 	}
 
-	public function update()
+	/** @param array $methodParameter */
+	public function update(array $methodParameter): void
 	{
-		$data = $_POST;
-		$this->supplier->update($data);
+		$this->supplier->update($methodParameter);
 		echo 'Update war erfolgreich';
 		header('Location: /supplier/show');
 	}
 
-	public function delete()
+	/** @param int $methodParameter */
+	public function delete(int $methodParameter)
 	{
-		$id = $_GET['id'];
-		$this->supplier->delete($id);
+		$this->supplier->delete($methodParameter);
 		header('Location: /supplier/show');
 	}
 }
