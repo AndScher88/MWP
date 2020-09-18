@@ -21,6 +21,7 @@ class Table implements Output
 	{
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
+		require_once 'View/Templates/flashMessage.php';
 		$this->config = $config;
 		$this->methodParam = $methodParam;
 		$this->head();
@@ -41,14 +42,14 @@ class Table implements Output
 		ob_end_flush();
 	}
 
-	public function head(): void
+	private function head(): void
 	{
 		echo '<br>';
 		echo '<h1 style="text-align: center">' . $this->config['title'] . '</h1>';
 		echo '<br>';
 	}
 
-	public function searchField(): void
+	private function searchField(): void
 	{
 		echo '<form method="get" action="' . $this->config['actionSearch'] . '" class="search">';
 		if ($this->methodParam !== null) {
@@ -64,10 +65,10 @@ class Table implements Output
 	/**
 	 * @param $data
 	 */
-	public function createTableHead($data)
+	private function createTableHead($data)
 	{
 		echo '<thead><tr>';
-		echo '<th></th><th></th>';
+		echo '<th></th><th></th><th></th>';
 
 		$test = array_keys($data);
 		foreach ($test as $key) {
@@ -83,7 +84,7 @@ class Table implements Output
 	/**
 	 * @param $data
 	 */
-	public function createTableBody($data): void
+	private function createTableBody($data): void
 	{
 		echo '<tr>';
 		echo '<td width="50px"> <a href="' . $this->config['editLink'] . $data['id'] . '">';
@@ -91,6 +92,8 @@ class Table implements Output
 		echo '</td>';
 		echo '<td width="50px"><a href="' . $this->config['deleteLink'] . $data['id'] . '">';
 		echo '<Img Src="/View/Img/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
+		echo '<td width="50px"><a href="' . 'detailView/' . $data['id'] . '">';
+		echo '<Img Src="/View/Img/loupe.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {
 				continue;
