@@ -19,10 +19,11 @@ class Productgroup
 
 	/**
 	 * Productgroup constructor.
+	 * @param DatabaseClass $database
 	 */
-	public function __construct()
+	public function __construct(DatabaseClass $database)
 	{
-		$this->database = new DatabaseClass();
+		$this->database = $database;
 	}
 
 	/** @return array */

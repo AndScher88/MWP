@@ -19,3 +19,12 @@ Darüber kann dann ein Router geschrieben werden
 
 Autoloader muss überarbeitet werden
 
+if ($statement->execute() === true) {
+				return true;
+				$_SESSION['message'] = 'Erfolgreich gespeichert!';
+				$_SESSION['alert']   = 'green';
+			} else {
+				return false;
+				$_SESSION['message'] = 'Es ist etwas schief gelaufen!';
+				$_SESSION['alert']   = 'red';
+			}

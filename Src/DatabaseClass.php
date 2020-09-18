@@ -5,6 +5,10 @@ namespace MWP\Src;
 use PDO;
 use PDOException;
 
+/**
+ * Class DatabaseClass
+ * @package MWP\Src
+ */
 class DatabaseClass
 {
 	/** @var string */
@@ -80,7 +84,7 @@ class DatabaseClass
 	public function getColumns($sql)
 	{
 		$statement = $this->conn->query($sql);
-		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+		$result    = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 		foreach ($result as $key => $value) {
 			$columns [] = $value['Field'];
@@ -100,7 +104,13 @@ class DatabaseClass
 			foreach ($data as $key => $value) {
 				$statement->bindValue($key, $value);
 			}
-			$statement->execute();
+			if ($statement->execute() === true) {
+				$_SESSION['message'] = 'Die Daten wurden erfolgreich gespeichert!';
+				$_SESSION['alert']   = 'limegreen';
+			} else {
+				$_SESSION['message'] = 'Es ist etwas schief gelaufen!';
+				$_SESSION['alert']   = 'red';
+			}
 		}
 	}
 
@@ -113,7 +123,13 @@ class DatabaseClass
 		$statement = $this->conn->prepare($sql);
 		if ($statement) {
 			$statement->bindParam('id', $id);
-			$statement->execute();
+			if ($statement->execute() === true) {
+				$_SESSION['message'] = 'Die Daten wurden erfolgreich gelöscht!';
+				$_SESSION['alert']   = 'limegreen';
+			} else {
+				$_SESSION['message'] = 'Die Daten konnten nicht gelöscht werden!';
+				$_SESSION['alert']   = 'red';
+			}
 		}
 	}
 
@@ -132,6 +148,12 @@ class DatabaseClass
 			$statement->bindValue($key, $value);
 		}
 		$statement->bindValue('id', $id);
-		$statement->execute();
+		if ($statement->execute() === true) {
+			$_SESSION['message'] = 'Die Daten wurden erfolgreich bearbeitet!';
+			$_SESSION['alert']   = 'limegreen';
+		} else {
+			$_SESSION['message'] = 'Da ist wohl was schief gelaufen!';
+			$_SESSION['alert']   = 'red';
+		}
 	}
 }

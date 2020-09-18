@@ -100,6 +100,25 @@ class Article
 				WHERE artikelstammdaten.id = :id';
 
 	/**
+	 *
+	 */
+	private const GET_DETAIL = 'SELECT
+				artikelstammdaten.id,
+				artikelstammdaten.artikelnummer,
+				artikelstammdaten.typ,
+				artikelstammdaten.bezeichnung,
+				artikelstammdaten.spezifikation,
+				artikelstammdaten.erwSpezifikation,
+				lieferanten.firma,
+				artikelstammdaten.bestand,
+				productgroup.warengruppe,
+       			artikelstammdaten.lagerort
+				FROM artikelstammdaten
+				LEFT JOIN lieferanten on artikelstammdaten.hersteller = lieferanten.id
+				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
+				WHERE artikelstammdaten.id = :id';
+
+	/**
 	 *  Update the dataset in the table artikelstammdaten where id = id
 	 */
 	private const UPDATE = 'UPDATE artikelstammdaten SET 
@@ -116,10 +135,11 @@ class Article
 
 	/**
 	 * Article constructor.
+	 * @param DatabaseClass $database
 	 */
-	public function __construct()
+	public function __construct(DatabaseClass $database)
 	{
-		$this->database = new DatabaseClass();
+		$this->database = $database;
 	}
 
 	/**
@@ -198,5 +218,14 @@ class Article
 	public function delete(int $articleId): void
 	{
 		$this->database->delete(self::DELETE, $articleId);
+	}
+
+	/**
+	 * @param int $articleId
+	 * @return mixed
+	 */
+	public function getDetail(int $articleId)
+	{
+		return $this->database->selectOne(self::GET_DETAIL, $articleId);
 	}
 }

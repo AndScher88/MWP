@@ -2,9 +2,7 @@
 
 namespace MWP\Src;
 
-use MWP\Controller\ArticleController;
-use MWP\Controller\ProductgroupController;
-use MWP\Controller\SupplierController;
+use MWP\Controller\Factory;
 
 /**
  * Class Router
@@ -27,6 +25,10 @@ class Router
 
 		$methodParam = $url[3] ?? '';
 
+		if ($controllerMethod === 'espData') {
+			$url = explode('?', $url[3]);
+			$methodParam = $_GET;
+		}
 		if ($controllerMethod === 'search') {
 			$url = explode('=', $url[3]);
 			$methodParam = $url[1];
@@ -35,24 +37,23 @@ class Router
 			$methodParam = $_POST;
 		}
 
-//		if (!class_exists($controllerName) || !method_exists($controllerName, $controllerMethod)) {
-//			$this->homepage();
-//		}
+
+		$factory = new Factory();
 
 		$controller = '';
 		switch ($controllerName) {
 			case 'ArticleController':
-				$controller = new ArticleController();
+				$controller = $factory->createArticleController();
 				break;
 			case 'ProductgroupController':
-				$controller = new ProductgroupController();
+				$controller = $factory->createProductgroupController();
 				break;
 			case 'SupplierController':
-				$controller = new SupplierController();
+				$controller = $factory->createSupplierController();
 				break;
-//			case 'CustomerController':
-//				$controller = new CustomerController();
-//				break;
+			case 'DataportalController':
+				$controller = $factory->createDataportalController();
+				break;
 			default:
 				$this->homepage();
 				break;

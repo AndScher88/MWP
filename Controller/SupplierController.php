@@ -2,6 +2,8 @@
 
 namespace MWP\Controller;
 
+Session_Start();
+
 use MWP\Model\Entity\Article;
 use MWP\Model\Entity\Supplier;
 use MWP\Model\Form;
@@ -46,12 +48,17 @@ class SupplierController
 	/** @var Supplier */
 	private Supplier $supplier;
 
-	public function __construct()
+	/**
+	 * SupplierController constructor.
+	 * @param Supplier $supplier
+	 * @param Table $table
+	 * @param Form $form
+	 */
+	public function __construct(Supplier $supplier, Table $table, Form $form)
 	{
-		//$this->article = new Article();
-		$this->table = new Table();
-		$this->form = new  Form();
-		$this->supplier = new Supplier();
+		$this->table = $table;
+		$this->form = $form;
+		$this->supplier = $supplier;
 	}
 
 	public function newSupplierForm(): void

@@ -22,7 +22,7 @@
                 <div class="dropdown">
                     <button class="dropdown-btn">Dataportal</button>
                     <div class="dropdown-content">
-                        <a href="/dataportal/showvalues">Datenerfassung</a>
+                        <a href="/dataportal/showWeather">Wetterdaten</a>
                     </div>
                 </div>
                 <!--###ADMIN###-->

@@ -63,9 +63,9 @@ class Supplier
                 		VALUES  (:firma, :strasse, :hausnummer, :postleitzahl, :stadt, :vorname, :nachname)';
 
 
-	public function __construct()
+	public function __construct(DatabaseClass $database)
 	{
-		$this->database = new DatabaseClass();
+		$this->database = $database;
 	}
 
 	public function getAll()

@@ -2,6 +2,9 @@
 
 namespace MWP\Controller;
 
+Session_Start();
+
+use MWP\Model\Detail;
 use MWP\Model\Form;
 use MWP\Model\Table;
 use MWP\Model\Entity\Article;
@@ -18,7 +21,7 @@ class ArticleController
 		'headline' => 'Bitte hier die neuen Daten des Artikels eingeben:',
 		'action' => '/article/update',
 		'type' => '',
-		'selectOption' => ['warengruppe','hersteller']
+		'selectOption' => ['warengruppe', 'hersteller']
 	];
 
 	/** @var array */
@@ -27,7 +30,7 @@ class ArticleController
 		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
 		'action' => '/article/save',
 		'type' => 'new',
-		'selectOption' => ['warengruppe','hersteller']
+		'selectOption' => ['warengruppe', 'hersteller']
 	];
 
 	/** @var array */
@@ -44,15 +47,22 @@ class ArticleController
 	private Table $table;
 	/** @var Form */
 	private Form $form;
+	/** @var Detail */
+	private Detail $detail;
 
 	/**
 	 * ArticleController constructor.
+	 * @param Article $article
+	 * @param Table $table
+	 * @param Form $form
+	 * @param Detail $detail
 	 */
-	public function __construct()
+	public function __construct(Article $article, Table $table, Form $form, Detail $detail)
 	{
-		$this->article = new Article();
-		$this->table = new Table();
-		$this->form = new Form();
+		$this->article = $article;
+		$this->table   = $table;
+		$this->form    = $form;
+		$this->detail  = $detail;
 	}
 
 	/**
@@ -61,13 +71,11 @@ class ArticleController
 	public function show(): string
 	{
 		$parameter = null;
-		$result = $this->article->getAll($parameter);
+		$result    = $this->article->getAll($parameter);
 		$this->table->render($result, self::CONFIG_TABLE);
 	}
 
-	/**
-	 * @param $methodParam
-	 */
+	/** @param $methodParam */
 	public function search(string $methodParam): void
 	{
 		$result = $this->article->getSearchValue($methodParam);
@@ -90,15 +98,14 @@ class ArticleController
 		$this->form->render($flippedColumns, self::CONFIG_NEW);
 	}
 
-	/**
-	 * @param $newData
-	 */
+	/** @param array $methodParameter */
 	public function save(array $methodParameter): void
 	{
 		$this->article->new($methodParameter);
 		header('Location: /article/show');
 	}
 
+	/** @param int $articleId */
 	public function delete(int $articleId): void
 	{
 		$this->article->delete($articleId);
@@ -127,6 +134,7 @@ class ArticleController
 	{
 		$this->article->update($_POST);//Hier muss noch auf POST abgefragt werden!
 		echo 'Update war erfolgreich';
+		//TODO: Wenn das Update erfolgreich war muss die FlashMessage Klasse aufgerufen werden.
 		header('Location: /article/show');
 	}
 
@@ -139,12 +147,17 @@ class ArticleController
 		$optionData = null;
 		foreach ($data as $value) {
 			$masterData = array_values($value);
-//			$key = $masterData[0];
-//			$val = $masterData[1];
 			[$key, $val] = $masterData;
 			$optionData[$key] = $val;
 		}
 
 		return $optionData;
+	}
+
+	/** @param int $articleId */
+	public function detailView(int $articleId)
+	{
+		$detailData = $this->article->getDetail($articleId);
+		$this->detail->render($detailData);
 	}
 }

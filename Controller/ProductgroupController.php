@@ -2,6 +2,8 @@
 
 namespace MWP\Controller;
 
+Session_Start();
+
 use MWP\Model\Entity\Productgroup;
 use MWP\Model\Form;
 use MWP\Model\Table;
@@ -45,12 +47,16 @@ class ProductgroupController
 	/** @var Productgroup */
 	private Productgroup $productgroup;
 
-	/** ProductgroupController constructor.*/
-	public function __construct()
+	/** ProductgroupController constructor.
+	 * @param Productgroup $productgroup
+	 * @param Table $table
+	 * @param Form $form
+	 */
+	public function __construct(Productgroup $productgroup, Table $table, Form $form)
 	{
-		$this->table = new Table();
-		$this->form = new Form();
-		$this->productgroup = new Productgroup();
+		$this->table = $table;
+		$this->form = $form;
+		$this->productgroup = $productgroup;
 	}
 
 	public function newProductgroupForm(): void

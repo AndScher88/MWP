@@ -57,6 +57,35 @@ p{
 
 }
 
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: #cccccc;
+    border: 1px solid black;
+}
+
+.grid-item {
+    display: inline-flex;
+    margin: 5px;
+    border: 1px solid black;
+    background-color: #f1f1f1;
+    text-align: left;
+    padding: 5px;
+    font-size: 20px;
+}
+
+p.detail-value{
+    text-align: left;
+}
+
+.message-content {
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    border-radius: 5px 5px 5px 5px;
+    color: black;;
+    text-align: center;
+}
+
 header {
     background: #BDBDBD;
     padding: 2em 0;

@@ -9,3 +9,4 @@ $url = urldecode($url);
 //$url = utf8_encode($url);
 $router = new Router();
 $router->process($url);
+die();
