@@ -8,8 +8,11 @@ namespace MWP\Model;
  */
 class Table implements Output
 {
+	/** @var bool */
 	private bool $head = false;
+	/** @var array */
 	private array $config;
+	/** @var string|null */
 	private ?string $methodParam;
 
 	/**
@@ -93,7 +96,7 @@ class Table implements Output
 		echo '<td width="50px"><a href="' . $this->config['deleteLink'] . $data['id'] . '">';
 		echo '<Img Src="/View/Img/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
 		echo '<td width="50px"><a href="' . 'detailView/' . $data['id'] . '">';
-		echo '<Img Src="/View/Img/loupe.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
+		echo '<Img Src="/View/Img/loupe.png" width="16" height="512" class="d-inline-block align-top" alt=""></td>';
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {
 				continue;

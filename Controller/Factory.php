@@ -2,7 +2,6 @@
 
 namespace MWP\Controller;
 
-use FlashMessage;
 use MWP\Model\Detail;
 use MWP\Model\Entity\Article;
 use MWP\Model\Entity\Dataportal;
@@ -27,24 +26,40 @@ class Factory
 	/** @return ArticleController */
 	public function createArticleController(): ArticleController
 	{
-		return new ArticleController(new Article($this->createDatabaseClass()), new Table(), new Form(), new Detail());
+		return new ArticleController(
+			new Article($this->createDatabaseClass()),
+			new Table(),
+			new Form(),
+			new Detail()
+		);
 	}
 
 	/** @return ProductgroupController */
 	public function createProductgroupController(): ProductgroupController
 	{
-		return new ProductgroupController(new Productgroup($this->createDatabaseClass()), new Table(), new Form());
+		return new ProductgroupController(
+			new Productgroup($this->createDatabaseClass()),
+			new Table(),
+			new Form()
+		);
 	}
 
 	/** @return SupplierController */
 	public function createSupplierController(): SupplierController
 	{
-		return new SupplierController(new Supplier($this->createDatabaseClass()), new Table(), new Form());
+		return new SupplierController(
+			new Supplier($this->createDatabaseClass()),
+			new Table(),
+			new Form()
+		);
 	}
 
 	/** @return DataportalController */
 	public function createDataportalController(): DataportalController
 	{
-		return new DataportalController(new Dataportal($this->createDatabaseClass()), new Table());
+		return new DataportalController(
+			new Dataportal($this->createDatabaseClass()),
+			new Table()
+		);
 	}
 }

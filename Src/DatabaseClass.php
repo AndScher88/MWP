@@ -83,10 +83,11 @@ class DatabaseClass
 	 */
 	public function getColumns($sql)
 	{
+		$columns = [];
 		$statement = $this->conn->query($sql);
 		$result    = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-		foreach ($result as $key => $value) {
+		foreach ($result as $value) {
 			$columns [] = $value['Field'];
 		}
 		return $columns;
@@ -106,10 +107,10 @@ class DatabaseClass
 			}
 			if ($statement->execute() === true) {
 				$_SESSION['message'] = 'Die Daten wurden erfolgreich gespeichert!';
-				$_SESSION['alert']   = 'limegreen';
+				$_SESSION['alert']   = 'success';
 			} else {
 				$_SESSION['message'] = 'Es ist etwas schief gelaufen!';
-				$_SESSION['alert']   = 'red';
+				$_SESSION['alert']   = 'error';
 			}
 		}
 	}
