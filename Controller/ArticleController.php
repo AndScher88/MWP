@@ -2,8 +2,6 @@
 
 namespace MWP\Controller;
 
-Session_Start();
-
 use MWP\Model\Detail;
 use MWP\Model\Form;
 use MWP\Model\Table;
@@ -21,6 +19,7 @@ class ArticleController
 		'headline' => 'Bitte hier die neuen Daten des Artikels eingeben:',
 		'action' => '/article/update',
 		'type' => '',
+		'actionName' => 'Speicher',
 		'selectOption' => ['warengruppe', 'hersteller']
 	];
 
@@ -29,6 +28,7 @@ class ArticleController
 		'title' => 'Artikel anlegen',
 		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
 		'action' => '/article/save',
+		'actionName' => 'Speichern',
 		'type' => 'new',
 		'selectOption' => ['warengruppe', 'hersteller']
 	];
@@ -38,7 +38,8 @@ class ArticleController
 		'title' => 'Artikel übersicht',
 		'actionSearch' => '/article/search/',
 		'editLink' => '/article/edit/',
-		'deleteLink' => '/article/delete/'
+		'deleteLink' => '/article/delete/',
+		'detailLink' => '/article/detailView/'
 	];
 
 	/** @var Article */
@@ -68,7 +69,7 @@ class ArticleController
 	/**
 	 *
 	 */
-	public function show(): string
+	public function show(): void
 	{
 		$parameter = null;
 		$result    = $this->article->getAll($parameter);
@@ -132,9 +133,7 @@ class ArticleController
 	 */
 	public function update(): void
 	{
-		$this->article->update($_POST);//Hier muss noch auf POST abgefragt werden!
-		echo 'Update war erfolgreich';
-		//TODO: Wenn das Update erfolgreich war muss die FlashMessage Klasse aufgerufen werden.
+		$this->article->update($_POST);
 		header('Location: /article/show');
 	}
 

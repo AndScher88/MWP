@@ -2,9 +2,6 @@
 
 namespace MWP\Controller;
 
-Session_Start();
-
-use MWP\Model\Entity\Article;
 use MWP\Model\Entity\Supplier;
 use MWP\Model\Form;
 use MWP\Model\Table;
@@ -20,6 +17,7 @@ class SupplierController
 		'title' => 'Lieferanten anlegen',
 		'headline' => 'Bitte hier die Daten des Lieferanten eintragen: ',
 		'action' => '/supplier/save',
+		'actionName' => 'Speichern',
 		'type' => 'new',
 		'selectOption' => ['lieferant']
 	];
@@ -29,6 +27,7 @@ class SupplierController
 		'title' => 'Lieferanten bearbeiten',
 		'headline' => 'Bitte hier die neuen Daten des Lieferanten eingeben:',
 		'action' => '/supplier/update',
+		'actionName' => 'Speichern',
 		'type' => '',
 		'selectOption' => ['lieferant']
 	];
@@ -38,7 +37,8 @@ class SupplierController
 		'title' => 'Lieferanten übersicht',
 		'actionSearch' => '/supplier/search/',
 		'editLink' => '/supplier/edit/',
-		'deleteLink' => '/supplier/delete/'
+		'deleteLink' => '/supplier/delete/',
+		'detailLink' => '/supplier/detail'
 	];
 
 	/** @var Table */
@@ -99,7 +99,6 @@ class SupplierController
 	public function update(array $methodParameter): void
 	{
 		$this->supplier->update($methodParameter);
-		echo 'Update war erfolgreich';
 		header('Location: /supplier/show');
 	}
 

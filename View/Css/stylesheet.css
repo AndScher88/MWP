@@ -41,7 +41,7 @@ p{
  ==========================*/
 
 .container {
-    width: 100%;
+    width: 90%;
     max-width: 1800px;
     margin: 0 auto;
 }
@@ -256,6 +256,24 @@ ul {
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
 
+.form-radio {
+    font-size: 20px;
+    margin-top: 18px;
+}
+
+.form-radio p {
+    float: left;
+    width: 25%;
+}
+
+.form-radio label{
+
+}
+
+.form-radio input{
+    display: inline-block;
+}
+
 .form-form {
     content: "";
     display: block;
@@ -291,6 +309,8 @@ ul {
     width: 75%;
     margin-top: 16px;
 }
+
+
 
 .submit-btn {
     background-color: #f1f1f1;

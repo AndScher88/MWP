@@ -29,8 +29,9 @@
                 <div class="dropdown">
                     <button class="dropdown-btn">Andrej</button>
                     <div class="dropdown-content">
-                        <a href="../../index.php">Passwort ändern</a>
-                        <a href="../../index.php">Abmelden</a>
+                        <a href="/account/login">Login</a>
+                        <a href="/account/">Passwort ändern</a>
+                        <a href="/account/logout">Abmelden</a>
                     </div>
                 </div>
             </ul>

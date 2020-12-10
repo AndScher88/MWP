@@ -25,7 +25,7 @@ class Table implements Output
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
 		require_once 'View/Templates/flashMessage.php';
-		$this->config = $config;
+		$this->config      = $config;
 		$this->methodParam = $methodParam;
 		$this->head();
 		$this->searchField();
@@ -45,6 +45,9 @@ class Table implements Output
 		ob_end_flush();
 	}
 
+	/**
+	 *
+	 */
 	private function head(): void
 	{
 		echo '<br>';
@@ -52,6 +55,9 @@ class Table implements Output
 		echo '<br>';
 	}
 
+	/**
+	 *
+	 */
 	private function searchField(): void
 	{
 		echo '<form method="get" action="' . $this->config['actionSearch'] . '" class="search">';
@@ -95,8 +101,8 @@ class Table implements Output
 		echo '</td>';
 		echo '<td width="50px"><a href="' . $this->config['deleteLink'] . $data['id'] . '">';
 		echo '<Img Src="/View/Img/delete.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
-		echo '<td width="50px"><a href="' . 'detailView/' . $data['id'] . '">';
-		echo '<Img Src="/View/Img/loupe.png" width="16" height="512" class="d-inline-block align-top" alt=""></td>';
+		echo '<td width="50px"><a href="' . $this->config['detailLink'] . $data['id'] . '">';
+		echo '<Img Src="/View/Img/loupe.png" width="16" height="16" class="d-inline-block align-top" alt=""></td>';
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {
 				continue;

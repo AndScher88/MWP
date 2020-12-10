@@ -4,7 +4,10 @@ namespace MWP\Model\Entity;
 
 use MWP\Src\DatabaseClass;
 
-
+/**
+ * Class Productgroup
+ * @package MWP\Model\Entity
+ */
 class Productgroup
 {
 	private DatabaseClass $database;

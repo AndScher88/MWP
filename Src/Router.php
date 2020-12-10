@@ -2,6 +2,8 @@
 
 namespace MWP\Src;
 
+Session_Start();
+
 use MWP\Controller\Factory;
 
 /**
@@ -20,50 +22,67 @@ class Router
 		}
 
 
-		$controllerName = ucfirst($url[1]) . 'Controller';
+		$controllerName   = ucfirst($url[1]) . 'Controller';
 		$controllerMethod = $url[2];
 
 		$methodParam = $url[3] ?? '';
 
-		if ($controllerMethod === 'espData') {
-			$url = explode('?', $url[3]);
-			$methodParam = $_GET;
-		}
-		if ($controllerMethod === 'search') {
-			$url = explode('=', $url[3]);
+		if (!empty($_GET)) {
+			$url         = explode('=', $url[3]);
 			$methodParam = $url[1];
 		}
-		if ($controllerMethod === 'update' || $controllerMethod === 'save') {
+		if (!empty($_POST)) {
 			$methodParam = $_POST;
 		}
-
 
 		$factory = new Factory();
 
 		$controller = '';
 		switch ($controllerName) {
 			case 'ArticleController':
-				$controller = $factory->createArticleController();
+				if (!isset($_SESSION['login']) || $_SESSION['login'] === '') {
+					header('Location: /account/login');
+				} else {
+					$controller = $factory->createArticleController();
+				}
 				break;
 			case 'ProductgroupController':
-				$controller = $factory->createProductgroupController();
+				if (!isset($_SESSION['login']) || $_SESSION['login'] === '') {
+					header('Location: /account/login');
+				} else {
+					$controller = $factory->createProductgroupController();
+				}
 				break;
 			case 'SupplierController':
-				$controller = $factory->createSupplierController();
+				if (!isset($_SESSION['login']) || $_SESSION['login'] === '') {
+					header('Location: /account/login');
+				} else {
+					$controller = $factory->createSupplierController();
+				}
 				break;
 			case 'DataportalController':
 				$controller = $factory->createDataportalController();
+				break;
+			case 'AccountController':
+				$controller = $factory->createLoginController();
 				break;
 			default:
 				$this->homepage();
 				break;
 		}
-			$controller->$controllerMethod($methodParam);
+		if (!method_exists($controller, $controllerMethod)) {
+			$this->homepage();
+		}
+		$controller->$controllerMethod($methodParam);
 	}
 
 	public function homepage(): void
 	{
-		require_once 'View/home.php';
+		if (!isset($_SESSION['login']) || $_SESSION['login'] === '') {
+			header('Location: /account/login');
+		} else {
+			require_once 'View/home.php';
+		}
 		exit();
 	}
 }

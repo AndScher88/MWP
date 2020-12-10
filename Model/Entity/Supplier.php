@@ -1,11 +1,13 @@
 <?php
 
-
 namespace MWP\Model\Entity;
-
 
 use MWP\Src\DatabaseClass;
 
+/**
+ * Class Supplier
+ * @package MWP\Model\Entity
+ */
 class Supplier
 {
 	private DatabaseClass $database;
@@ -63,43 +65,67 @@ class Supplier
                 		VALUES  (:firma, :strasse, :hausnummer, :postleitzahl, :stadt, :vorname, :nachname)';
 
 
+	/**
+	 * Supplier constructor.
+	 * @param DatabaseClass $database
+	 */
 	public function __construct(DatabaseClass $database)
 	{
 		$this->database = $database;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getAll()
 	{
 		return $this->database->select(self::GET_ALL, $parameter = null);
 	}
 
-	public function getSearchValue(string $searchValue)
+	/**
+	 * @param string $searchValue
+	 * @return array
+	 */
+	public function getSearchValue(string $searchValue): array
 	{
 		$searchValue = '%' . $searchValue . '%';
 		return $this->database->select(self::GET_SEARCHVALUE, $searchValue);
 	}
 
-	public function getOne(string $id)
+	/**
+	 * @param string $id
+	 * @return mixed
+	 */
+	public function getOne(string $id): array
 	{
 		return $this->database->selectOne(self::GET_ONE, $id);
 	}
 
+	/**
+	 * @param array $data
+	 */
 	public function update(array $data)
 	{
 		$this->database->update(self::UPDATE, $data);
 	}
 
-	public function delete(int $id)
+	/**
+	 * @param int $id
+	 */
+	public function delete(int $id): void
 	{
 		$this->database->delete(self::DELETE, $id);
 	}
 
-	public function getColumns()
+	/**
+	 * @return array|mixed
+	 */
+	public function getColumns(): array
 	{
 		return $this->database->getColumns(self::GET_COLUMNS);
 	}
 
-	public function new(array $masterData)
+	public function new(array $masterData): void
 	{
 		$this->database->insert(self::NEW, $masterData);
 	}

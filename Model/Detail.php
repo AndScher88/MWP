@@ -11,7 +11,7 @@ class Detail
 	/**
 	 * @param array $data
 	 */
-	public function render(array $data)
+	public function render(array $data): void
 	{
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
@@ -23,17 +23,13 @@ class Detail
 		echo '<br>';
 		$this->documents();
 		echo '</div>';
-
-		//zusammenbauen der einzelbereiche
 	}
 
 	/**
 	 * @param array $data
 	 */
-	private function details(array $data)
+	private function details(array $data): void
 	{
-
-
 		foreach ($data as $key => $value) {
 			if ($key === 'id') {
 				continue;
@@ -41,12 +37,10 @@ class Detail
 			echo '<div class="grid-item"><p class="detail-value">' . htmlspecialchars(ucfirst($key)) . ': ' . '</p>'
 				. '<p class="detail-value">' . htmlspecialchars($value) . '</p>' . '</div>';
 		}
-
-		//Hier wird die Detailansich zusammengebaut
 	}
 
 	private function documents()
 	{
-		echo 'hier steht dann nachher irgendwas mit doku';
+		//TODO: Hier sollen Links zu möglicher Dokumentation angezeit werden
 	}
 }

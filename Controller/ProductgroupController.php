@@ -2,8 +2,6 @@
 
 namespace MWP\Controller;
 
-Session_Start();
-
 use MWP\Model\Entity\Productgroup;
 use MWP\Model\Form;
 use MWP\Model\Table;
@@ -19,6 +17,7 @@ class ProductgroupController
 		'title' => 'Warengruppe bearbeiten',
 		'headline' => 'Bitte irgendwas ändern:',
 		'action' => '/productgroup/update',
+		'actionName' => 'Speichern',
 		'type' => '',
 		'selectOption' => []
 	];
@@ -28,6 +27,7 @@ class ProductgroupController
 		'title' => 'Warengruppe anlegen',
 		'headline' => 'Bitte geben sie den Namen der Warengruppe ein:',
 		'action' => '/productgroup/save',
+		'actionName' => 'Speichern',
 		'type' => 'new',
 		'selectOption' => []
 	];
@@ -37,7 +37,8 @@ class ProductgroupController
 		'title' => 'Übersicht Warengruppen',
 		'actionSearch' => '/productgroup/search/',
 		'editLink' => '/productgroup/edit/',
-		'deleteLink' => '/productgroup/delete/'
+		'deleteLink' => '/productgroup/delete/',
+		'detailLink' => '/productgroup/detail'
 	];
 
 	/** @var Table */
@@ -59,6 +60,9 @@ class ProductgroupController
 		$this->productgroup = $productgroup;
 	}
 
+	/**
+	 *
+	 */
 	public function newProductgroupForm(): void
 	{
 		$columns = $this->productgroup->getColumns();
@@ -94,6 +98,9 @@ class ProductgroupController
 		header('Location: /productgroup/show');
 	}
 
+	/**
+	 *
+	 */
 	public function show(): void
 	{
 		$result = $this->productgroup->getAll();

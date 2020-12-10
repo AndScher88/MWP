@@ -1,7 +1,7 @@
 <?php
 
-spl_autoload_register(static function ($klassenName) {
+spl_autoload_register(static function ($className) {
 
-	$klassenPfad = str_replace(array('\\', 'MWP/'), array('/', ''), $klassenName);
-require '' . $_SERVER['DOCUMENT_ROOT'] . '/' . $klassenPfad . '.php';
+	$classPath = str_replace(array('\\', 'MWP/'), array('/', ''), $className);
+require '' . $_SERVER['DOCUMENT_ROOT'] . '/' . $classPath . '.php';
 });

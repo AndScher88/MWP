@@ -11,17 +11,25 @@ class Form
 	/** @var bool */
 	private bool $newEntity;
 
+	/**
+	 * Form constructor.
+	 */
 	public function __construct()
 	{
 		$this->newEntity = false;
 	}
 
+	/**
+	 * @param array $data
+	 * @param array $config
+	 */
 	public function render(array $data, array $config): void
 	{
 		require_once 'View/Templates/template.php';
 		require_once 'View/Templates/navbar.php';
+		require_once 'View/Templates/flashMessage.php';
 		if (empty($data)) {
-			echo '<p>Keine Daten!</p>';
+			echo '<p class="container">Keine Daten!</p>';
 			return;
 		}
 
@@ -43,7 +51,7 @@ class Form
 		}
 
 
-		$this->renderFormFoot();
+		$this->renderFormFoot($config['actionName']);
 		ob_end_flush();
 	}
 
@@ -119,11 +127,14 @@ class Form
 	}
 
 
-	private function renderFormFoot(): void
+	/**
+	 * @param $actionName
+	 */
+	private function renderFormFoot($actionName): void
 	{
 		echo '<br>';
 		echo '<div role="group" aria-label="speichern">';
-		echo '<button class="submit-btn" value="submit">Speichern</button>';
+		echo '<button class="submit-btn" value="submit">' . $actionName . '</button>';
 		echo '</div>';
 		echo '</div>';
 		echo '</form>';

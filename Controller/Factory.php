@@ -2,6 +2,7 @@
 
 namespace MWP\Controller;
 
+use MWP\Model\Account;
 use MWP\Model\Detail;
 use MWP\Model\Entity\Article;
 use MWP\Model\Entity\Dataportal;
@@ -60,6 +61,13 @@ class Factory
 		return new DataportalController(
 			new Dataportal($this->createDatabaseClass()),
 			new Table()
+		);
+	}
+
+	public function createLoginController(): AccountController
+	{
+		return new AccountController(
+			new Account($this->createDatabaseClass())
 		);
 	}
 }

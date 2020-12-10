@@ -60,6 +60,7 @@ class DatabaseClass
 		$statement = $this->conn->prepare($sql);
 		$statement->bindParam('searchValue', $searchParameter);
 		$statement->execute();
+
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
 	}
 
@@ -75,6 +76,25 @@ class DatabaseClass
 			$statement->execute();
 		}
 		return $statement->fetch(PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * @param string $sql
+	 * @param string $username
+	 * @return mixed
+	 */
+	public function selectUser(string $sql, string $username)
+	{
+		$statement = $this->conn->prepare($sql);
+		if ($statement->bindParam('username', $username)) {
+			$statement->execute();
+		}
+		$result = $statement->fetch(PDO::FETCH_ASSOC);
+		if ($result === false) {
+			return [];
+		}
+
+		return $result;
 	}
 
 	/**
@@ -107,10 +127,10 @@ class DatabaseClass
 			}
 			if ($statement->execute() === true) {
 				$_SESSION['message'] = 'Die Daten wurden erfolgreich gespeichert!';
-				$_SESSION['alert']   = 'success';
+				$_SESSION['alert']   = 'limegreen';
 			} else {
 				$_SESSION['message'] = 'Es ist etwas schief gelaufen!';
-				$_SESSION['alert']   = 'error';
+				$_SESSION['alert']   = 'firered';
 			}
 		}
 	}
@@ -129,7 +149,7 @@ class DatabaseClass
 				$_SESSION['alert']   = 'limegreen';
 			} else {
 				$_SESSION['message'] = 'Die Daten konnten nicht gelöscht werden!';
-				$_SESSION['alert']   = 'red';
+				$_SESSION['alert']   = 'firered';
 			}
 		}
 	}
@@ -154,7 +174,7 @@ class DatabaseClass
 			$_SESSION['alert']   = 'limegreen';
 		} else {
 			$_SESSION['message'] = 'Da ist wohl was schief gelaufen!';
-			$_SESSION['alert']   = 'red';
+			$_SESSION['alert']   = 'firered';
 		}
 	}
 }

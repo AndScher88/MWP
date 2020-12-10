@@ -3,11 +3,13 @@
 
 namespace MWP\Controller;
 
-Session_Start();
-
 use MWP\Model\Entity\Dataportal;
 use MWP\Model\Table;
 
+/**
+ * Class DataportalController
+ * @package MWP\Controller
+ */
 class DataportalController
 {
 	/** @var Dataportal */
@@ -20,7 +22,8 @@ class DataportalController
 		'title' => 'Wetterdaten',
 		'actionSearch' => '',
 		'editLink' => '',
-		'deleteLink' => ''
+		'deleteLink' => '',
+		'detailLink' => '',
 	];
 
 	/**
@@ -34,15 +37,25 @@ class DataportalController
 		$this->table = $table;
 	}
 
-	public function espData(array $methodParameter)
+	/**
+	 * @param array $methodParameter
+	 */
+	public function espData(array $methodParameter): void
 	{
 		$date = date('Y-m-d H:i:s');
 		$this->dataportal->save($methodParameter, $date);
 	}
 
-	public function showWeather()
+	/**
+	 *
+	 */
+	public function showWeather(): void
 	{
-		$result = $this->dataportal->getWeather($parameter = null);
-		$this->table->render($result, self::CONFIG_TABLE);
+		if (!isset($_SESSION['login']) || $_SESSION['login'] === '') {
+			header('Location: /account/login');
+		} else {
+			$result = $this->dataportal->getWeather($parameter = null);
+			$this->table->render($result, self::CONFIG_TABLE);
+		}
 	}
 }
