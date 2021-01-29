@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MWP - Register</title>
+</head>
+<body>
+<div class="container">
+    <br>
+    <h1 style="text-align: center">Registrierung</h1>
+    <br>
+    <form class="container-form" action="/account/createUser" method="post">
+        <div>
+            <label class="label-headline">Bitte geben Sie hier Ihre persönlichen Daten zur Registrierung ein!</label>
+            <br>
+            <div class="form-radio">
+                <p>Geschlecht</p>
+                <input type="radio" name="gender" id="male" aria-describedby="malelabel ">
+                <label id="malelabel" for="male">männlich</label>
+                <input type="radio" name="gender" id="female" aria-describedby="femalelabel ">
+                <label id="femalelabel" for="male">weiblich</label>
+                <input type="radio" name="gender" id="other" aria-describedby="otherlabel ">
+                <label id="otherlabel" for="other">andere</label>
+            </div>
+            <div class="form-form">
+                <div>
+                    <label id="firstnamelabel" for="firstname">Vorname</label>
+                    <input type="text" name="firstname" id="firstname" aria-describedby="firstnamelabel">
+                </div>
+                <div>
+                    <label id="lastnamelabel" for="lastname">Nachname</label>
+                    <input type="text" name="lastname" id="lastname" aria-describedby="lastnamelabel">
+                </div>
+                <div>
+                    <label id="birthdaylabel" for="birthday">Geburtstag</label>
+                    <input type="date" name="birthday" id="birthday" aria-describedby="birthdaylabel">
+                </div>
+                <div>
+                    <label id="streetlabel" for="street">Straße</label>
+                    <input type="text" name="street" id="street" aria-describedby="streetlabel">
+                </div>
+                <div>
+                    <label id="housenumberlabel" for="housenumber">Hausnummer</label>
+                    <input type="text" name="housenumber" id="housenumber" aria-describedby="housenumberlabel">
+                </div>
+                <div>
+                    <label id="telefonnumberlabel" for="telefonnumber">Telefonnummer</label>
+                    <input type="text" name="telefonnumber" id="telefonnumber" aria-describedby="telefonnumberlabel">
+                </div>
+                <div>
+                    <label id="emaillabel" for="email">E-Mail-Adresse</label>
+                    <input type="email" name="email" id="email" aria-describedby="emaillabel">
+                </div>
+                <div>
+                    <label id="loginnamelabel" for="loginname">Benutzername</label>
+                    <input type="loginname" name="loginname" id="loginname" aria-describedby="loginnamelabel">
+                </div>
+                <div>
+                    <label id="passwordlabel" for="password">Passwort</label>
+                    <input type="password" name="password" id="password" aria-describedby="passwordlabel">
+                </div>
+
+                <div role="group" aria-label="login">
+                    <button class="submit-btn" value="sumit">Konto erstellen</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
