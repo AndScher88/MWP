@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>Projekt: Linear Gradient</title>
+    <style>
+      body {
+        font-family: 'Lato', sans-serif;
+        height: 100vh;
+        background: linear-gradient(to bottom, black, rgb(50, 50, 50));
+      }
+      img {
+        width: 100%;
+        border-radius: 5px;
+      }
+      .image-container {
+        position: relative;
+      }
+      .image-heading {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        margin-top: 0px;
+        color: white;
+        padding-bottom: 20px;
+        padding-left: 10px;
+        padding-top: 10px;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+      }
+      .image-taken {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        color: white;
+        background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+        text-align: right;
+        padding: 8px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-container">
+      <img src="sofia.jpg" alt="Sofia, NDK" />
+      <h1 class="image-heading">Sofia, НДК</h1>
+      <div class="image-taken">Bild wurde im Sommer 2018 aufgenommen</div>
+    </div>
+  </body>
+</html>

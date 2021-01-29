@@ -1,0 +1,40 @@
+<!Doctype html>
+<html lang="de-DE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Funktionen in Javascript</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <style>
+        #viereck{
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="viereck"></div>
+    <script>
+        // Hierbei starten wir eine Funktion, sobald auf unsere Element mit der Id Viereck geklickt wurde
+        $("#viereck").click(function(){
+            // Darin animieren wir unsere Element, und führen es Stück für Stück zu einem definierten Endzustand. Das passiert in 5000 Millisekunden
+            $("#viereck").animate({width: "400px", height: "400px", marginLeft:"50px", marginTop:"50px", borderRadius: "50%"}, 5000, function(){
+                // Sobald diese Zeit abgelaufen ist, wird der Code in der Funktion ausgeführt.
+                // In diesem Falls etzen wir einfach die Hintergrundfarbe auf ein helles Grün
+                $(this).css("background-color", "lightgreen");
+                // Jetzt kommt das Chaining. Nachdem die Animation fertig ist, startet die Fadeout Funktion.
+                // Nach 2000ms startes wiederrum die interne Funktion
+            }).fadeOut(2000, function(){
+                // Welche wiederrum das Viereck in 2 Sekunden sichtbar macht.
+                $("#viereck").fadeIn(2000, function(){
+                    // Nachdem diese 2 Sekunden vorbei sind, wird die Farbe wieder auf ein helles Blau gesetzt.
+                    $("#viereck").css("background-color", "lightblue");
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>

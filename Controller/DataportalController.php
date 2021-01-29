@@ -40,8 +40,12 @@ class DataportalController
 	/**
 	 * @param array $methodParameter
 	 */
-	public function espData(array $methodParameter): void
+	public function espData($methodParameter): void
 	{
+		$values = explode('&', $methodParameter);
+		foreach ($values as $key => $value) {
+			$methodParameter[$key] = $value;
+		}
 		$date = date('Y-m-d H:i:s');
 		$this->dataportal->save($methodParameter, $date);
 	}

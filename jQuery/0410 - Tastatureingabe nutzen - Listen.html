@@ -1,0 +1,39 @@
+<!Doctype html>
+<html lang="de-DE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selektoren mit jQuery</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div>
+        <input type="text" id="newItem">
+        <ul id="list">
+            <li>Erstes Element</li>
+            <li>Element 2 </li>
+            <li>Element 3 </li>
+            <li>Element 4 </li>
+            <li>Element 5 </li>
+            <li>Letztes Element </li>
+        </ul>
+    </div>
+    <script>
+        // Damit nutzen wir das Event "KeyUp" welches ausgelöst wird, sobald die Taste losgelassen wird.
+       $('#newItem').keyup(function(e){
+           // damit holen wir uns den Tastencode
+           var code = e.which;
+           // 13 entspricht ENTER
+           if(code == 13){
+               // Hiermit halten wir die Webseite davon ab das Standardverfahren zu nutzen
+               e.preventDefault();
+               // Hier fügen wir nun unser Listenelement hinzu, abhängig vom Inhalt des Input feldes.
+               $('ul').append("<li>" + e.target.value + "</li>");
+           }
+       })
+    </script>
+</body>
+</html>

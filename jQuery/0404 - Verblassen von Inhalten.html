@@ -1,0 +1,40 @@
+<!Doctype html>
+<html lang="de-DE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Funktionen in Javascript</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <style>
+        #viereck{
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="text">Endlich mal jQuery</p>
+    <button id="toggle">Verstecken</button>
+    <script>
+        var textAktiv = true;
+        $("#toggle").click(function(){
+            if(textAktiv){
+                $("#text").fadeOut(2000, function(){
+                    textAktiv=false;
+                    $("#toggle").text("Anzeigen")
+                })
+            }else{
+                $("#text").fadeIn(2000, function(){
+                    textAktiv=true;
+                    $("#toggle").text("Verstecken")
+                })
+            }
+        })
+
+
+
+    </script>
+</body>
+</html>

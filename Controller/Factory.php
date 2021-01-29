@@ -10,6 +10,7 @@ use MWP\Model\Entity\Productgroup;
 use MWP\Model\Entity\Supplier;
 use MWP\Model\Form;
 use MWP\Model\Table;
+use MWP\Model\WeatherView;
 use MWP\Src\DatabaseClass;
 
 /**
@@ -61,6 +62,7 @@ class Factory
 		return new DataportalController(
 			new Dataportal($this->createDatabaseClass()),
 			new Table()
+			//new WeatherView()
 		);
 	}
 

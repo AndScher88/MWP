@@ -1,0 +1,27 @@
+body {
+  background-color: rgb(200, 200, 200);
+}
+
+.container {
+  background-color: white;
+  border: 1px solid rgb(100, 100, 100);
+  padding: 10px;
+  width: 400px;
+  /*
+  margin-top: 25px;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  */
+  /*
+  margin: 25px auto 25px auto;
+  */
+  margin: 25px auto;
+}
+
+.container img {
+  width: 300px;
+  margin: 0px auto;
+  display: block;
+
+}

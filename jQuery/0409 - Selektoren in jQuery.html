@@ -1,0 +1,36 @@
+<!Doctype html>
+<html lang="de-DE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selektoren mit jQuery</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div>
+        <ul id="list">
+            <li>Erstes Element</li>
+            <li>Element 2 </li>
+            <li>Element 3 </li>
+            <li>Element 4 </li>
+            <li>Element 5 </li>
+            <li>Letztes Element </li>
+        </ul>
+    </div>
+    <script>
+        // Damit stylen ändern wir das CSS des ersten Listenelementes, und zwar setzen wir die Textfarbe auf Violet
+       $('ul#list li:first').css('color', 'violet');
+       // Hiermit ändern wir alle geraden Einträge, also 2,4,6, etc.
+       $('ul#list li:even').css('background-color', 'lightblue');
+       // hiermit alle Ungeraden
+       $('ul#list li:odd').css('background-color', 'lightgrey');
+       // hiermit das letzte Listenelement
+       $('ul#list li:last').css('color', 'violet');
+       // und hiermit jedes dritte (3n).
+       $('ul#list li:nth-child(3n)').css('font-size', '150%');
+    </script>
+</body>
+</html>

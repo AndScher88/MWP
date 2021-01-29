@@ -1,0 +1,53 @@
+<!Doctype html>
+<html lang="de-DE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Funktionen in Javascript</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <style>
+        #viereck{
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button id="button1">DOM Ändern</button>
+    <div id="div1">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+        <p>Alter Text</p>
+        <p id="rep">Reproduzierter Text</p>
+    </div>
+    <div id="div2">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
+        </div>
+    <script>
+	// alternativ: $(function(){});
+        $(document).ready(function(){
+            
+            $("#button1").click(function(){
+                // Fügt HTML in Element an den Anfang
+                $("#div1").append("<p>Neuer text append </p>");
+                // Fügt HTML in Element an das Ende
+                $("#div1").prepend("<p>Neuer text prepend</p>");
+                // Verschiebt das Element nach Div 2
+                $("#rep").appendTo("#div2");
+                // Verschiebt das Element vor Div 2
+                //$("#rep").prependTo("#div1");
+                // Fügt HTML davor
+                $("#rep").before("<h2>Neue Überschrift davor</h2>");
+                // Fügt HTML nach da Element
+                $("#rep").after("<h2>Neue Überschrift danach</h2>");
+            });
+
+            
+        });
+        
+        
+        
+    </script>
+</body>
+</html>

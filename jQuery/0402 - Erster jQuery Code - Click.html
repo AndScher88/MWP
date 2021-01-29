@@ -1,0 +1,34 @@
+<!Doctype html>
+<html lang="de-DE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <style>
+        #viereck{
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p id="text">Endlich mal jQuery</p>
+    <div id="viereck">
+        
+    </div>
+    <script>
+        $("#viereck").click(function(){
+            alert($("#text").text());
+        })
+
+        $("#text").click(function(){
+            $("#text").text("Du hast auf den Text geklickt!");
+        })
+
+
+    </script>
+</body>
+</html>

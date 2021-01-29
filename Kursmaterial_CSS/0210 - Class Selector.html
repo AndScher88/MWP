@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Class Selektor</title>
+    <!-- CSS Selektoren sind Muster mit denen wir unsere HTML Elemente stylen können.
+        Dabei gibt es mehrere Ebenen die drei obersten Ebenen sind: 
+        Die ID (#id) Ebene, über die man ein einzelnes Element anspricht.
+        Die Class (.class) Ebene, über die man alle Elemente der man diese Klasse zuweist stylen kann.
+        Die Stern (*) Ebene mit der man alle Elemente stylt.
+        Wir beschäftigen uns in diesem Video mit der ID Ebene und gehen danach auf die anderen beiden Ebenen ein.
+        Sobald wir diese beherrschen, gehen wir auf die tieferen Ebenen ein. 
+        Wir haben eine dieser tieferen Ebenen sogar bereits verwendet, als wir Links gestylt haben.
+    -->
+    <style>
+
+        /*
+            Um einen Class Selektor zu verwenden, muss man im öffnenden Tag des Elementes das man stylen möchte die Class (Klasse) hinzufügen
+            Das macht man mittels class="classname"
+            Dann kann man dieses Element im Style Tag direkt stylen, indem man den Punkt . mit dem classname verwendet
+            und dann innerhalb der { } die Eigenschaften verändert.
+            Anders als bei der ID dürfen mehrere Elemente die selbe Class haben.
+        */
+
+        .rotundkursiv{
+            color:red;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 class="rotundkursiv">Class Selektor</h1>
+
+    <p>
+        Absatz1 
+    </p>
+    <p class="rotundkursiv">
+        Absatz2 
+    </p>
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>Transitions</title>
+    <style>
+      .box {
+        width: 150px;
+        height: 150px;
+        background-color: blue;
+
+        /* transition: background-color 0.2s, width 20s, height 2s; */
+        transition: all 2s;
+      }
+
+      .box:hover {
+        background-color: green;
+        width: 300px;
+        height: 300px;
+
+        transition: all 0.2s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+
+    </div>
+  </body>
+</html>

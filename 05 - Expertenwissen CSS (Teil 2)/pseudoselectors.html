@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>Pseudo-Selectors</title>
+    <style>
+      table {
+        border: 1px solid gray;
+        border-collapse: collapse;
+      }
+      td {
+        border: 1px solid gray;
+      }
+      /*
+      td:first-child {
+        background-color: rgb(230, 230, 230);
+      }
+      td:last-child {
+        background-color: rgb(230, 210, 210);
+      }
+      td:nth-child(2) {
+        background-color: rgb(210, 210, 240);
+      }
+      */
+      /*
+      tr:nth-child(2) td,
+      tr:nth-child(4) td,
+      tr:nth-child(6) td {
+        background-color: rgb(220, 220, 220);
+      }
+      */
+      tr:nth-child(2n + 1) td {
+        background-color: rgb(220, 220, 220);
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tbody>
+        <tr>
+          <td>Zelle 1</td>
+          <td>Zelle 2</td>
+          <td>Zelle 3</td>
+        </tr>
+        <tr>
+          <td>Zelle 1</td>
+          <td>Zelle 2</td>
+          <td>Zelle 3</td>
+        </tr>
+        <tr>
+          <td>Zelle 1</td>
+          <td>Zelle 2</td>
+          <td>Zelle 3</td>
+        </tr>
+        <tr>
+          <td>Zelle 1</td>
+          <td>Zelle 2</td>
+          <td>Zelle 3</td>
+        </tr>
+        <tr>
+          <td>Zelle 1</td>
+          <td>Zelle 2</td>
+          <td>Zelle 3</td>
+        </tr>
+        <tr>
+          <td>Zelle 1</td>
+          <td>Zelle 2</td>
+          <td>Zelle 3</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

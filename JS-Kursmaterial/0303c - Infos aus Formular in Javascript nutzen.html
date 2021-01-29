@@ -1,0 +1,36 @@
+<!Doctype html>
+<html lang="de-DE">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript</title>
+    <!-- 
+    Wir können unser Javascript im Head oder im Body (unten) einfügen.
+    Der Vorteil es im Body unten zu machen, ist dass die Seite dadurch etwas schneller lädt,
+    weil das Javascript nicht kompiliert werden muss, bevor der Browser die ersten Infos darstellt.
+    Wir umgeben unseren Javascript Code mit dem <script> Tag.
+    <script>
+        function myFunction() {
+           document.getElementById("top").innerHTML = "Überschrift verändert.";
+        }
+    </script>
+    -->
+    <style>
+
+    </style>
+</head>
+<body>
+    <h1 id="top">Mein erstes Javascript</h1>
+	<input type="text" name="name" id="name" value="Denis" />
+    <!-- Wir geben dem Button eine Id, damit wir ihn via Javascript ansprechen können.-->
+    <button id="meinButton">Klick mich!</button>
+    <script>
+        
+        document.getElementById("meinButton").onclick = function(){
+           var name = document.getElementById("name").value;
+           // document.getElementById("top").innerHTML = "Überschrift verändert.";
+           document.getElementById("top").innerHTML = "Hallo " + name;
+        }
+    </script>
+</body>
+</html>
