@@ -41,7 +41,7 @@ class DataportalController
 	/**
 	 * @param array $methodParameter
 	 */
-	public function espData(array $methodParameter): void
+	public function espData($methodParameter): void
 	{
 		$values = explode('&', $methodParameter);
 		foreach ($values as $key => $value) {

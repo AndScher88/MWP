@@ -61,8 +61,13 @@ class Factory
 	{
 		return new DataportalController(
 			new Dataportal($this->createDatabaseClass()),
+<<<<<<< HEAD
 //			new Table()
 			new WeatherView()
+=======
+			new Table()
+			//new WeatherView()
+>>>>>>> d7d3f37b8119ddab9485ed287ada621ca728baef
 		);
 	}
 

@@ -1,0 +1,361 @@
+body {
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #f1f1f1;
+    color: #143774;
+}
+
+/* ========================
+ Typography
+ ==========================*/
+.logo-h1 {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    color: #143774;
+    font-size: 36px;
+    margin: 0 auto;
+}
+h1 {
+    font-weight: 400;
+    margin: 0 auto;
+}
+h2 {
+    margin: 10px;
+}
+
+p{
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.subtitle {
+    font-weight: 700;
+    color: #1792d2;
+    font-size: .75rem;
+    margin: 0;
+}
+
+/* ========================
+ Layout
+ ==========================*/
+
+.container {
+    width: 90%;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.container-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-table {
+    margin-top: 10px;
+    width: 100%;
+
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: #cccccc;
+    border: 1px solid black;
+}
+
+.grid-item {
+    display: inline-flex;
+    margin: 5px;
+    border: 1px solid black;
+    background-color: #f1f1f1;
+    text-align: left;
+    padding: 5px;
+    font-size: 20px;
+}
+
+p.detail-value{
+    text-align: left;
+}
+
+.message-content {
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    border-radius: 5px 5px 5px 5px;
+    color: black;;
+    text-align: center;
+}
+
+header {
+    background: #BDBDBD;
+    padding: 2em 0;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 10px 10px 0 rgba(0,0,0,0.15);
+}
+
+.logolink a {
+    text-decoration: none;
+}
+
+@media (max-width: 675px) {
+    .container-nav {
+        flex-direction: column;
+    }
+
+    header {
+        display: flex;
+        text-align: center;
+    }
+}
+
+/* ========================
+ Navigation
+ ==========================*/
+
+ul {
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+}
+
+.dropdown {
+    padding: 0;
+}
+
+.dropdown-btn  {
+    background-color: #f1f1f1;
+    border: 2px solid #143774;
+    color: #143774;
+    padding: 10px 24px;
+    margin-left: 1em;
+    font-size: 16px;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.dropdown-content {
+    min-width: 160px;
+    display: none;
+    text-align: center;
+    background-color: #f1f1f1;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.dropdown-content a{
+    color: #143774;
+    display: block;
+    justify-content: center;
+    text-decoration: none;
+    padding: 12px 2px;
+    margin: 0;
+    min-width: 100px;
+    width: auto;
+    border-bottom: 1px solid #BDBDBD;
+    border-radius: 4px 4px 4px 4px;
+    z-index: 1;
+}
+
+.dropdown-content a:hover {
+    background-color: #dddddd;
+}
+
+.dropdown:hover .dropdown-content{
+    display: block;
+    position: absolute;
+    margin-left: 1em;
+    border: 1px solid #143774;
+    box-shadow: 0 20px 20px 0 rgba(0,0,0,0.15);
+}
+
+.dropdown:hover .dropdown-btn{
+    background-color: #dddddd;
+}
+
+.current-page {
+    border-bottom: 1px solid #707070;
+    border-bottom-color: #1792d2;
+}
+
+.current-page:hover {
+    color: #1792d2;
+}
+
+/* ========================
+ Table Layout
+ ==========================*/
+
+.content-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 1.1em;
+    min-width: 400px;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.content-table thead tr {
+    background-color: #BDBDBD;
+    color: #143774;
+    text-align: left;
+    font-weight: 100;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:hover {
+    color: #143774;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3f3;
+}
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #BDBDBD;
+}
+
+.table-link a {
+    padding-top: 10px;
+}
+
+
+@media (max-width: 675px) {
+    nav ul {
+        flex-direction: column;
+    }
+    nav li {
+        margin: .5em 0;
+    }
+}
+
+/* ========================
+ Form Layout
+ ==========================*/
+
+.label-headline {
+    text-align: center;
+    font-weight: 400;
+    color: #143774;
+    font-size: 18px;
+    text-decoration: underline;
+}
+/*.lable-content {
+    display: block;
+}*/
+
+.container-form {
+    padding: 16px;
+    background-color: #dddddd;
+    border-bottom: 2px solid #BDBDBD;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.form-radio {
+    font-size: 20px;
+    margin-top: 18px;
+}
+
+.form-radio p {
+    float: left;
+    width: 25%;
+}
+
+.form-radio label{
+
+}
+
+.form-radio input{
+    display: inline-block;
+}
+
+.form-form {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
+.form-form label {
+    font-size: 20px;
+    float: left;
+    width: 25%;
+    margin-top: 18px;
+    /*border-bottom: 1px solid #143774;*/
+}
+
+.form-form input {
+    font-size: 20px;
+    border: 1PX solid #cccccc;
+    border-radius: 4px 4px 4px 4px;
+    box-sizing: border-box;
+    float: left;
+    width: 75%;
+    margin-top: 16px;
+}
+
+.form-form select {
+    font-size: 20px;
+    color: #707070;
+    border: 1PX solid #cccccc;
+    border-radius: 4px 4px 4px 4px;
+    box-sizing: border-box;
+    float: left;
+    width: 75%;
+    margin-top: 16px;
+}
+
+
+
+.submit-btn {
+    background-color: #f1f1f1;
+    border: 2px solid #143774;
+    color: #143774;
+    padding: 10px 24px;
+    margin-top: 24px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.login-flash {
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: limegreen;
+}
+
+/* ========================
+ Form search
+ ==========================*/
+
+.search {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 10px 24px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.search-input{
+    font-size: 18px;
+    margin-right: 10px;
+    border: 2px solid #143774;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.search-btn{
+    background-color: #f1f1f1;
+    border: 2px solid #143774;
+    color: #143774;
+    padding: 0 24px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 4px 4px 4px 4px;
+}
