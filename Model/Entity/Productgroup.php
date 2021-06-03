@@ -15,7 +15,7 @@ class Productgroup
 	private const GET_ALL = 'SELECT * FROM productgroup';
 	private const GET_ONE = 'SELECT * FROM productgroup WHERE id = :id';
 	private const NEW = 'INSERT INTO productgroup (warengruppe) VALUES (:warengruppe)';
-	private const GET_COLUMNS = 'SHOW COLUMNS FROM Productgroup';
+	private const GET_COLUMNS = 'SHOW COLUMNS FROM productgroup';
 	private const UPDATE = 'UPDATE productgroup SET warengruppe = :warengruppe WHERE id = :id';
 	private const DELETE = 'DELETE FROM productgroup WHERE id = :id';
 	private const GET_SEARCHVALUE = 'SELECT * FROM productgroup WHERE warengruppe LIKE :searchValue';

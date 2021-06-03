@@ -17,7 +17,7 @@ class ArticleController
 	private const CONFIG_EDIT = [
 		'title' => 'Artikel bearbeiten',
 		'headline' => 'Bitte hier die neuen Daten des Artikels eingeben:',
-		'action' => '/article/update',
+		'action' => '/MWP-Systems/article/update',
 		'type' => '',
 		'actionName' => 'Speicher',
 		'selectOption' => ['warengruppe', 'hersteller']
@@ -27,7 +27,7 @@ class ArticleController
 	private const CONFIG_NEW = [
 		'title' => 'Artikel anlegen',
 		'headline' => 'Bitte hier die Daten des neuen Artikels eingeben:',
-		'action' => '/article/save',
+		'action' => '/MWP-Systems/article/save',
 		'actionName' => 'Speichern',
 		'type' => 'new',
 		'selectOption' => ['warengruppe', 'hersteller']
@@ -36,10 +36,10 @@ class ArticleController
 	/** @var array */
 	private const CONFIG_TABLE = [
 		'title' => 'Artikel übersicht',
-		'actionSearch' => '/article/search/',
-		'editLink' => '/article/edit/',
-		'deleteLink' => '/article/delete/',
-		'detailLink' => '/article/detailView/'
+		'actionSearch' => '/MWP-Systems/article/search/',
+		'editLink' => '/MWP-Systems/article/edit/',
+		'deleteLink' => '/MWP-Systems/article/delete/',
+		'detailLink' => '/MWP-Systems/article/detailView/'
 	];
 
 	/** @var Article */
@@ -103,14 +103,14 @@ class ArticleController
 	public function save(array $methodParameter): void
 	{
 		$this->article->new($methodParameter);
-		header('Location: /article/show');
+		header('Location: /MWP-Systems/article/show');
 	}
 
 	/** @param int $articleId */
 	public function delete(int $articleId): void
 	{
 		$this->article->delete($articleId);
-		header('Location: /article/show');
+		header('Location: /MWP-Systems/article/show');
 	}
 
 	/** @param int $articleId */
@@ -134,7 +134,7 @@ class ArticleController
 	public function update(): void
 	{
 		$this->article->update($_POST);
-		header('Location: /article/show');
+		header('Location: /MWP-Systems/article/show');
 	}
 
 	/**

@@ -17,18 +17,19 @@ class Router
 	{
 		$url = explode('/', $url);
 
-		if (!isset($url[1]) || !isset($url[2])) {
+
+		if (!isset($url[2]) || !isset($url[3])) {
 			$this->homepage();
 		}
 
 
-		$controllerName   = ucfirst($url[1]) . 'Controller';
-		$controllerMethod = $url[2];
+		$controllerName   = ucfirst($url[2]) . 'Controller';
+		$controllerMethod = $url[3];
 
-		$methodParam = $url[3] ?? '';
+		$methodParam = $url[4] ?? '';
 
 		if (!empty($_GET)) {
-			$url         = explode('=', $url[3]);
+			$url         = explode('=', $url[4]);
 			$methodParam = $url[1];
 		}
 		if (!empty($_POST)) {
@@ -79,7 +80,7 @@ class Router
 	public function homepage(): void
 	{
 		if (!isset($_SESSION['login']) || $_SESSION['login'] === '') {
-			header('Location: /account/login');
+			header('Location: /MWP-Systems/account/login');
 		} else {
 			require_once 'View/home.php';
 		}

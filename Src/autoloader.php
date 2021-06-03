@@ -1,7 +1,6 @@
 <?php
 
 spl_autoload_register(static function ($className) {
-
 	$classPath = str_replace(array('\\', 'MWP/'), array('/', ''), $className);
-require '' . $_SERVER['DOCUMENT_ROOT'] . '/' . $classPath . '.php';
+	require_once '' . $_SERVER['DOCUMENT_ROOT'] . '/MWP-Systems/' . $classPath . '.php';
 });

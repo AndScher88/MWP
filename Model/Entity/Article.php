@@ -69,7 +69,7 @@ class Article
 	/**
 	 *  Select all values form table productgroup
 	 */
-	private const GET_PRODUCTGROUP = 'SELECT * FROM Productgroup';
+	private const GET_PRODUCTGROUP = 'SELECT * FROM productgroup';
 
 	/**
 	 *  Select id and companyname form table lieferanten
@@ -96,7 +96,7 @@ class Article
 				artikelstammdaten.warengruppe,
        			artikelstammdaten.lagerort
 				FROM artikelstammdaten
-				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
+				LEFT JOIN productgroup on artikelstammdaten.warengruppe = productgroup.id
 				WHERE artikelstammdaten.id = :id';
 
 	/**
@@ -115,7 +115,7 @@ class Article
        			artikelstammdaten.lagerort
 				FROM artikelstammdaten
 				LEFT JOIN lieferanten on artikelstammdaten.hersteller = lieferanten.id
-				LEFT JOIN Productgroup on artikelstammdaten.warengruppe = Productgroup.id
+				LEFT JOIN productgroup on artikelstammdaten.warengruppe = productgroup.id
 				WHERE artikelstammdaten.id = :id';
 
 	/**

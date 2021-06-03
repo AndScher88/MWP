@@ -91,16 +91,16 @@ class AccountController
 		if ($resultUserData === []) {
 			$_SESSION['message'] = 'Der Username existiert nicht!';
 			$_SESSION['alert']   = 'red';
-			header('Location:/account/login');
+			header('Location:/MWP-Systems/account/login');
 		} elseif (password_verify($methodparameter['password'], $resultUserData['pwdhash']) === true) {
 			$_SESSION['login']   = 1;
 			$_SESSION['message'] = 'Willkommen ' . $resultUserData['loginname'];
 			$_SESSION['alert']   = 'limegreen';
-			header('Location: /home');
+			header('Location: /MWP-Systems/home');
 		} else {
 			$_SESSION['message'] = 'Das Passwort ist falsch!';
 			$_SESSION['alert']   = 'red';
-			header('Location: /account/login');
+			header('Location: /MWP-Systems/account/login');
 		}
 	}
 
@@ -110,11 +110,11 @@ class AccountController
 	public function logout(): void
 	{
 		if (!isset($_SESSION['login']) && $_SESSION['login'] === '') {
-			Header('Location: /account/login');
+			Header('Location: /MWP-Systems/account/login');
 		} else {
 			$_SESSION = array();
 			SESSION_DESTROY();
-			header('Location: /View/Template/logout.php');
+			header('Location: /MWP-Systems/View/Template/logout.php');
 		}
 	}
 }

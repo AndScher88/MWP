@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/View/Img/favicon.ico">
     <title>MWP-Systems</title>
-    <link rel="stylesheet" href="/View/Css/stylesheet.css">
+    <link rel="stylesheet" href="/MWP-Systems/View/Css/stylesheet.css">
+
 </head>
 

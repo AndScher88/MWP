@@ -16,7 +16,7 @@ class SupplierController
 	private const CONFIG_NEW = [
 		'title' => 'Lieferanten anlegen',
 		'headline' => 'Bitte hier die Daten des Lieferanten eintragen: ',
-		'action' => '/supplier/save',
+		'action' => '/MWP-Systems/supplier/save',
 		'actionName' => 'Speichern',
 		'type' => 'new',
 		'selectOption' => ['lieferant']
@@ -26,7 +26,7 @@ class SupplierController
 	private const CONFIG_EDIT = [
 		'title' => 'Lieferanten bearbeiten',
 		'headline' => 'Bitte hier die neuen Daten des Lieferanten eingeben:',
-		'action' => '/supplier/update',
+		'action' => '/MWP-Systems/supplier/update',
 		'actionName' => 'Speichern',
 		'type' => '',
 		'selectOption' => ['lieferant']
@@ -36,9 +36,9 @@ class SupplierController
 	private const  CONFIG_TABLE = [
 		'title' => 'Lieferanten übersicht',
 		'actionSearch' => '/supplier/search/',
-		'editLink' => '/supplier/edit/',
-		'deleteLink' => '/supplier/delete/',
-		'detailLink' => '/supplier/detail'
+		'editLink' => '/MWP-Systems/supplier/edit/',
+		'deleteLink' => '/MWP-Systems/supplier/delete/',
+		'detailLink' => '/MWP-Systems/supplier/detail'
 	];
 
 	/** @var Table */
@@ -72,7 +72,7 @@ class SupplierController
 	public function save(array $methodParameter): void
 	{
 		$this->supplier->new($methodParameter);
-		header('Location: /supplier/show');
+		header('Location: /MWP-Systems/supplier/show');
 	}
 
 	public function show(): void
@@ -99,13 +99,13 @@ class SupplierController
 	public function update(array $methodParameter): void
 	{
 		$this->supplier->update($methodParameter);
-		header('Location: /supplier/show');
+		header('Location: /MWP-Systems/supplier/show');
 	}
 
 	/** @param int $methodParameter */
 	public function delete(int $methodParameter)
 	{
 		$this->supplier->delete($methodParameter);
-		header('Location: /supplier/show');
+		header('Location: /MWP-Systems/supplier/show');
 	}
 }

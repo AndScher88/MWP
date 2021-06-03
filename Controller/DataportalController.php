@@ -5,6 +5,7 @@ namespace MWP\Controller;
 
 use MWP\Model\Entity\Dataportal;
 use MWP\Model\Table;
+use MWP\Model\WeatherView;
 
 /**
  * Class DataportalController
@@ -29,12 +30,12 @@ class DataportalController
 	/**
 	 * DataportalController constructor.
 	 * @param Dataportal $dataportal
-	 * @param Table $table
+	 * @param WeatherView $weatherView
 	 */
-	public function __construct(Dataportal $dataportal, Table $table)
+	public function __construct(Dataportal $dataportal, WeatherView $weatherView)
 	{
 		$this->dataportal = $dataportal;
-		$this->table = $table;
+		$this->weatherView = $weatherView;
 	}
 
 	/**
@@ -42,6 +43,10 @@ class DataportalController
 	 */
 	public function espData(array $methodParameter): void
 	{
+		$values = explode('&', $methodParameter);
+		foreach ($values as $key => $value) {
+			$methodParameter[$key] = $value;
+		}
 		$date = date('Y-m-d H:i:s');
 		$this->dataportal->save($methodParameter, $date);
 	}
@@ -51,11 +56,19 @@ class DataportalController
 	 */
 	public function showWeather(): void
 	{
+		$temperature = '';
+		$date = '"';
 		if (!isset($_SESSION['login']) || $_SESSION['login'] === '') {
 			header('Location: /account/login');
 		} else {
-			$result = $this->dataportal->getWeather($parameter = null);
-			$this->table->render($result, self::CONFIG_TABLE);
+			$weatherData = $this->dataportal->getWeather($parameter = null);
+			foreach ($weatherData as $data) {
+				$date .= $data['datum'] . '","';
+				$temperature .= $data['temperatur'] . ',';
+			}
+			$date = substr($date, 0, -1);
+			$temperature = substr($temperature,0, -1);
+			echo $this->weatherView->render($temperature, $date);
 		}
 	}
 }

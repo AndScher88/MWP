@@ -16,7 +16,7 @@ class ProductgroupController
 	private const CONFIG_EDIT = [
 		'title' => 'Warengruppe bearbeiten',
 		'headline' => 'Bitte irgendwas ändern:',
-		'action' => '/productgroup/update',
+		'action' => '/MWP-Systems/productgroup/update',
 		'actionName' => 'Speichern',
 		'type' => '',
 		'selectOption' => []
@@ -26,7 +26,7 @@ class ProductgroupController
 	private const CONFIG_NEW = [
 		'title' => 'Warengruppe anlegen',
 		'headline' => 'Bitte geben sie den Namen der Warengruppe ein:',
-		'action' => '/productgroup/save',
+		'action' => '/MWP-Systems/productgroup/save',
 		'actionName' => 'Speichern',
 		'type' => 'new',
 		'selectOption' => []
@@ -36,9 +36,9 @@ class ProductgroupController
 	private const CONFIG_TABLE = [
 		'title' => 'Übersicht Warengruppen',
 		'actionSearch' => '/productgroup/search/',
-		'editLink' => '/productgroup/edit/',
-		'deleteLink' => '/productgroup/delete/',
-		'detailLink' => '/productgroup/detail'
+		'editLink' => '/MWP-Systems/productgroup/edit/',
+		'deleteLink' => '/MWP-Systems/productgroup/delete/',
+		'detailLink' => '/MWP-Systems/productgroup/detail'
 	];
 
 	/** @var Table */
@@ -74,7 +74,7 @@ class ProductgroupController
 	public function save(array $methodParameter): void
 	{
 		$this->productgroup->new($methodParameter);
-		header('Location: /productgroup/show');
+		header('Location: /MWP-Systems/productgroup/show');
 	}
 
 	/** @param int $methodParameter */
@@ -88,14 +88,14 @@ class ProductgroupController
 	public function update(array $methodParameter): void
 	{
 		$this->productgroup->update($methodParameter);
-		header('Location: /productgroup/show');
+		header('Location: /MWP-Systems/productgroup/show');
 	}
 
 	/** @param int $methodParameter */
 	public function delete(int $methodParameter): void
 	{
 		$this->productgroup->delete($methodParameter);
-		header('Location: /productgroup/show');
+		header('Location: /MWP-Systems/productgroup/show');
 	}
 
 	/**

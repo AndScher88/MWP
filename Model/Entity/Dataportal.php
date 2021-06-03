@@ -21,7 +21,7 @@ class Dataportal
                 VALUES (:name, :temperatur, :luftfeuchtigkeit, :datum)';
 
 	/** @var string  */
-	private const GET_LATEST = 'SELECT * FROM temperatur_esp ORDER BY id DESC LIMIT 1';
+	private const GET_LATEST = 'SELECT * FROM temperatur_esp ORDER BY id DESC LIMIT 500';
 
 	/**
 	 * Dataportal constructor.
